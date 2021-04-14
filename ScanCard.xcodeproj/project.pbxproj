@@ -11,6 +11,15 @@
 		842F4858261C5C7300709423 /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F4857261C5C7300709423 /* CustomDialog.swift */; };
 		842F4860261C5D5E00709423 /* CustomDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F485F261C5D5E00709423 /* CustomDialog.xib */; };
 		8468B2CE261EBEDA006A48AD /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468B2CD261EBEDA006A48AD /* InformationViewController.swift */; };
+		847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A062626929C003A91EA /* UIView+Ext.swift */; };
+		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
+		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
+		847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A572627060E003A91EA /* CGPoint+Ext.swift */; };
+		849071AC2625538E00E85B36 /* CustomCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* CustomCollectionCell.xib */; };
+		849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* CustomCollectionCell.swift */; };
+		849071BA2625980500E85B36 /* ScanTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071B92625980500E85B36 /* ScanTextViewController.swift */; };
+		849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */; };
+		849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */; };
 		84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */; };
 		84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */; };
 		84AE3DF9261AEFCC0051CD0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF8261AEFCC0051CD0A /* ViewController.swift */; };
@@ -45,6 +54,15 @@
 		842F4857261C5C7300709423 /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		842F485F261C5D5E00709423 /* CustomDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDialog.xib; sourceTree = "<group>"; };
 		8468B2CD261EBEDA006A48AD /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		847F1A062626929C003A91EA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		847F1A572627060E003A91EA /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
+		849071AA2625538E00E85B36 /* CustomCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionCell.xib; sourceTree = "<group>"; };
+		849071AB2625538E00E85B36 /* CustomCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
+		849071B92625980500E85B36 /* ScanTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextViewController.swift; sourceTree = "<group>"; };
+		849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCollectionViewCell.swift; sourceTree = "<group>"; };
+		849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCollectionViewCell.xib; sourceTree = "<group>"; };
 		84AE3DF1261AEFCC0051CD0A /* ScanCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +111,7 @@
 			children = (
 				842F484E261C577400709423 /* AuthorService.swift */,
 				84FE2C49261D4C4C0003A15F /* LogService.swift */,
+				847F1A132626A2A1003A91EA /* CameraService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -112,6 +131,35 @@
 				8468B2CD261EBEDA006A48AD /* InformationViewController.swift */,
 			);
 			path = InformationView;
+			sourceTree = "<group>";
+		};
+		847F1A0526269268003A91EA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				847F1A062626929C003A91EA /* UIView+Ext.swift */,
+				847F1A0E262692B7003A91EA /* UIColor+Ext.swift */,
+				847F1A572627060E003A91EA /* CGPoint+Ext.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		849071B1262553DA00E85B36 /* CustomCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				849071AB2625538E00E85B36 /* CustomCollectionCell.swift */,
+				849071AA2625538E00E85B36 /* CustomCollectionCell.xib */,
+				849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */,
+				849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */,
+			);
+			path = CustomCollectionCell;
+			sourceTree = "<group>";
+		};
+		849071B82625976B00E85B36 /* ScanTextViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849071B92625980500E85B36 /* ScanTextViewController.swift */,
+			);
+			path = ScanTextViewController;
 			sourceTree = "<group>";
 		};
 		84AE3DE8261AEFCC0051CD0A = {
@@ -137,6 +185,9 @@
 		84AE3DF3261AEFCC0051CD0A /* ScanCard */ = {
 			isa = PBXGroup;
 			children = (
+				847F1A0526269268003A91EA /* Utils */,
+				849071B82625976B00E85B36 /* ScanTextViewController */,
+				849071B1262553DA00E85B36 /* CustomCollectionCell */,
 				8468B2CC261EBEAF006A48AD /* InformationView */,
 				842F4856261C5C5600709423 /* CustomDialog */,
 				842F484D261C574C00709423 /* Service */,
@@ -275,7 +326,9 @@
 			files = (
 				842F4860261C5D5E00709423 /* CustomDialog.xib in Resources */,
 				84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */,
+				849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
+				849071AC2625538E00E85B36 /* CustomCollectionCell.xib in Resources */,
 				84AE3DFC261AEFCC0051CD0A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,10 +355,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */,
+				847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */,
+				849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */,
 				84AE3DF9261AEFCC0051CD0A /* ViewController.swift in Sources */,
+				849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,
 				842F484F261C577400709423 /* AuthorService.swift in Sources */,
+				847F1A142626A2A1003A91EA /* CameraService.swift in Sources */,
+				847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */,
 				842F4858261C5C7300709423 /* CustomDialog.swift in Sources */,
+				849071BA2625980500E85B36 /* ScanTextViewController.swift in Sources */,
+				847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */,
 				84FE2C4A261D4C4C0003A15F /* LogService.swift in Sources */,
 				84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */,
 				8468B2CE261EBEDA006A48AD /* InformationViewController.swift in Sources */,
@@ -484,6 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V5ZKA96MBY;
 				INFOPLIST_FILE = ScanCard/Info.plist;
@@ -494,6 +555,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nguyenthaiduongduy.ScanCard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -504,6 +566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V5ZKA96MBY;
 				INFOPLIST_FILE = ScanCard/Info.plist;
@@ -514,6 +577,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nguyenthaiduongduy.ScanCard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

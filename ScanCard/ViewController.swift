@@ -11,25 +11,29 @@ import Vision
 
 class ScanViewController: UIViewController {
     
-    static let scanString = "Scan"
     static let minCommonCardWidth:CGFloat = 333.0
     static let maxCommonCardWidth:CGFloat = 345.0
+    static let minimumAspectRatioCard = VNAspectRatio(1.3)
+    static let maximumAspectRatioCard = VNAspectRatio(1.6)
+    static let maximum1TimeCardDetect = 1
+    static let miniSizeDetectCard = Float(0.5)
     
+    @IBOutlet weak var liveVideoView: PreviewView!
+    @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var shadowView: PreviewView!
+    
+    var scanString = "Scan"
     var layer:CALayer!
-    var mVNRectangleObservation: VNRectangleObservation?
-    var mSampleBuffer:CMSampleBuffer?
-    var mRecognizedStrings:[String]?
+    var vnRectangleObservation: VNRectangleObservation?
+    var sampleBuffer:CMSampleBuffer?
+    var recognizedStrings:[String]?
     
-   
-    
-    lazy var mCameraService:CameraService = {
+    lazy var cameraService:CameraService = {
         let mCameraService = CameraService(viewcontroller: self)
         return mCameraService
     }()
     
-    @IBOutlet weak var liveVideoView: PreviewView!
-    @IBOutlet weak var scanButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = . white
@@ -38,20 +42,31 @@ class ScanViewController: UIViewController {
         self.liveVideoView.addGestureRecognizer(tapAction)
         setUpScanButton()
     }
+    override func viewDidLayoutSubviews() {
+        setupLiveView()
+    }
+    
+    private func setupLiveView() {
+
+        liveVideoView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        liveVideoView.videoPreviewLayer.cornerRadius = 30
+        liveVideoView.videoPreviewLayer.masksToBounds = true
+        liveVideoView.frame = shadowView.frame
+        
+    }
     
     @objc func tap() {
         DispatchQueue.main.async {
-            print("tap")
-            self.mCameraService.session.stopRunning()
-            guard let mVNRectangleObservation = self.mVNRectangleObservation,let mSampleBuffer = self.mSampleBuffer else  {return}
-            let result =  self.extractPerspectiveRect(mVNRectangleObservation, from: mSampleBuffer.imageBuffer!)
+            self.cameraService.session.stopRunning()
+            guard let mVNRectangleObservation = self.vnRectangleObservation,let mSampleBuffer = self.sampleBuffer else  {return}
+            guard let imageBuffer = mSampleBuffer.imageBuffer else {return}
+            let result =  self.extractPerspectiveRect(mVNRectangleObservation, from: imageBuffer)
             self.getCardInformation(ciimage: result)
             self.dismiss(animated: true) {
-                self.mCameraService.session.stopRunning()
+                self.cameraService.stopConnectCamera()
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                let vc : InformationViewcontroller = mainStoryboard.instantiateViewController(withIdentifier: "InformationViewcontroller") as! InformationViewcontroller
+                let vc: ScanTextViewController = mainStoryboard.instantiateViewController(withIdentifier: "ScanTextViewController") as! ScanTextViewController
                 vc.cardImage = UIImage(ciImage: result)
-                vc.mRecognizedStrings = self.mRecognizedStrings
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -59,81 +74,21 @@ class ScanViewController: UIViewController {
     
     func setUpScanButton() {
         scanButton.backgroundColor = .blue
-        scanButton.setTitle(ScanViewController.scanString, for: .normal)
+        scanButton.setTitle(scanString, for: .normal)
         scanButton.tintColor = .white
         scanButton.layer.cornerRadius = scanButton.bounds.height/2
     }
     
     @IBAction func tapScanButton(_ sender: Any) {
-        
-        liveVideoView.videoPreviewLayer.session = mCameraService.session
-        mCameraService.startCamera()
-        
+        liveVideoView.videoPreviewLayer.session = cameraService.session
+        cameraService.startConnectCamera()
         AuthorService.share.reQuestUsingCamera { (author) in
         }
     }
     
 }
 
-class CameraService {
-    
-    let presentViewController:ScanViewController!
-    lazy var session:AVCaptureSession = {
-        let session = AVCaptureSession()
-        return session
-    }()
-    
-    
-    init(viewcontroller:ScanViewController){
-        self.presentViewController = viewcontroller
-        self.setUpSession()
-    }
-    
-    private func setUpInPut(){
-        //Scan camera in device
-        guard let device = AVCaptureDevice.DiscoverySession(deviceTypes:
-                                                                [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera],
-                                                            mediaType: .video,
-                                                            position: .back).devices.first else {return}
-        //
-        
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: device), session.canAddInput(videoDeviceInput)
-        else {return}
-        
-        session.addInput(videoDeviceInput)
-        
-    }
-    
-    private func setUpOutPut() {
-        let myVideoOutput = AVCaptureVideoDataOutput()
-        
-        myVideoOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String : Any]
-        guard session.canAddOutput(myVideoOutput) else {return}
-        myVideoOutput.alwaysDiscardsLateVideoFrames = true
-        myVideoOutput.setSampleBufferDelegate(presentViewController, queue: DispatchQueue.init(label: "Hanle recive videoFrame"))
-        session.addOutput(myVideoOutput)
-        
-        guard let connection = myVideoOutput.connection(with: .video), connection.isVideoMirroringSupported else {return}
-        connection.videoOrientation = .portrait
-        
-    }
-    
-    private func setUpSession() {
-        session.beginConfiguration()
-        setUpInPut()
-        setUpOutPut()
-        session.commitConfiguration()
-    }
-    
-    public func startCamera() {
-        session.startRunning()
-    }
-    
-    private func stopCamera() {
-        
-    }
-    
-}
+
 
 extension ScanViewController:AVCaptureVideoDataOutputSampleBufferDelegate {
     
@@ -142,38 +97,26 @@ extension ScanViewController:AVCaptureVideoDataOutputSampleBufferDelegate {
             DispatchQueue.main.async {
                 //Request fail
                 if let _ = error {
-                    //print error
                     return
                 }
-                
-                if let layer = self.layer {
-                    layer.removeFromSuperlayer()
-                }
-                
+                self.removeBoundingBox()
                 guard let results = request.results as? [VNRectangleObservation] else { return }
-                
-                //self.removeMask()
-                
-                
                 guard let rect = results.first else {return}
                 
-                self.mVNRectangleObservation = rect
-                self.mSampleBuffer = sampleBuffer
-                
-                
-                let mrec = VNImageRectForNormalizedRect(rect.boundingBox,
+                self.vnRectangleObservation = rect
+                self.sampleBuffer = sampleBuffer
+                let convertUIKitrect = VNImageRectForNormalizedRect(rect.boundingBox,
                                                         (Int)(self.liveVideoView.bounds.width),
                                                         (Int)(self.liveVideoView.bounds.height))
-                
-                self.drawBoundingBox(rec: mrec)
+                self.drawBoundingBox(rec: convertUIKitrect)
             }
         }
         
         let request = VNDetectRectanglesRequest(completionHandler:detectRectanglesCompletionHandler)
-        request.minimumAspectRatio = VNAspectRatio(1.3)
-        request.maximumAspectRatio = VNAspectRatio(1.6)
-        request.minimumSize = Float(0.5)
-        request.maximumObservations = 1
+        request.minimumAspectRatio = ScanViewController.minimumAspectRatioCard
+        request.maximumAspectRatio = ScanViewController.maximumAspectRatioCard
+        request.minimumSize = ScanViewController.miniSizeDetectCard
+        request.maximumObservations = ScanViewController.maximum1TimeCardDetect
         
         let requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
         
@@ -188,11 +131,10 @@ extension ScanViewController:AVCaptureVideoDataOutputSampleBufferDelegate {
             }
             
             let recognizedStrings = observations.compactMap { observation in
-                // Return the string of the top VNRecognizedText instance.
                 return observation.topCandidates(1).first?.string
             }
             
-            self.mRecognizedStrings = recognizedStrings
+            self.recognizedStrings = recognizedStrings
             print(recognizedStrings)
         }
         request.recognitionLevel = .accurate
@@ -205,12 +147,12 @@ extension ScanViewController:AVCaptureVideoDataOutputSampleBufferDelegate {
     
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        self.detecCard(sampleBuffer: sampleBuffer)
+        detecCard(sampleBuffer: sampleBuffer)
     }
     
     
     //Crop image in boundingbox
-    func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
+    private func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
         // get the pixel buffer into Core Image
         let ciImage = CIImage(cvImageBuffer: buffer)
         
@@ -234,34 +176,64 @@ extension ScanViewController:AVCaptureVideoDataOutputSampleBufferDelegate {
         print("captureOutput didDorp")
     }
     
-    func drawBoundingBox(rec:CGRect) {
+    private func drawBoundingBox(rec:CGRect) {
         layer = CAShapeLayer()
         layer.frame = rec
         layer.cornerRadius = 10
         layer.opacity = 0.75
         layer.borderColor = UIColor.red.cgColor
         layer.borderWidth = 5.0
-        self.liveVideoView.layer.addSublayer(layer)
+        liveVideoView.layer.addSublayer(layer)
+    }
+    
+    private func removeBoundingBox() {
+        if let layer = layer {
+            layer.removeFromSuperlayer()
+        }
     }
 }
 
 class PreviewView: UIView {
+    
+    lazy var scanArea: CAShapeLayer = {
+        let scanArea = CAShapeLayer()
+        let largeRectpath = UIBezierPath(roundedRect: CGRect(x:self.bounds.origin.x, y: self.bounds.origin.y, width: self.bounds.width, height: self.bounds.height), cornerRadius: 0)
+        
+        let smallRectpath = UIBezierPath(roundedRect: CGRect(x: self.bounds.width/2 - 150, y: self.bounds.height/2 - 100, width: 300, height: 200), cornerRadius: 20)
+        largeRectpath.append(smallRectpath)
+        largeRectpath.usesEvenOddFillRule = true
+        scanArea.path = largeRectpath.cgPath
+        scanArea.fillRule = .evenOdd
+        scanArea.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
+        scanArea.opacity = 0.5
+        
+        let myLayer = CALayer()
+        let myImage = UIImage(named: "backward")?.cgImage
+        myLayer.frame = CGRect(x: self.bounds.width/2 - 140, y: self.bounds.height/2-12
+                               , width: 24, height: 24)
+        myLayer.contents = myImage
+        scanArea.addSublayer(myLayer)
+       return scanArea
+        
+    }()
+    
+    override func layoutSubviews() {
+        scanArea.removeFromSuperlayer()
+        videoPreviewLayer.insertSublayer(scanArea, at: 1)
+    }
+    
+
     override class var layerClass: AnyClass {
         return AVCaptureVideoPreviewLayer.self
     }
     
-    /// Convenience wrapper to get layer as its statically known type.
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-        return layer as! AVCaptureVideoPreviewLayer
+        let customlayer:AVCaptureVideoPreviewLayer = layer as! AVCaptureVideoPreviewLayer
+        return customlayer
     }
 }
 
-extension CGPoint {
-    func scaled(to size: CGSize) -> CGPoint {
-        return CGPoint(x: self.x * size.width,
-                       y: self.y * size.height)
-    }
-}
+
 
 
 
