@@ -7,13 +7,11 @@
 
 import Foundation
 
-
 class LogService {
-    
+
     static let share = LogService()
-    var debug:Bool = false
-    
-    
+    var debug: Bool = false
+
     func print() {
         if debug {
             print()

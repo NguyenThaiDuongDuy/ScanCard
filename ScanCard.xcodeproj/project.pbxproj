@@ -11,19 +11,20 @@
 		842F484F261C577400709423 /* AuthorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F484E261C577400709423 /* AuthorService.swift */; };
 		842F4858261C5C7300709423 /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F4857261C5C7300709423 /* CustomDialog.swift */; };
 		842F4860261C5D5E00709423 /* CustomDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F485F261C5D5E00709423 /* CustomDialog.xib */; };
-		8468B2CE261EBEDA006A48AD /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468B2CD261EBEDA006A48AD /* InformationViewController.swift */; };
 		847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A062626929C003A91EA /* UIView+Ext.swift */; };
 		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
 		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
 		847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A572627060E003A91EA /* CGPoint+Ext.swift */; };
 		849071AC2625538E00E85B36 /* CustomCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* CustomCollectionCell.xib */; };
 		849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* CustomCollectionCell.swift */; };
-		849071BA2625980500E85B36 /* ScanTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071B92625980500E85B36 /* ScanTextViewController.swift */; };
 		849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */; };
 		849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */; };
+		84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484826281C55002F106C /* ScanTextViewController.swift */; };
+		84AB484E26281C55002F106C /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484926281C55002F106C /* ScanViewController.swift */; };
+		84AB484F26281C55002F106C /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484B26281C55002F106C /* PreviewView.swift */; };
+		84AB485026281C55002F106C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484C26281C55002F106C /* CardView.swift */; };
 		84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */; };
 		84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */; };
-		84AE3DF9261AEFCC0051CD0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF8261AEFCC0051CD0A /* ViewController.swift */; };
 		84AE3DFC261AEFCC0051CD0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3DFA261AEFCC0051CD0A /* Main.storyboard */; };
 		84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DFD261AEFCC0051CD0A /* ScanCard.xcdatamodeld */; };
 		84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3E00261AEFCD0051CD0A /* Assets.xcassets */; };
@@ -31,7 +32,6 @@
 		84AE3E0F261AEFCD0051CD0A /* ScanCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E0E261AEFCD0051CD0A /* ScanCardTests.swift */; };
 		84AE3E1A261AEFCD0051CD0A /* ScanCardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E19261AEFCD0051CD0A /* ScanCardUITests.swift */; };
 		84FE2C4A261D4C4C0003A15F /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE2C49261D4C4C0003A15F /* LogService.swift */; };
-		C7276C70849BF98E4E2D88E4 /* Pods_ScanCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2B85F592782C29E67D5548 /* Pods_ScanCard.framework */; };
 		C8B8B06A1AEA731EB8E22516 /* Pods_ScanCard_ScanCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19D6A5175686ABCB0B25407A /* Pods_ScanCard_ScanCardUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,20 +61,21 @@
 		842F484E261C577400709423 /* AuthorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorService.swift; sourceTree = "<group>"; };
 		842F4857261C5C7300709423 /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		842F485F261C5D5E00709423 /* CustomDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDialog.xib; sourceTree = "<group>"; };
-		8468B2CD261EBEDA006A48AD /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		847F1A062626929C003A91EA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		847F1A572627060E003A91EA /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
 		849071AA2625538E00E85B36 /* CustomCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionCell.xib; sourceTree = "<group>"; };
 		849071AB2625538E00E85B36 /* CustomCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
-		849071B92625980500E85B36 /* ScanTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextViewController.swift; sourceTree = "<group>"; };
 		849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCollectionViewCell.swift; sourceTree = "<group>"; };
 		849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCollectionViewCell.xib; sourceTree = "<group>"; };
+		84AB484826281C55002F106C /* ScanTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTextViewController.swift; sourceTree = "<group>"; };
+		84AB484926281C55002F106C /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		84AB484B26281C55002F106C /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		84AB484C26281C55002F106C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		84AE3DF1261AEFCC0051CD0A /* ScanCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		84AE3DF8261AEFCC0051CD0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84AE3DFB261AEFCC0051CD0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84AE3DFE261AEFCC0051CD0A /* ScanCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScanCard.xcdatamodel; sourceTree = "<group>"; };
 		84AE3E00261AEFCD0051CD0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7276C70849BF98E4E2D88E4 /* Pods_ScanCard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,14 +140,6 @@
 			path = CustomDialog;
 			sourceTree = "<group>";
 		};
-		8468B2CC261EBEAF006A48AD /* InformationView */ = {
-			isa = PBXGroup;
-			children = (
-				8468B2CD261EBEDA006A48AD /* InformationViewController.swift */,
-			);
-			path = InformationView;
-			sourceTree = "<group>";
-		};
 		847F1A0526269268003A91EA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,12 +161,23 @@
 			path = CustomCollectionCell;
 			sourceTree = "<group>";
 		};
-		849071B82625976B00E85B36 /* ScanTextViewController */ = {
+		84AB484726281C55002F106C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				849071B92625980500E85B36 /* ScanTextViewController.swift */,
+				84AB484826281C55002F106C /* ScanTextViewController.swift */,
+				84AB484926281C55002F106C /* ScanViewController.swift */,
 			);
-			path = ScanTextViewController;
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		84AB484A26281C55002F106C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				849071B1262553DA00E85B36 /* CustomCollectionCell */,
+				84AB484B26281C55002F106C /* PreviewView.swift */,
+				84AB484C26281C55002F106C /* CardView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		84AE3DE8261AEFCC0051CD0A = {
@@ -202,15 +205,13 @@
 		84AE3DF3261AEFCC0051CD0A /* ScanCard */ = {
 			isa = PBXGroup;
 			children = (
+				84AB484726281C55002F106C /* ViewControllers */,
+				84AB484A26281C55002F106C /* Views */,
 				847F1A0526269268003A91EA /* Utils */,
-				849071B82625976B00E85B36 /* ScanTextViewController */,
-				849071B1262553DA00E85B36 /* CustomCollectionCell */,
-				8468B2CC261EBEAF006A48AD /* InformationView */,
 				842F4856261C5C5600709423 /* CustomDialog */,
 				842F484D261C574C00709423 /* Service */,
 				84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */,
 				84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */,
-				84AE3DF8261AEFCC0051CD0A /* ViewController.swift */,
 				84AE3DFA261AEFCC0051CD0A /* Main.storyboard */,
 				84AE3E00261AEFCD0051CD0A /* Assets.xcassets */,
 				84AE3E02261AEFCD0051CD0A /* LaunchScreen.storyboard */,
@@ -268,7 +269,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84AE3E1E261AEFCD0051CD0A /* Build configuration list for PBXNativeTarget "ScanCard" */;
 			buildPhases = (
-				84AB48112627F9BD002F106C /* ShellScript */,
+				84AB48112627F9BD002F106C /* Swiftlint */,
 				3742A0A53AEB346FC89A1AA5 /* [CP] Check Pods Manifest.lock */,
 				84AE3DED261AEFCC0051CD0A /* Sources */,
 				84AE3DEE261AEFCC0051CD0A /* Frameworks */,
@@ -416,7 +417,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		84AB48112627F9BD002F106C /* ShellScript */ = {
+		84AB48112627F9BD002F106C /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -425,13 +426,14 @@
 			);
 			inputPaths = (
 			);
+			name = Swiftlint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+			shellScript = "\nif which swiftlint >/dev/null; then\nswiftlint --config .swiftlint.yml\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		B3057ED82BD1603069E207BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -485,20 +487,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */,
+				84AB484E26281C55002F106C /* ScanViewController.swift in Sources */,
+				84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */,
 				847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */,
 				849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */,
-				84AE3DF9261AEFCC0051CD0A /* ViewController.swift in Sources */,
+				84AB484F26281C55002F106C /* PreviewView.swift in Sources */,
 				849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,
 				842F484F261C577400709423 /* AuthorService.swift in Sources */,
 				847F1A142626A2A1003A91EA /* CameraService.swift in Sources */,
 				847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */,
 				842F4858261C5C7300709423 /* CustomDialog.swift in Sources */,
-				849071BA2625980500E85B36 /* ScanTextViewController.swift in Sources */,
 				847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */,
 				84FE2C4A261D4C4C0003A15F /* LogService.swift in Sources */,
+				84AB485026281C55002F106C /* CardView.swift in Sources */,
 				84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */,
-				8468B2CE261EBEDA006A48AD /* InformationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

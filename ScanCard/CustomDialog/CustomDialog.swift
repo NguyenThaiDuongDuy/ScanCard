@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CustomDialog:UIView {
+class CustomDialog: UIView {
     @IBOutlet weak var testLabel: UILabel!
     @IBOutlet var contentView: UIView!
     //    let title:String
@@ -22,23 +22,22 @@ class CustomDialog:UIView {
 //        self.type = type
 //        self.vc = vc
 //    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
         testLabel.text = "Test"
     }
-    
+
     func commonInit() {
         Bundle.main.loadNibNamed("CustomDialog", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = self.frame
     }
-    
-    
+
 }

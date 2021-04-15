@@ -10,8 +10,8 @@ import UIKit
 extension UIView {
 
     func snapshot(of rect: CGRect? = nil) -> UIImage? {
-       
-        UIGraphicsBeginImageContextWithOptions(bounds.size,  true, 0.0)
+
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
         drawHierarchy(in: bounds, afterScreenUpdates: true)
         let wholeImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -23,7 +23,10 @@ extension UIView {
         // otherwise, grab specified `rect` of image
 
         let scale = image.scale
-        let scaledRect = CGRect(x: rect.origin.x * scale, y: rect.origin.y * scale, width: rect.size.width * scale, height: rect.size.height * scale)
+        let scaledRect = CGRect(x: rect.origin.x * scale,
+                                y: rect.origin.y * scale,
+                                width: rect.size.width * scale,
+                                height: rect.size.height * scale)
         guard let cgImage = image.cgImage?.cropping(to: scaledRect) else { return nil }
         return UIImage(cgImage: cgImage, scale: scale, orientation: .up)
     }
@@ -33,9 +36,9 @@ extension UIView {
 class ShadowView: UIView {
 
     private var shadowLayer: CAShapeLayer!
-    var color:UIColor?
-    var cornerRadius:CGFloat?
-    
+    var color: UIColor?
+    var cornerRadius: CGFloat?
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
