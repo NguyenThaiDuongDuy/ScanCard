@@ -54,12 +54,11 @@ class CardView: UIImageView {
         self.shapeLayer.borderWidth = 2.0
         self.shapeLayer.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
 
-        let tmpFrame = CGRect(x: rec.minX, y: rec.minY-20, width: 200, height: 100)
+        let tmpFrame = CGRect(x: rec.minX, y: rec.minY - 20, width: 200, height: 100)
         textLayer.frame = tmpFrame
 
         self.shapeLayer.addSublayer(textLayer)
         self.layer.addSublayer(self.shapeLayer)
-
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -84,8 +83,8 @@ class CardView: UIImageView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.layer.sublayers?.removeAll()
         // let mImage = snapshot(in: self, rect: self.mrect!)
-        let mImage  = self.snapshot(of: self.mrect)
-        guard let cgImage = mImage?.cgImage else {return}
+        let mImage = self.snapshot(of: self.mrect)
+        guard let cgImage = mImage?.cgImage else { return }
         self.getCardInformation(cgImage: cgImage)
     }
 
@@ -106,5 +105,4 @@ class CardView: UIImageView {
         let requestTextHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .up, options: [:])
         try? requestTextHandler.perform([request])
     }
-
 }

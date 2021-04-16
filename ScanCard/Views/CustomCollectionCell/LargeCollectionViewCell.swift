@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol largeCelldelegate: AnyObject {
+    func getCardInfor(userInfo:UserInfoModel?)
+}
 class LargeCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var cardImageView: CardView!
@@ -14,9 +17,10 @@ class LargeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var bankNumberTextField: UITextField!
     @IBOutlet weak var creadteadDateTextField: UITextField!
-    @IBOutlet weak var expireDateTextField: UITextField!
+    @IBOutlet weak var validateDateTextField: UITextField!
     @IBOutlet weak var shadowView: ShadowView!
-
+    @IBOutlet weak var confirmButton: UIButton!
+    weak var delegate:largeCelldelegate?
     var cardImage: UIImage?
     let options: [String] = ["Name",
                             "Bank Number",
@@ -30,13 +34,18 @@ class LargeCollectionViewCell: UICollectionViewCell {
         setUpCardImageView()
         setUpoptionsScanCollectionView()
         setDefaultSelectedcell()
+        setUpconfirmButton()
+    }
+
+    func setUpconfirmButton () {
+        confirmButton.applyStyle()
+        confirmButton.setTitle("Confirm", for: .normal)
     }
 
     private func setDefaultSelectedcell() {
         let indexPath = IndexPath(item: 0, section: 0)
         self.optionsScanCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
         cardImageView.setTextForScanLayer(option: options[indexPath.item])
-
     }
     override func layoutSubviews() {
         setUpShadowView()
@@ -60,16 +69,22 @@ class LargeCollectionViewCell: UICollectionViewCell {
         optionsScanCollectionView.dataSource = self
         optionsScanCollectionView.translatesAutoresizingMaskIntoConstraints = false
         optionsScanCollectionView.showsHorizontalScrollIndicator = false
-        guard let layout = optionsScanCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {return}
+        guard let layout = optionsScanCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 
+    @IBAction func tapConfirmButton(_ sender: Any) {
+        self.delegate?.getCardInfor(userInfo: UserInfoModel(name: nameTextField.text,
+                                                            bankNumber: bankNumberTextField.text,
+                                                            createdDate: creadteadDateTextField.text,
+                                                            validDate: validateDateTextField.text))
+    }
 }
 
 extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     func getResultStrings(results: [String]?, type: String) {
-        guard let resultStrings = results, !resultStrings.isEmpty else {return}
-        let result = resultStrings[0]
+        guard let resultStrings = results, !resultStrings.isEmpty else { return }
+        let result = resultStrings.first
         switch type {
         case "Name":
             self.nameTextField.text = result
@@ -78,21 +93,22 @@ extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource,
         case "Creadted Date":
             self.creadteadDateTextField.text = result
         case "Validate Date":
-            self.expireDateTextField.text = result
+            self.validateDateTextField.text = result
+
         default:
             print("error")
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return options.count
+        options.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:LargeCollectionViewCell.cellID,
                                                             for: indexPath)
-                as? CustomCollectionCell else {return UICollectionViewCell()}
+                as? CustomCollectionCell else { return UICollectionViewCell() }
 
         cell.nameOfcell.text = options[indexPath.item]
         return cell
@@ -102,5 +118,4 @@ extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource,
         let type = options[indexPath.item]
         cardImageView.setTextForScanLayer(option: type)
     }
-
 }

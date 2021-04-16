@@ -9,19 +9,20 @@ import Foundation
 import UIKit
 
 class CustomDialog: UIView {
-    @IBOutlet weak var testLabel: UILabel!
     @IBOutlet var contentView: UIView!
-    //    let title:String
-//    let message:String
-//    let type:String
-//    let vc:ViewController
-//
-//    init(title:String, message:String, type:String, vc:ViewController) {
-//        self.title = title
-//        self.message = message
-//        self.type = type
-//        self.vc = vc
-//    }
+    @IBOutlet weak var titleDialog: UILabel!
+    @IBOutlet weak var messageDialog: UILabel!
+    @IBOutlet weak var okButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+
+    var dialogInfoViewModel: DialogViewModel? {
+        didSet {
+            self.titleDialog.text = dialogInfoViewModel?.diainfo?.tile
+            self.messageDialog.text = dialogInfoViewModel?.diainfo?.message
+            self.cancelButton.setTitle(dialogInfoViewModel?.diainfo?.cancelTitleButton, for: .normal)
+            self.okButton.setTitle(dialogInfoViewModel?.diainfo?.okTitleButton, for: .normal)
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +32,6 @@ class CustomDialog: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
-        testLabel.text = "Test"
     }
 
     func commonInit() {
@@ -40,4 +40,12 @@ class CustomDialog: UIView {
         contentView.frame = self.frame
     }
 
+    @IBAction func tapCancelButton(_ sender: Any) {
+        removeFromSuperview()
+        print("tapCancelButton")
+    }
+    @IBAction func tapOkButton(_ sender: Any) {
+        removeFromSuperview()
+        print("tapOkButton")
+    }
 }

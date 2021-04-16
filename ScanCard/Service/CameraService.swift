@@ -8,7 +8,8 @@
 import AVFoundation
 class CameraService {
 
-    let presentViewController: ScanViewController!
+    let presentViewController: ScanViewController?
+    static let nameVideoQue = "Hanle recive videoFrame"
     lazy var session: AVCaptureSession = {
         let session = AVCaptureSession()
         return session
@@ -25,10 +26,10 @@ class CameraService {
                                                                           .builtInDualCamera,
                                                                           .builtInWideAngleCamera],
                                                             mediaType: .video,
-                                                            position: .back).devices.first else {return}
+                                                            position: .back).devices.first else { return }
 
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: device), session.canAddInput(videoDeviceInput)
-        else {return}
+        else { return }
         session.addInput(videoDeviceInput)
     }
 
@@ -37,16 +38,15 @@ class CameraService {
 
         myVideoOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString)
                                         : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String: Any]
-        guard session.canAddOutput(myVideoOutput) else {return}
+        guard session.canAddOutput(myVideoOutput) else { return }
         myVideoOutput.alwaysDiscardsLateVideoFrames = true
         myVideoOutput.setSampleBufferDelegate(presentViewController,
-                                              queue: DispatchQueue.init(label: "Hanle recive videoFrame"))
+                                              queue: DispatchQueue(label: CameraService.nameVideoQue))
         session.addOutput(myVideoOutput)
 
         guard let connection = myVideoOutput.connection(with: .video), connection.isVideoMirroringSupported
-        else {return}
+        else { return }
         connection.videoOrientation = .portrait
-
     }
 
     private func setUpSession() {
@@ -65,5 +65,4 @@ class CameraService {
     public func stopConnectCamera() {
         session.stopRunning()
     }
-
 }

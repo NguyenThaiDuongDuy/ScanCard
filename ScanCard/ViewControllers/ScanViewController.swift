@@ -23,7 +23,8 @@ class ScanViewController: UIViewController {
     @IBOutlet weak var shadowView: PreviewView!
 
     var scanString = "Scan"
-    var layer: CALayer!
+    var scanTitle = "Scan Card"
+    var layer: CALayer?
     var vnRectangleObservation: VNRectangleObservation?
     var sampleBuffer: CMSampleBuffer?
     var recognizedStrings: [String]?
@@ -40,27 +41,33 @@ class ScanViewController: UIViewController {
         let tapAction = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.liveVideoView.addGestureRecognizer(tapAction)
         setUpScanButton()
+        setUpNavi()
     }
     override func viewDidLayoutSubviews() {
         setupLiveView()
     }
 
     private func setupLiveView() {
-
         liveVideoView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         liveVideoView.videoPreviewLayer.cornerRadius = 30
         liveVideoView.videoPreviewLayer.masksToBounds = true
         liveVideoView.frame = shadowView.frame
+    }
 
+    func setUpNavi() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(),
+                                                               for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        title = scanTitle
     }
 
     @objc func tap() {
         DispatchQueue.main.async {
             self.cameraService.session.stopRunning()
             guard let mVNRectangleObservation = self.vnRectangleObservation,
-                  let mSampleBuffer = self.sampleBuffer else {return}
-            guard let imageBuffer = mSampleBuffer.imageBuffer else {return}
-            let result =  self.extractPerspectiveRect(mVNRectangleObservation, from: imageBuffer)
+                  let mSampleBuffer = self.sampleBuffer else { return }
+            guard let imageBuffer = mSampleBuffer.imageBuffer else { return }
+            let result = self.extractPerspectiveRect(mVNRectangleObservation, from: imageBuffer)
             self.getCardInformation(ciimage: result)
             self.dismiss(animated: true) {
                 self.cameraService.stopConnectCamera()
@@ -70,16 +77,14 @@ class ScanViewController: UIViewController {
                     as? ScanTextViewController {
                     scanTextViewController.cardImage = UIImage(ciImage: result)
                     self.navigationController?.pushViewController(scanTextViewController,
-                                                                  animated: true) } else {return}
+                                                                  animated: true)} else { return }
             }
         }
     }
 
     func setUpScanButton() {
-        scanButton.backgroundColor = .blue
         scanButton.setTitle(scanString, for: .normal)
-        scanButton.tintColor = .white
-        scanButton.layer.cornerRadius = scanButton.bounds.height/2
+        scanButton.applyStyle()
     }
 
     @IBAction func tapScanButton(_ sender: Any) {
@@ -88,7 +93,6 @@ class ScanViewController: UIViewController {
         AuthorService.share.reQuestUsingCamera { (_) in
         }
     }
-
 }
 
 extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -97,18 +101,19 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         func detectRectanglesCompletionHandler (request: VNRequest, error: Error?) {
             DispatchQueue.main.async {
                 // Request fail
-                if let _ = error {
+                if let error = error {
+                    print(error)
                     return
                 }
                 self.removeBoundingBox()
                 guard let results = request.results as? [VNRectangleObservation] else { return }
-                guard let rect = results.first else {return}
+                guard let rect = results.first else { return }
 
                 self.vnRectangleObservation = rect
                 self.sampleBuffer = sampleBuffer
                 let convertUIKitrect = VNImageRectForNormalizedRect(rect.boundingBox,
-                                                        (Int)(self.liveVideoView.bounds.width),
-                                                        (Int)(self.liveVideoView.bounds.height))
+                                                                    (Int)(self.liveVideoView.bounds.width),
+                                                                    (Int)(self.liveVideoView.bounds.height))
                 self.drawBoundingBox(rec: convertUIKitrect)
             }
         }
@@ -132,7 +137,7 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
 
             let recognizedStrings = observations.compactMap { observation in
-                return observation.topCandidates(1).first?.string
+                observation.topCandidates(1).first?.string
             }
 
             self.recognizedStrings = recognizedStrings
@@ -179,12 +184,12 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
     private func drawBoundingBox(rec: CGRect) {
         layer = CAShapeLayer()
-        layer.frame = rec
-        layer.cornerRadius = 10
-        layer.opacity = 0.75
-        layer.borderColor = UIColor.red.cgColor
-        layer.borderWidth = 5.0
-        liveVideoView.layer.addSublayer(layer)
+        layer?.frame = rec
+        layer?.cornerRadius = 10
+        layer?.opacity = 0.75
+        layer?.borderColor = UIColor.red.cgColor
+        layer?.borderWidth = 5.0
+        liveVideoView.layer.addSublayer(layer ?? CAShapeLayer())
     }
 
     private func removeBoundingBox() {

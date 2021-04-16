@@ -20,9 +20,9 @@ class AuthorService {
         case .notDetermined: // The user has not yet been asked for camera access.
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted {
-
+                    print("User granted")
                 } else {
-
+                    print("User not granted")
                 }
             }
         case .denied: // The user has previously denied access.
@@ -38,5 +38,4 @@ class AuthorService {
             print("Something cameup")
         }
     }
-
 }

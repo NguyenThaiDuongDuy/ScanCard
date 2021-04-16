@@ -18,7 +18,7 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-2C-vDc" customClass="CardView" customModule="ScanCard" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="526" height="300"/>
-                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="300" id="ZoB-N1-KU2"/>
                         </constraints>
@@ -119,12 +119,26 @@
                         </collectionViewFlowLayout>
                         <cells/>
                     </collectionView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGF-Ye-Jvq">
+                        <rect key="frame" x="15" y="638" width="496" height="40"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="B5i-UG-pTf"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <connections>
+                            <action selector="tapConfirmButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="9Qg-1K-gkJ"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="72X-Du-yqc" secondAttribute="trailing" constant="15" id="5ms-Df-4EE"/>
+                <constraint firstItem="DGF-Ye-Jvq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="70B-4M-Vhz"/>
                 <constraint firstAttribute="trailing" secondItem="rwW-2C-vDc" secondAttribute="trailing" id="Beh-UU-hBe"/>
                 <constraint firstItem="rwW-2C-vDc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JtL-R6-gYe"/>
+                <constraint firstItem="DGF-Ye-Jvq" firstAttribute="top" secondItem="72X-Du-yqc" secondAttribute="bottom" constant="15" id="UZT-Pu-YZw"/>
+                <constraint firstAttribute="trailing" secondItem="DGF-Ye-Jvq" secondAttribute="trailing" constant="15" id="ZVD-AY-aw4"/>
                 <constraint firstItem="72X-Du-yqc" firstAttribute="top" secondItem="JrM-Vv-XYB" secondAttribute="bottom" constant="15" id="aeO-x5-27g"/>
                 <constraint firstItem="72X-Du-yqc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="eHS-2g-ThP"/>
                 <constraint firstItem="JrM-Vv-XYB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="eWu-2g-fIN"/>
@@ -136,11 +150,12 @@
             <connections>
                 <outlet property="bankNumberTextField" destination="Zly-Qe-1cD" id="gCk-yx-o8Z"/>
                 <outlet property="cardImageView" destination="rwW-2C-vDc" id="8ON-BQ-bNo"/>
+                <outlet property="confirmButton" destination="DGF-Ye-Jvq" id="c1t-Ps-mbA"/>
                 <outlet property="creadteadDateTextField" destination="SXH-7B-220" id="jWy-Xl-O6r"/>
-                <outlet property="expireDateTextField" destination="OOb-Cu-HTk" id="Va2-9h-Joo"/>
                 <outlet property="nameTextField" destination="dMG-ZJ-In8" id="fMZ-2X-n08"/>
                 <outlet property="optionsScanCollectionView" destination="JrM-Vv-XYB" id="Nfd-WU-ww7"/>
                 <outlet property="shadowView" destination="72X-Du-yqc" id="8Ka-RD-KqC"/>
+                <outlet property="validateDateTextField" destination="OOb-Cu-HTk" id="Va2-9h-Joo"/>
             </connections>
             <point key="canvasLocation" x="114.49275362318842" y="145.98214285714286"/>
         </collectionViewCell>
@@ -149,8 +164,8 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

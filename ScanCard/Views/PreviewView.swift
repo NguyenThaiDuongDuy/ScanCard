@@ -18,9 +18,10 @@ class PreviewView: UIView {
                                                              width: self.bounds.width,
                                                              height: self.bounds.height), cornerRadius: 0)
 
-        let smallRectpath = UIBezierPath(roundedRect: CGRect(x: self.bounds.width/2 - 150,
-                                                             y: self.bounds.height/2 - 100,
-                                                             width: 300, height: 200),
+        let smallRectpath = UIBezierPath(roundedRect: CGRect(x: self.bounds.width / 2 - 150,
+                                                             y: self.bounds.height / 2 - 100,
+                                                             width: 300,
+                                                             height: 200),
                                                              cornerRadius: 20)
         largeRectpath.append(smallRectpath)
         largeRectpath.usesEvenOddFillRule = true
@@ -31,14 +32,13 @@ class PreviewView: UIView {
 
         let myLayer = CALayer()
         let myImage = UIImage(named: "backward")?.cgImage
-        myLayer.frame = CGRect(x: self.bounds.width/2 - 140,
-                               y: self.bounds.height/2-12,
+        myLayer.frame = CGRect(x: self.bounds.width / 2 - 140,
+                               y: self.bounds.height / 2 - 12,
                                width: 24,
                                height: 24)
         myLayer.contents = myImage
         scanArea.addSublayer(myLayer)
        return scanArea
-
     }()
 
     override func layoutSubviews() {
@@ -47,7 +47,7 @@ class PreviewView: UIView {
     }
 
     override class var layerClass: AnyClass {
-        return AVCaptureVideoPreviewLayer.self
+    AVCaptureVideoPreviewLayer.self
     }
 
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {

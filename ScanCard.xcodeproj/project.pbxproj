@@ -23,6 +23,13 @@
 		84AB484E26281C55002F106C /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484926281C55002F106C /* ScanViewController.swift */; };
 		84AB484F26281C55002F106C /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484B26281C55002F106C /* PreviewView.swift */; };
 		84AB485026281C55002F106C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484C26281C55002F106C /* CardView.swift */; };
+		84AB488926292B21002F106C /* ScanTextCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB488826292B21002F106C /* ScanTextCollectionView.swift */; };
+		84AB4890262961C2002F106C /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB488F262961C2002F106C /* UserInfoModel.swift */; };
+		84AB4898262961D4002F106C /* DialogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4897262961D4002F106C /* DialogModel.swift */; };
+		84AB489D2629624D002F106C /* ScanTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB489C2629624D002F106C /* ScanTextViewModel.swift */; };
+		84AB48A226297BB8002F106C /* DialogViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB48A126297BB8002F106C /* DialogViewMode.swift */; };
+		84AB48A72629897E002F106C /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB48A62629897E002F106C /* String+Ext.swift */; };
+		84AB48AC26298E0C002F106C /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB48AB26298E0C002F106C /* UIButton+Ext.swift */; };
 		84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */; };
 		84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */; };
 		84AE3DFC261AEFCC0051CD0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3DFA261AEFCC0051CD0A /* Main.storyboard */; };
@@ -73,6 +80,13 @@
 		84AB484926281C55002F106C /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		84AB484B26281C55002F106C /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		84AB484C26281C55002F106C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		84AB488826292B21002F106C /* ScanTextCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextCollectionView.swift; sourceTree = "<group>"; };
+		84AB488F262961C2002F106C /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		84AB4897262961D4002F106C /* DialogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogModel.swift; sourceTree = "<group>"; };
+		84AB489C2629624D002F106C /* ScanTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextViewModel.swift; sourceTree = "<group>"; };
+		84AB48A126297BB8002F106C /* DialogViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewMode.swift; sourceTree = "<group>"; };
+		84AB48A62629897E002F106C /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		84AB48AB26298E0C002F106C /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		84AE3DF1261AEFCC0051CD0A /* ScanCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +160,8 @@
 				847F1A062626929C003A91EA /* UIView+Ext.swift */,
 				847F1A0E262692B7003A91EA /* UIColor+Ext.swift */,
 				847F1A572627060E003A91EA /* CGPoint+Ext.swift */,
+				84AB48A62629897E002F106C /* String+Ext.swift */,
+				84AB48AB26298E0C002F106C /* UIButton+Ext.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -176,8 +192,27 @@
 				849071B1262553DA00E85B36 /* CustomCollectionCell */,
 				84AB484B26281C55002F106C /* PreviewView.swift */,
 				84AB484C26281C55002F106C /* CardView.swift */,
+				84AB488826292B21002F106C /* ScanTextCollectionView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		84AB488D26296154002F106C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84AB488F262961C2002F106C /* UserInfoModel.swift */,
+				84AB4897262961D4002F106C /* DialogModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		84AB488E26296171002F106C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				84AB489C2629624D002F106C /* ScanTextViewModel.swift */,
+				84AB48A126297BB8002F106C /* DialogViewMode.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		84AE3DE8261AEFCC0051CD0A = {
@@ -205,6 +240,8 @@
 		84AE3DF3261AEFCC0051CD0A /* ScanCard */ = {
 			isa = PBXGroup;
 			children = (
+				84AB488E26296171002F106C /* ViewModels */,
+				84AB488D26296154002F106C /* Model */,
 				84AB484726281C55002F106C /* ViewControllers */,
 				84AB484A26281C55002F106C /* Views */,
 				847F1A0526269268003A91EA /* Utils */,
@@ -486,22 +523,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AB4890262961C2002F106C /* UserInfoModel.swift in Sources */,
+				84AB4898262961D4002F106C /* DialogModel.swift in Sources */,
 				84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */,
 				84AB484E26281C55002F106C /* ScanViewController.swift in Sources */,
+				84AB489D2629624D002F106C /* ScanTextViewModel.swift in Sources */,
 				84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */,
 				847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */,
 				849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */,
 				84AB484F26281C55002F106C /* PreviewView.swift in Sources */,
 				849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */,
+				84AB48A72629897E002F106C /* String+Ext.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,
 				842F484F261C577400709423 /* AuthorService.swift in Sources */,
 				847F1A142626A2A1003A91EA /* CameraService.swift in Sources */,
+				84AB488926292B21002F106C /* ScanTextCollectionView.swift in Sources */,
 				847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */,
 				842F4858261C5C7300709423 /* CustomDialog.swift in Sources */,
 				847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */,
+				84AB48AC26298E0C002F106C /* UIButton+Ext.swift in Sources */,
 				84FE2C4A261D4C4C0003A15F /* LogService.swift in Sources */,
 				84AB485026281C55002F106C /* CardView.swift in Sources */,
 				84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */,
+				84AB48A226297BB8002F106C /* DialogViewMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
