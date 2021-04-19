@@ -11,9 +11,12 @@ extension String {
         !(self.isEmpty) && self.allSatisfy { $0.isNumber }
     }
 
-    var isContainNumberic: Bool {
-        let decimalCharacters = CharacterSet.decimalDigits
-        let decimalRange = self.rangeOfCharacter(from: decimalCharacters)
-        return !(self.isEmpty) && decimalRange != nil
+    var isOnlyUpCaseAndWhiteSpaceCharacter: Bool {
+        let characterset = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ ")
+        if self.rangeOfCharacter(from: characterset.inverted) != nil {
+            return false
+        } else {
+            return true
+        }
     }
 }

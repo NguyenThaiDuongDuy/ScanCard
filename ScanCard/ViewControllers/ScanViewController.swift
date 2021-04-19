@@ -76,6 +76,7 @@ class ScanViewController: UIViewController {
                     mainStoryboard.instantiateViewController(withIdentifier: "ScanTextViewController")
                     as? ScanTextViewController {
                     scanTextViewController.cardImage = UIImage(ciImage: result)
+                    scanTextViewController.scanTextViewModel = self.getInfoCardAuto(infomation: self.recognizedStrings)
                     self.navigationController?.pushViewController(scanTextViewController,
                                                                   animated: true)} else { return }
             }
@@ -141,45 +142,42 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
 
             self.recognizedStrings = recognizedStrings
-            self.getInfoCardAuto(infomation: self.recognizedStrings)
             print(recognizedStrings.description)
         }
         request.recognitionLevel = .accurate
+        request.minimumTextHeight = 1 / 20
         let requestTextHandler = VNImageRequestHandler(ciImage: ciimage, options: [:])
         try? requestTextHandler.perform([request])
     }
 
-    func getInfoCardAuto(infomation: [String]?) {
-//        var scanTextViewModel = ScanTextViewModel(userInfor: UserInfoModel(name: "",
-//                                                                           bankNumber: "",
-//                                                                           createdDate: "",
-//                                                                           validDate: ""))
-//        guard let checkInfomation = infomation else { return }
-//        checkInfomation.forEach { ( string ) in
-//            if scanTextViewModel.isValidName(name: string) && scanTextViewModel.userInfo?.name == "" {
-//                scanTextViewModel.userInfo?.name = string
-//            }
-//
-//            if scanTextViewModel.isValidNumberBank(banknumber: string)
-//        && scanTextViewModel.userInfo?.bankNumber == "" {
-//                scanTextViewModel.userInfo?.bankNumber = string
-//            }
-//
-//            if scanTextViewModel.isValidCreatedDate(checkDate: string)
-//        && scanTextViewModel.userInfo?.createdDate == "" {
-//                scanTextViewModel.userInfo?.createdDate = string
-//            }
-//
-//            if scanTextViewModel.isValidValidateDate(checkDate: string)
-//        && scanTextViewModel.userInfo?.validDate == "" {
-//                scanTextViewModel.userInfo?.validDate = string
-//            }
-//        }
+    func getInfoCardAuto(infomation: [String]?) -> ScanTextViewModel {
+        let scanTextViewModel = ScanTextViewModel(userInfor: UserInfoModel(name: "",
+                                                                           bankNumber: "",
+                                                                           createdDate: "",
+                                                                           validDate: ""))
+        guard let checkInfomation = infomation else { return scanTextViewModel }
 
-//        print("Result is Name is \(scanTextViewModel.userInfo?.name)")
-//        print("Result is bankNumber is \(scanTextViewModel.userInfo?.bankNumber)")
-//        print("Result is createdDate is \(scanTextViewModel.userInfo?.createdDate)")
-//        print("Result is validDate is \(scanTextViewModel.userInfo?.validDate)")
+        for index in stride(from: checkInfomation.count - 1, to: 0, by: -1) {
+            if scanTextViewModel.isValidName(name: checkInfomation[index]) &&
+                (((scanTextViewModel.userInfo?.name!.isEmpty)!)) {
+                scanTextViewModel.userInfo?.name = checkInfomation[index]
+            }
+            if scanTextViewModel.isValidNumberBank(banknumber: checkInfomation[index])
+                && ((scanTextViewModel.userInfo?.bankNumber?.isEmpty)!) {
+                scanTextViewModel.userInfo?.bankNumber = checkInfomation[index]
+            }
+
+            if scanTextViewModel.isValidCreatedDate(checkDate: checkInfomation[index])
+                && ((scanTextViewModel.userInfo?.createdDate?.isEmpty)!) {
+                scanTextViewModel.userInfo?.createdDate = checkInfomation[index]
+            }
+
+            if scanTextViewModel.isValidValidateDate(checkDate: checkInfomation[index])
+                && ((scanTextViewModel.userInfo?.validDate?.isEmpty)!) {
+                scanTextViewModel.userInfo?.validDate = checkInfomation[index]
+            }
+        }
+        return scanTextViewModel
     }
 
     func captureOutput(_ output: AVCaptureOutput,

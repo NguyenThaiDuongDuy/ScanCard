@@ -12,10 +12,7 @@ class ScanTextViewController: UIViewController {
     @IBOutlet weak var scanCollectionView: ScanTextCollectionView!
     var cardImage: UIImage?
     static let cellID = "LargeCollectionViewCell"
-    var scanTextViewModel = ScanTextViewModel(userInfor: UserInfoModel(name: "",
-                                                                       bankNumber: "",
-                                                                       createdDate: "",
-                                                                       validDate: ""))
+    var scanTextViewModel: ScanTextViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +75,7 @@ class ScanTextViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        scanTextViewModel = nil
     }
 }
 
@@ -89,7 +87,7 @@ extension ScanTextViewController: UICollectionViewDelegate,
         guard let userInfo = userInfo else {
             return
         }
-        scanTextViewModel.checkValidInfo(userInfo: userInfo) { (result) in
+        scanTextViewModel?.checkValidInfo(userInfo: userInfo) { (result) in
             DispatchQueue.main.async {
                 let diaLog = CustomDialog(frame: self.view.bounds)
                 var message: String
@@ -135,6 +133,7 @@ extension ScanTextViewController: UICollectionViewDelegate,
         else { return UICollectionViewCell() }
         cell.delegate = self
         cell.cardImageView.image = self.cardImage
+        cell.setInfotoTextFiled(info: scanTextViewModel)
         return cell
     }
 

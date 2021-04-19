@@ -73,7 +73,7 @@ class ScanTextViewModel {
     }
 
     func isValidName(name: String) -> Bool {
-        if name.isContainNumberic { return false }
+        if !name.isOnlyUpCaseAndWhiteSpaceCharacter { return false }
         let nameAfterCutwhiteSpacesAndNewlines = name.components(separatedBy: .whitespacesAndNewlines)
             .filter({ !$0.isEmpty })
             .joined(separator: " ")

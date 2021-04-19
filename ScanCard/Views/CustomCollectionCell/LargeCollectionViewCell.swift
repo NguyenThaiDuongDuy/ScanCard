@@ -100,6 +100,16 @@ extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource,
         }
     }
 
+    func setInfotoTextFiled(info: ScanTextViewModel?) {
+        guard let info = info else { return }
+        DispatchQueue.main.async {
+            self.nameTextField.text = info.userInfo?.name
+            self.bankNumberTextField.text = info.userInfo?.bankNumber
+            self.creadteadDateTextField.text = info.userInfo?.createdDate
+            self.validateDateTextField.text = info.userInfo?.validDate
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         options.count
     }
