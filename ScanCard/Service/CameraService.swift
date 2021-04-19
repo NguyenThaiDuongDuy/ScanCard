@@ -36,8 +36,8 @@ class CameraService {
     private func setUpOutPut() {
         let myVideoOutput = AVCaptureVideoDataOutput()
 
-        myVideoOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString)
-                                        : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String: Any]
+        myVideoOutput.videoSettings = [ (kCVPixelBufferPixelFormatTypeKey as NSString):
+                                            NSNumber(value: kCVPixelFormatType_32BGRA) ] as [ String: Any ]
         guard session.canAddOutput(myVideoOutput) else { return }
         myVideoOutput.alwaysDiscardsLateVideoFrames = true
         myVideoOutput.setSampleBufferDelegate(presentViewController,

@@ -1,5 +1,5 @@
 //
-//  CustomCollectionCellCollectionViewCell.swift
+//  OptionCollectionCell.swift
 //  ChosseCollection
 //
 //  Created by admin on 13/04/2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCollectionCell: UICollectionViewCell {
+class OptionCollectionCell: UICollectionViewCell {
     @IBOutlet weak var nameOfcell: UILabel!
     @IBOutlet weak var customContentView: UIView!
 

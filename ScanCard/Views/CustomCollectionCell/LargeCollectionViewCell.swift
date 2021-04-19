@@ -8,7 +8,7 @@
 import UIKit
 
 protocol largeCelldelegate: AnyObject {
-    func getCardInfor(userInfo:UserInfoModel?)
+    func getCardInfor(userInfo: UserInfoModel?)
 }
 class LargeCollectionViewCell: UICollectionViewCell {
 
@@ -20,14 +20,14 @@ class LargeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var validateDateTextField: UITextField!
     @IBOutlet weak var shadowView: ShadowView!
     @IBOutlet weak var confirmButton: UIButton!
-    weak var delegate:largeCelldelegate?
+    weak var delegate: largeCelldelegate?
     var cardImage: UIImage?
     let options: [String] = ["Name",
                             "Bank Number",
                             "Creadted Date",
                             "Validate Date"
                             ]
-    static let cellID = "CustomCollectionCell"
+    static let cellID = "OptionCollectionCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -106,9 +106,9 @@ extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource,
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:LargeCollectionViewCell.cellID,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeCollectionViewCell.cellID,
                                                             for: indexPath)
-                as? CustomCollectionCell else { return UICollectionViewCell() }
+                as? OptionCollectionCell else { return UICollectionViewCell() }
 
         cell.nameOfcell.text = options[indexPath.item]
         return cell

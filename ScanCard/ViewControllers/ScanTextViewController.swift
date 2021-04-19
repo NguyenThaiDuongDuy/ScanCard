@@ -91,15 +91,34 @@ extension ScanTextViewController: UICollectionViewDelegate,
         }
         scanTextViewModel.checkValidInfo(userInfo: userInfo) { (result) in
             DispatchQueue.main.async {
-                if result == .invalidbank {
-                    let diaLog = CustomDialog(frame: self.view.bounds)
-                    diaLog.dialogInfoViewModel = DialogViewModel(dialoginfo:
-                                                                    DialogModel(tile: "Error",
-                                                                                message: Result.invalidbank.rawValue,
-                                                                                okTitleButton: "Ok",
-                                                                                cancelTitleButton: "Cancel"))
-                    self.view.addSubview(diaLog)
+                let diaLog = CustomDialog(frame: self.view.bounds)
+                var message: String
+                var title = "Error"
+                let titleOkButton = "Ok"
+                let cancelTitleButton = "Cancel"
+                switch result {
+                case .invalidName :
+                    message = Result.invalidName.rawValue
+
+                case .invalidBank :
+                    message = Result.invalidBank.rawValue
+
+                case .invalidCreatedDate :
+                    message = Result.invalidCreatedDate.rawValue
+
+                case .invalidValidDate :
+                    message = Result.invalidValidDate.rawValue
+
+                default :
+                    title = "Success"
+                    message = Result.success.rawValue
                 }
+                    diaLog.dialogInfoViewModel = DialogViewModel(dialoginfo:
+                                                                    DialogModel(tile: title,
+                                                                                message: message,
+                                                                                okTitleButton: titleOkButton,
+                                                                                cancelTitleButton: cancelTitleButton))
+                    self.view.addSubview(diaLog)
             }
         }
     }

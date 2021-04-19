@@ -10,10 +10,10 @@ import UIKit
 
 enum Result: String {
     case success
-    case invalidname
-    case invalidbank
-    case invalidcreateddate
-    case invalidvaliddate
+    case invalidName
+    case invalidBank
+    case invalidCreatedDate
+    case invalidValidDate
 }
 
 class ScanTextViewModel {
@@ -26,14 +26,35 @@ class ScanTextViewModel {
         self.userInfo = userInfor
     }
 
-    func checkValidInfo(userInfo:UserInfoModel, completion:(Result) -> Void) {
-        if !checkvalidNumberBank(banknumber: userInfo.bankNumber ?? "") {
-            completion(.invalidbank)
+    func checkValidInfo(userInfo: UserInfoModel, completion: (Result) -> Void) {
+
+        // Check valid Name
+        if !isValidName(name: userInfo.name ?? "") {
+            completion(.invalidName)
+            return
         }
-        print("")
+
+        // Check valid bank number
+        if !isValidNumberBank(banknumber: userInfo.bankNumber ?? "") {
+            completion(.invalidBank)
+            return
+        }
+
+        // check valid created date
+        if !isValidCreatedDate(checkDate: userInfo.createdDate ?? "") {
+            completion(.invalidCreatedDate)
+            return
+        }
+
+        // check valid validate date
+        if !isValidValidateDate(checkDate: userInfo.validDate ?? "") {
+            completion(.invalidValidDate)
+            return
+        }
+        completion(.success)
     }
 
-    func checkvalidNumberBank(banknumber:String) -> Bool {
+    func isValidNumberBank(banknumber: String) -> Bool {
         let vowels: Set<Character> = [" "]
         var tmpString = ""
         tmpString = banknumber
@@ -43,11 +64,35 @@ class ScanTextViewModel {
             return false
         }
 
-        if (tmpString.count<minCardNumber || tmpString.count>maxCardNumber) {
+        if tmpString.count<minCardNumber || tmpString.count>maxCardNumber {
             print("incorrect format")
             return false
         }
         print("correct fromat")
         return true
+    }
+
+    func isValidName(name: String) -> Bool {
+        if name.isContainNumberic { return false }
+        let nameAfterCutwhiteSpacesAndNewlines = name.components(separatedBy: .whitespacesAndNewlines)
+            .filter({ !$0.isEmpty })
+            .joined(separator: " ")
+        return nameAfterCutwhiteSpacesAndNewlines.contains(" ")
+    }
+
+    func isValidCreatedDate(checkDate: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/yy"
+        let inputDate = dateFormatter.date(from: checkDate)
+        guard let checkInputDate = inputDate else { return false }
+        return checkInputDate < Date()
+    }
+
+    func isValidValidateDate(checkDate: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/yy"
+        let inputDate = dateFormatter.date(from: checkDate)
+        guard let checkInputDate = inputDate else { return false }
+        return checkInputDate > Date()
     }
 }

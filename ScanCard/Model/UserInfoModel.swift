@@ -8,8 +8,8 @@
 import Foundation
 
 struct UserInfoModel {
-    var name:String?
-    var bankNumber:String?
-    var createdDate:String?
-    var validDate:String?
+    var name: String?
+    var bankNumber: String?
+    var createdDate: String?
+    var validDate: String?
 }

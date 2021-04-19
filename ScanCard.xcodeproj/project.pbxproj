@@ -15,8 +15,8 @@
 		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
 		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
 		847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A572627060E003A91EA /* CGPoint+Ext.swift */; };
-		849071AC2625538E00E85B36 /* CustomCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* CustomCollectionCell.xib */; };
-		849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* CustomCollectionCell.swift */; };
+		849071AC2625538E00E85B36 /* OptionCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* OptionCollectionCell.xib */; };
+		849071AD2625538E00E85B36 /* OptionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* OptionCollectionCell.swift */; };
 		849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */; };
 		849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */; };
 		84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484826281C55002F106C /* ScanTextViewController.swift */; };
@@ -72,8 +72,8 @@
 		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		847F1A572627060E003A91EA /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
-		849071AA2625538E00E85B36 /* CustomCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionCell.xib; sourceTree = "<group>"; };
-		849071AB2625538E00E85B36 /* CustomCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
+		849071AA2625538E00E85B36 /* OptionCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionCollectionCell.xib; sourceTree = "<group>"; };
+		849071AB2625538E00E85B36 /* OptionCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionCollectionCell.swift; sourceTree = "<group>"; };
 		849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCollectionViewCell.swift; sourceTree = "<group>"; };
 		849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCollectionViewCell.xib; sourceTree = "<group>"; };
 		84AB484826281C55002F106C /* ScanTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTextViewController.swift; sourceTree = "<group>"; };
@@ -169,8 +169,8 @@
 		849071B1262553DA00E85B36 /* CustomCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
-				849071AB2625538E00E85B36 /* CustomCollectionCell.swift */,
-				849071AA2625538E00E85B36 /* CustomCollectionCell.xib */,
+				849071AB2625538E00E85B36 /* OptionCollectionCell.swift */,
+				849071AA2625538E00E85B36 /* OptionCollectionCell.xib */,
 				849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */,
 				849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */,
 			);
@@ -410,7 +410,7 @@
 				84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */,
 				849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
-				849071AC2625538E00E85B36 /* CustomCollectionCell.xib in Resources */,
+				849071AC2625538E00E85B36 /* OptionCollectionCell.xib in Resources */,
 				84AE3DFC261AEFCC0051CD0A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,7 +532,7 @@
 				847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */,
 				849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */,
 				84AB484F26281C55002F106C /* PreviewView.swift in Sources */,
-				849071AD2625538E00E85B36 /* CustomCollectionCell.swift in Sources */,
+				849071AD2625538E00E85B36 /* OptionCollectionCell.swift in Sources */,
 				84AB48A72629897E002F106C /* String+Ext.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,
 				842F484F261C577400709423 /* AuthorService.swift in Sources */,

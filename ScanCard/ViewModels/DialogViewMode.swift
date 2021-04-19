@@ -8,7 +8,7 @@
 import Foundation
 
 class DialogViewModel {
-    var diainfo:DialogModel?
+    var diainfo: DialogModel?
     init(dialoginfo: DialogModel) {
         self.diainfo = dialoginfo
     }

@@ -7,33 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F4EF2F7D-9A70-4362-B28B-64AF12474913"
+            uuid = "EF7118D6-DB4F-4315-93A3-AD8ACF108D2D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ScanCard/ViewModels/ScanTextViewModel.swift"
+            filePath = "ScanCard/ViewControllers/ScanTextViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "checkvalidNumberBank(banknumber:)"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "getCardInfor(userInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "10750F08-46F2-4AD2-A119-590B6B15396F"
+            uuid = "7248BFA8-67EB-4E8A-9FC0-A16B9763B2C5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScanCard/ViewModels/ScanTextViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "checkvalidNumberBank(banknumber:)"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "isValidName(name:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3ECEBC6-DCB5-4AD0-9226-5E0B0566229A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScanCard/Utils/String+Ext.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "containsSpecialCharacter"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -141,13 +141,45 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
 
             self.recognizedStrings = recognizedStrings
-            print(recognizedStrings)
+            self.getInfoCardAuto(infomation: self.recognizedStrings)
+            print(recognizedStrings.description)
         }
         request.recognitionLevel = .accurate
-
-        // let rotateImage = ciimage.oriented(.right)
         let requestTextHandler = VNImageRequestHandler(ciImage: ciimage, options: [:])
         try? requestTextHandler.perform([request])
+    }
+
+    func getInfoCardAuto(infomation: [String]?) {
+//        var scanTextViewModel = ScanTextViewModel(userInfor: UserInfoModel(name: "",
+//                                                                           bankNumber: "",
+//                                                                           createdDate: "",
+//                                                                           validDate: ""))
+//        guard let checkInfomation = infomation else { return }
+//        checkInfomation.forEach { ( string ) in
+//            if scanTextViewModel.isValidName(name: string) && scanTextViewModel.userInfo?.name == "" {
+//                scanTextViewModel.userInfo?.name = string
+//            }
+//
+//            if scanTextViewModel.isValidNumberBank(banknumber: string)
+//        && scanTextViewModel.userInfo?.bankNumber == "" {
+//                scanTextViewModel.userInfo?.bankNumber = string
+//            }
+//
+//            if scanTextViewModel.isValidCreatedDate(checkDate: string)
+//        && scanTextViewModel.userInfo?.createdDate == "" {
+//                scanTextViewModel.userInfo?.createdDate = string
+//            }
+//
+//            if scanTextViewModel.isValidValidateDate(checkDate: string)
+//        && scanTextViewModel.userInfo?.validDate == "" {
+//                scanTextViewModel.userInfo?.validDate = string
+//            }
+//        }
+
+//        print("Result is Name is \(scanTextViewModel.userInfo?.name)")
+//        print("Result is bankNumber is \(scanTextViewModel.userInfo?.bankNumber)")
+//        print("Result is createdDate is \(scanTextViewModel.userInfo?.createdDate)")
+//        print("Result is validDate is \(scanTextViewModel.userInfo?.validDate)")
     }
 
     func captureOutput(_ output: AVCaptureOutput,
