@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 import Vision
 
-protocol cardviewDelegate: AnyObject {
+protocol CardViewDelegate: AnyObject {
     func getResultStrings(results: [String]?, type: String)
 }
 
-class CardView: UIImageView {
+class CardImageView: UIImageView {
 
-    weak var cardViewDelegate: cardviewDelegate?
+    weak var cardViewDelegate: CardViewDelegate?
     var type: String?
 
     lazy var textLayer: CATextLayer = {
@@ -32,10 +32,9 @@ class CardView: UIImageView {
         return shapeLayer
     }()
 
-    var resultString: [String]?
     var firtPoint: CGPoint = CGPoint.zero
     var endPoint: CGPoint = CGPoint.zero
-    var mrect: CGRect?
+    var boundingRect: CGRect?
 
     func setTextForScanLayer(option: String) {
         self.type = option
@@ -47,14 +46,14 @@ class CardView: UIImageView {
         textLayer.string = myAttributedString
     }
 
-    private func drawScanRect(rec: CGRect) {
+    private func drawScanRect(rect: CGRect) {
 
-        self.shapeLayer.path = UIBezierPath(roundedRect: rec, cornerRadius: 10).cgPath
+        self.shapeLayer.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
         self.shapeLayer.borderColor = UIColor.white.cgColor
         self.shapeLayer.borderWidth = 2.0
         self.shapeLayer.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
 
-        let tmpFrame = CGRect(x: rec.minX, y: rec.minY - 20, width: 200, height: 100)
+        let tmpFrame = CGRect(x: rect.minX, y: rect.minY - 20, width: 200, height: 100)
         textLayer.frame = tmpFrame
 
         self.shapeLayer.addSublayer(textLayer)
@@ -65,8 +64,8 @@ class CardView: UIImageView {
         super.touchesBegan(touches, with: event)
         let touch = touches.first?.location(in: self)
         firtPoint = touch ?? CGPoint.zero
-        print("touchesBegan is \(touch as Any)")
     }
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         let touch = touches.first?.location(in: self)
@@ -75,15 +74,14 @@ class CardView: UIImageView {
                           y: min(firtPoint.y, endPoint.y),
                           width: abs(firtPoint.x - endPoint.x),
                           height: abs(firtPoint.y - endPoint.y))
-        self.drawScanRect(rec: rect)
-        self.mrect = rect
-        print("touchesMoved is \(touch as Any)")
+        self.drawScanRect(rect: rect)
+        self.boundingRect = rect
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.layer.sublayers?.removeAll()
         // let mImage = snapshot(in: self, rect: self.mrect!)
-        let mImage = self.snapshot(of: self.mrect)
+        let mImage = self.snapshot(of: self.boundingRect)
         guard let cgImage = mImage?.cgImage else { return }
         self.getCardInformation(cgImage: cgImage)
     }

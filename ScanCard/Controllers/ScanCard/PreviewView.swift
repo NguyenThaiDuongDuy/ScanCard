@@ -11,7 +11,7 @@ import AVFoundation
 
 class PreviewView: UIView {
 
-    lazy var scanArea: CAShapeLayer = {
+    lazy var scanAreaShapeLayer: CAShapeLayer = {
         let scanArea = CAShapeLayer()
         let largeRectpath = UIBezierPath(roundedRect: CGRect(x: self.bounds.origin.x,
                                                              y: self.bounds.origin.y,
@@ -42,17 +42,18 @@ class PreviewView: UIView {
     }()
 
     override func layoutSubviews() {
-        scanArea.removeFromSuperlayer()
-        videoPreviewLayer.insertSublayer(scanArea, at: 1)
+        super.layoutSubviews()
+        scanAreaShapeLayer.removeFromSuperlayer()
+        videoPreviewLayer.insertSublayer(scanAreaShapeLayer, at: 1)
     }
 
     override class var layerClass: AnyClass {
-    AVCaptureVideoPreviewLayer.self
+        AVCaptureVideoPreviewLayer.self
     }
 
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-        if let customlayer: AVCaptureVideoPreviewLayer = layer as? AVCaptureVideoPreviewLayer {
-            return customlayer } else {
+        if let avLayer: AVCaptureVideoPreviewLayer = layer as? AVCaptureVideoPreviewLayer {
+            return avLayer } else {
             return AVCaptureVideoPreviewLayer()
         }
     }

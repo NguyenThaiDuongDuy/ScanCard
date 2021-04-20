@@ -1,5 +1,5 @@
 //
-//  CustomDialog.swift
+//  DialogView.swift
 //  ScanCard
 //
 //  Created by admin on 06/04/2021.
@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
-class CustomDialog: UIView {
+class DialogView: UIView {
     @IBOutlet var contentView: UIView!
-    @IBOutlet weak var titleDialog: UILabel!
-    @IBOutlet weak var messageDialog: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
 
     var dialogInfoViewModel: DialogViewModel? {
         didSet {
-            self.titleDialog.text = dialogInfoViewModel?.diainfo?.tile
-            self.messageDialog.text = dialogInfoViewModel?.diainfo?.message
-            self.cancelButton.setTitle(dialogInfoViewModel?.diainfo?.cancelTitleButton, for: .normal)
-            self.okButton.setTitle(dialogInfoViewModel?.diainfo?.okTitleButton, for: .normal)
+            self.titleLabel.text = dialogInfoViewModel?.dialogInfoModel?.title
+            self.messageLabel.text = dialogInfoViewModel?.dialogInfoModel?.message
+            self.cancelButton.setTitle(dialogInfoViewModel?.dialogInfoModel?.cancelButtonTitle, for: .normal)
+            self.okButton.setTitle(dialogInfoViewModel?.dialogInfoModel?.okButtonTitle, for: .normal)
         }
     }
 
@@ -35,17 +35,16 @@ class CustomDialog: UIView {
     }
 
     func commonInit() {
-        Bundle.main.loadNibNamed("CustomDialog", owner: self, options: nil)
+        Bundle.main.loadNibNamed("DialogView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = self.frame
     }
 
     @IBAction func tapCancelButton(_ sender: Any) {
         removeFromSuperview()
-        print("tapCancelButton")
     }
+
     @IBAction func tapOkButton(_ sender: Any) {
         removeFromSuperview()
-        print("tapOkButton")
     }
 }

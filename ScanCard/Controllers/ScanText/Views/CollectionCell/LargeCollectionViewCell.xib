@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="526" height="786"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-2C-vDc" customClass="CardView" customModule="ScanCard" customModuleProvider="target">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-2C-vDc" customClass="CardImageView" customModule="ScanCard" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="526" height="300"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -49,7 +49,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2ae-b5-nkh">
                                         <rect key="frame" x="0.0" y="59.5" width="486" height="59.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bank Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVK-lC-Uin">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bank Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVK-lC-Uin">
                                                 <rect key="frame" x="0.0" y="0.0" width="486" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -65,7 +65,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gq9-mr-oME">
                                         <rect key="frame" x="0.0" y="119" width="486" height="59.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rue-np-OPl">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rue-np-OPl">
                                                 <rect key="frame" x="0.0" y="0.0" width="486" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -81,7 +81,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="o9w-1U-8JM">
                                         <rect key="frame" x="0.0" y="178.5" width="486" height="59.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Validate Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kt-WP-JqY">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Validate Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kt-WP-JqY">
                                                 <rect key="frame" x="0.0" y="0.0" width="486" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -119,7 +119,7 @@
                         </collectionViewFlowLayout>
                         <cells/>
                     </collectionView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGF-Ye-Jvq">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGF-Ye-Jvq" customClass="BlueStyleButton" customModule="ScanCard" customModuleProvider="target">
                         <rect key="frame" x="15" y="638" width="496" height="40"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
@@ -148,14 +148,19 @@
             </constraints>
             <size key="customSize" width="526" height="786"/>
             <connections>
-                <outlet property="bankNumberTextField" destination="Zly-Qe-1cD" id="gCk-yx-o8Z"/>
+                <outlet property="cardHolderLabel" destination="Wn9-4w-Gcy" id="LRb-pp-QPC"/>
+                <outlet property="cardHolderTextField" destination="dMG-ZJ-In8" id="fMZ-2X-n08"/>
                 <outlet property="cardImageView" destination="rwW-2C-vDc" id="8ON-BQ-bNo"/>
-                <outlet property="confirmButton" destination="DGF-Ye-Jvq" id="c1t-Ps-mbA"/>
-                <outlet property="creadteadDateTextField" destination="SXH-7B-220" id="jWy-Xl-O6r"/>
-                <outlet property="nameTextField" destination="dMG-ZJ-In8" id="fMZ-2X-n08"/>
+                <outlet property="cardNumberLabel" destination="MVK-lC-Uin" id="bQy-ze-25n"/>
+                <outlet property="cardNumberTextField" destination="Zly-Qe-1cD" id="gCk-yx-o8Z"/>
+                <outlet property="confirmButton" destination="DGF-Ye-Jvq" id="tFh-aa-iOy"/>
+                <outlet property="expiryDateLabel" destination="7Kt-WP-JqY" id="5oc-Po-boA"/>
+                <outlet property="expiryDateTextField" destination="OOb-Cu-HTk" id="Va2-9h-Joo"/>
+                <outlet property="issueDateLabel" destination="Rue-np-OPl" id="GBP-Wm-VRz"/>
+                <outlet property="issueDateTextField" destination="SXH-7B-220" id="jWy-Xl-O6r"/>
                 <outlet property="optionsScanCollectionView" destination="JrM-Vv-XYB" id="Nfd-WU-ww7"/>
                 <outlet property="shadowView" destination="72X-Du-yqc" id="8Ka-RD-KqC"/>
-                <outlet property="validateDateTextField" destination="OOb-Cu-HTk" id="Va2-9h-Joo"/>
+                <outlet property="stackView" destination="NRz-7W-3z4" id="10R-CC-7mP"/>
             </connections>
             <point key="canvasLocation" x="114.49275362318842" y="145.98214285714286"/>
         </collectionViewCell>

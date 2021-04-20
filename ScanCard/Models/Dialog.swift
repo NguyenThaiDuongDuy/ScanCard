@@ -8,8 +8,8 @@
 import Foundation
 
 struct DialogModel {
-    var tile: String?
+    var title: String?
     var message: String?
-    var okTitleButton: String?
-    var cancelTitleButton: String?
+    var okButtonTitle: String?
+    var cancelButtonTitle: String?
 }

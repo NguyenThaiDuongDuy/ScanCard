@@ -7,27 +7,33 @@
 
 import UIKit
 
-protocol largeCelldelegate: AnyObject {
-    func getCardInfor(userInfo: UserInfoModel?)
+protocol LargeCellDelegate: AnyObject {
+    func getCardInfo(cardModel: CardModel?)
 }
+
 class LargeCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var cardImageView: CardView!
+    @IBOutlet weak var cardImageView: CardImageView!
     @IBOutlet weak var optionsScanCollectionView: UICollectionView!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var bankNumberTextField: UITextField!
-    @IBOutlet weak var creadteadDateTextField: UITextField!
-    @IBOutlet weak var validateDateTextField: UITextField!
+    @IBOutlet weak var cardHolderTextField: UITextField!
+    @IBOutlet weak var cardNumberTextField: UITextField!
+    @IBOutlet weak var issueDateTextField: UITextField!
+    @IBOutlet weak var expiryDateTextField: UITextField!
+    @IBOutlet weak var cardHolderLabel: UILabel!
+    @IBOutlet weak var cardNumberLabel: UILabel!
+    @IBOutlet weak var issueDateLabel: UILabel!
+    @IBOutlet weak var expiryDateLabel: UILabel!
     @IBOutlet weak var shadowView: ShadowView!
-    @IBOutlet weak var confirmButton: UIButton!
-    weak var delegate: largeCelldelegate?
+    @IBOutlet weak var confirmButton: BlueStyleButton!
+    @IBOutlet weak var stackView: UIStackView!
+    weak var delegate: LargeCellDelegate?
     var cardImage: UIImage?
-    let options: [String] = ["Name",
-                            "Bank Number",
-                            "Creadted Date",
-                            "Validate Date"
+    let options: [String] = ["Card Holder",
+                            "Card Number",
+                            "Issue Date",
+                            "Expiry Date"
                             ]
-    static let cellID = "OptionCollectionCell"
+    static let cellID = "OptionCollectionViewCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,10 +41,21 @@ class LargeCollectionViewCell: UICollectionViewCell {
         setUpoptionsScanCollectionView()
         setDefaultSelectedcell()
         setUpconfirmButton()
+        setUpTitleLabel()
+    }
+
+    func setUpTitleLabel() {
+        for stackView in stackView.subviews {
+            for view in stackView.subviews {
+                if view.isKind(of: UILabel.self) {
+                    guard let label = view as? UILabel else { return }
+                    label.text = options[label.tag]
+                }
+            }
+        }
     }
 
     func setUpconfirmButton () {
-        confirmButton.applyStyle()
         confirmButton.setTitle("Confirm", for: .normal)
     }
 
@@ -48,6 +65,7 @@ class LargeCollectionViewCell: UICollectionViewCell {
         cardImageView.setTextForScanLayer(option: options[indexPath.item])
     }
     override func layoutSubviews() {
+        super.layoutSubviews()
         setUpShadowView()
     }
 
@@ -74,39 +92,39 @@ class LargeCollectionViewCell: UICollectionViewCell {
     }
 
     @IBAction func tapConfirmButton(_ sender: Any) {
-        self.delegate?.getCardInfor(userInfo: UserInfoModel(name: nameTextField.text,
-                                                            bankNumber: bankNumberTextField.text,
-                                                            createdDate: creadteadDateTextField.text,
-                                                            validDate: validateDateTextField.text))
+        self.delegate?.getCardInfo(cardModel: CardModel(cardHolder: cardHolderTextField.text,
+                                                        cardNumber: cardNumberTextField.text,
+                                                        issueDate: issueDateTextField.text,
+                                                        expiryDate: expiryDateTextField.text))
     }
 }
 
-extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+extension LargeCollectionViewCell: CardViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     func getResultStrings(results: [String]?, type: String) {
         guard let resultStrings = results, !resultStrings.isEmpty else { return }
         let result = resultStrings.first
         switch type {
-        case "Name":
-            self.nameTextField.text = result
-        case "Bank Number":
-            self.bankNumberTextField.text = result
-        case "Creadted Date":
-            self.creadteadDateTextField.text = result
-        case "Validate Date":
-            self.validateDateTextField.text = result
+        case "Card Holder":
+            self.cardHolderTextField.text = result
+        case "Card Number":
+            self.cardNumberTextField.text = result
+        case "Issue Date":
+            self.issueDateTextField.text = result
+        case "Expiry Date":
+            self.expiryDateTextField.text = result
 
         default:
             print("error")
         }
     }
 
-    func setInfotoTextFiled(info: ScanTextViewModel?) {
-        guard let info = info else { return }
+    func setInfotoTextFiled(scanTextViewModel: ScanTextViewModel?) {
+        guard let info = scanTextViewModel else { return }
         DispatchQueue.main.async {
-            self.nameTextField.text = info.userInfo?.name
-            self.bankNumberTextField.text = info.userInfo?.bankNumber
-            self.creadteadDateTextField.text = info.userInfo?.createdDate
-            self.validateDateTextField.text = info.userInfo?.validDate
+            self.cardHolderTextField.text = info.cardModel?.cardHolder
+            self.cardNumberTextField.text = info.cardModel?.cardNumber
+            self.issueDateTextField.text = info.cardModel?.issueDate
+            self.expiryDateTextField.text = info.cardModel?.expiryDate
         }
     }
 
@@ -118,9 +136,9 @@ extension LargeCollectionViewCell: cardviewDelegate, UICollectionViewDataSource,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeCollectionViewCell.cellID,
                                                             for: indexPath)
-                as? OptionCollectionCell else { return UICollectionViewCell() }
+                as? OptionCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.nameOfcell.text = options[indexPath.item]
+        cell.optionLabel.text = options[indexPath.item]
         return cell
     }
 

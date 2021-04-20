@@ -17,10 +17,10 @@ class ScanTextViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScanCollectionView()
-        conFighidenKeyboard()
+        configHiddenKeyboard()
     }
 
-    private func conFighidenKeyboard() {
+    private func configHiddenKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
@@ -49,7 +49,6 @@ class ScanTextViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
         registerEventKeyBoard()
     }
 
@@ -82,40 +81,40 @@ class ScanTextViewController: UIViewController {
 extension ScanTextViewController: UICollectionViewDelegate,
                                   UICollectionViewDataSource,
                                   UICollectionViewDelegateFlowLayout,
-                                  largeCelldelegate {
-    func getCardInfor(userInfo: UserInfoModel?) {
-        guard let userInfo = userInfo else {
+                                  LargeCellDelegate {
+    func getCardInfo(cardModel: CardModel?) {
+        guard let cardModel = cardModel else {
             return
         }
-        scanTextViewModel?.checkValidInfo(userInfo: userInfo) { (result) in
+        scanTextViewModel?.checkValidInfo(cardModel: cardModel) { (result) in
             DispatchQueue.main.async {
-                let diaLog = CustomDialog(frame: self.view.bounds)
+                let diaLog = DialogView(frame: self.view.bounds)
                 var message: String
                 var title = "Error"
-                let titleOkButton = "Ok"
-                let cancelTitleButton = "Cancel"
+                let titleOfOkButton = "Ok"
+                let titleOfCancelButton = "Cancel"
                 switch result {
-                case .invalidName :
-                    message = Result.invalidName.rawValue
+                case .invalidCardHolder :
+                    message = Result.invalidCardHolder.rawValue
 
-                case .invalidBank :
-                    message = Result.invalidBank.rawValue
+                case .invalidCardNumber :
+                    message = Result.invalidCardNumber.rawValue
 
-                case .invalidCreatedDate :
-                    message = Result.invalidCreatedDate.rawValue
+                case .invalidIssueDate :
+                    message = Result.invalidIssueDate.rawValue
 
-                case .invalidValidDate :
-                    message = Result.invalidValidDate.rawValue
+                case .invalidExpiryDate :
+                    message = Result.invalidExpiryDate.rawValue
 
                 default :
                     title = "Success"
                     message = Result.success.rawValue
                 }
-                    diaLog.dialogInfoViewModel = DialogViewModel(dialoginfo:
-                                                                    DialogModel(tile: title,
+                    diaLog.dialogInfoViewModel = DialogViewModel(dialogInfoModel:
+                                                                    DialogModel(title: title,
                                                                                 message: message,
-                                                                                okTitleButton: titleOkButton,
-                                                                                cancelTitleButton: cancelTitleButton))
+                                                                                okButtonTitle: titleOfOkButton,
+                                                                                cancelButtonTitle: titleOfCancelButton))
                     self.view.addSubview(diaLog)
             }
         }
@@ -133,7 +132,7 @@ extension ScanTextViewController: UICollectionViewDelegate,
         else { return UICollectionViewCell() }
         cell.delegate = self
         cell.cardImageView.image = self.cardImage
-        cell.setInfotoTextFiled(info: scanTextViewModel)
+        cell.setInfotoTextFiled(scanTextViewModel: scanTextViewModel)
         return cell
     }
 

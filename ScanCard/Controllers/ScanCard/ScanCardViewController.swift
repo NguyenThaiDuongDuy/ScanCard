@@ -9,20 +9,18 @@ import UIKit
 import AVKit
 import Vision
 
-class ScanViewController: UIViewController {
+class ScanCardViewController: UIViewController {
 
-    static let minCommonCardWidth: CGFloat = 333.0
-    static let maxCommonCardWidth: CGFloat = 345.0
     static let minimumAspectRatioCard = VNAspectRatio(1.3)
     static let maximumAspectRatioCard = VNAspectRatio(1.6)
     static let maximum1TimeCardDetect = 1
-    static let miniSizeDetectCard = Float(0.5)
+    static let minimunSizeDetectCard = Float(0.5)
 
-    @IBOutlet weak var liveVideoView: PreviewView!
-    @IBOutlet weak var scanButton: UIButton!
-    @IBOutlet weak var shadowView: PreviewView!
+    @IBOutlet weak var livePreviewView: PreviewView!
+    @IBOutlet weak var scanButton: BlueStyleButton!
+    @IBOutlet weak var shadowView: ShadowView!
 
-    var scanString = "Scan"
+    var scanTitleOfButton = "Scan"
     var scanTitle = "Scan Card"
     var layer: CALayer?
     var vnRectangleObservation: VNRectangleObservation?
@@ -30,28 +28,27 @@ class ScanViewController: UIViewController {
     var recognizedStrings: [String]?
 
     lazy var cameraService: CameraService = {
-        let mCameraService = CameraService(viewcontroller: self)
+        let mCameraService = CameraService(viewController: self)
         return mCameraService
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = . white
-
-        let tapAction = UITapGestureRecognizer(target: self, action: #selector(tap))
-        self.liveVideoView.addGestureRecognizer(tapAction)
         setUpScanButton()
         setUpNavi()
     }
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         setupLiveView()
     }
 
     private func setupLiveView() {
-        liveVideoView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        liveVideoView.videoPreviewLayer.cornerRadius = 30
-        liveVideoView.videoPreviewLayer.masksToBounds = true
-        liveVideoView.frame = shadowView.frame
+        livePreviewView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        livePreviewView.videoPreviewLayer.cornerRadius = 30
+        livePreviewView.videoPreviewLayer.masksToBounds = true
+        livePreviewView.frame = shadowView.frame
+        let tapAction = UITapGestureRecognizer(target: self, action: #selector(tap))
+        livePreviewView.addGestureRecognizer(tapAction)
     }
 
     func setUpNavi() {
@@ -84,21 +81,46 @@ class ScanViewController: UIViewController {
     }
 
     func setUpScanButton() {
-        scanButton.setTitle(scanString, for: .normal)
-        scanButton.applyStyle()
+        scanButton.setTitle(scanTitleOfButton, for: .normal)
     }
 
     @IBAction func tapScanButton(_ sender: Any) {
-        liveVideoView.videoPreviewLayer.session = cameraService.session
+        livePreviewView.videoPreviewLayer.session = cameraService.session
         cameraService.startConnectCamera()
-        AuthorService.share.reQuestUsingCamera { (_) in
+        self.requestUsingCamera { (_) in
+        }
+    }
+
+    func requestUsingCamera(completion: (AVAuthorizationStatus) -> Void) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized: // The user has previously granted access to the camera.
+            completion(.authorized)
+        case .notDetermined: // The user has not yet been asked for camera access.
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
+                    print("User granted")
+                } else {
+                    print("User not granted")
+                }
+            }
+        case .denied: // The user has previously denied access.
+            // Show dialog
+            completion(.denied)
+            print("User denied")
+            return
+        case .restricted: // The user can't grant access due to restrictions.
+            completion(.restricted)
+            print("User restricted")
+            return
+        @unknown default:
+            print("Something cameup")
         }
     }
 }
 
-extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
-    func detecCard(sampleBuffer: CMSampleBuffer) {
+    func detectCard(sampleBuffer: CMSampleBuffer) {
         func detectRectanglesCompletionHandler (request: VNRequest, error: Error?) {
             DispatchQueue.main.async {
                 // Request fail
@@ -108,22 +130,22 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
                 self.removeBoundingBox()
                 guard let results = request.results as? [VNRectangleObservation] else { return }
-                guard let rect = results.first else { return }
+                guard let vnRectangleObservation = results.first else { return }
 
-                self.vnRectangleObservation = rect
+                self.vnRectangleObservation = vnRectangleObservation
                 self.sampleBuffer = sampleBuffer
-                let convertUIKitrect = VNImageRectForNormalizedRect(rect.boundingBox,
-                                                                    (Int)(self.liveVideoView.bounds.width),
-                                                                    (Int)(self.liveVideoView.bounds.height))
-                self.drawBoundingBox(rec: convertUIKitrect)
+                let convertUIKitRect = VNImageRectForNormalizedRect(vnRectangleObservation.boundingBox,
+                                                                    (Int)(self.livePreviewView.bounds.width),
+                                                                    (Int)(self.livePreviewView.bounds.height))
+                self.drawBoundingBox(rect: convertUIKitRect)
             }
         }
 
         let request = VNDetectRectanglesRequest(completionHandler: detectRectanglesCompletionHandler)
-        request.minimumAspectRatio = ScanViewController.minimumAspectRatioCard
-        request.maximumAspectRatio = ScanViewController.maximumAspectRatioCard
-        request.minimumSize = ScanViewController.miniSizeDetectCard
-        request.maximumObservations = ScanViewController.maximum1TimeCardDetect
+        request.minimumAspectRatio = ScanCardViewController.minimumAspectRatioCard
+        request.maximumAspectRatio = ScanCardViewController.maximumAspectRatioCard
+        request.minimumSize = ScanCardViewController.minimunSizeDetectCard
+        request.maximumObservations = ScanCardViewController.maximum1TimeCardDetect
 
         let requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
 
@@ -142,7 +164,7 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
 
             self.recognizedStrings = recognizedStrings
-            print(recognizedStrings.description)
+            Logger.log(self.recognizedStrings as Any)
         }
         request.recognitionLevel = .accurate
         request.minimumTextHeight = 1 / 20
@@ -151,30 +173,30 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
 
     func getInfoCardAuto(infomation: [String]?) -> ScanTextViewModel {
-        let scanTextViewModel = ScanTextViewModel(userInfor: UserInfoModel(name: "",
-                                                                           bankNumber: "",
-                                                                           createdDate: "",
-                                                                           validDate: ""))
+        let scanTextViewModel = ScanTextViewModel(cardInfo: CardModel(cardHolder: "",
+                                                                      cardNumber: "",
+                                                                      issueDate: "",
+                                                                      expiryDate: ""))
         guard let checkInfomation = infomation else { return scanTextViewModel }
 
         for index in stride(from: checkInfomation.count - 1, to: 0, by: -1) {
-            if scanTextViewModel.isValidName(name: checkInfomation[index]) &&
-                (((scanTextViewModel.userInfo?.name!.isEmpty)!)) {
-                scanTextViewModel.userInfo?.name = checkInfomation[index]
+            if scanTextViewModel.isValidCardHolder(cardHolder: checkInfomation[index]) &&
+                (((scanTextViewModel.cardModel?.cardHolder!.isEmpty)!)) {
+                scanTextViewModel.cardModel?.cardHolder = checkInfomation[index]
             }
-            if scanTextViewModel.isValidNumberBank(banknumber: checkInfomation[index])
-                && ((scanTextViewModel.userInfo?.bankNumber?.isEmpty)!) {
-                scanTextViewModel.userInfo?.bankNumber = checkInfomation[index]
-            }
-
-            if scanTextViewModel.isValidCreatedDate(checkDate: checkInfomation[index])
-                && ((scanTextViewModel.userInfo?.createdDate?.isEmpty)!) {
-                scanTextViewModel.userInfo?.createdDate = checkInfomation[index]
+            if scanTextViewModel.isValidCardNumber(cardNumber: checkInfomation[index])
+                && ((scanTextViewModel.cardModel?.cardNumber?.isEmpty)!) {
+                scanTextViewModel.cardModel?.cardNumber = checkInfomation[index]
             }
 
-            if scanTextViewModel.isValidValidateDate(checkDate: checkInfomation[index])
-                && ((scanTextViewModel.userInfo?.validDate?.isEmpty)!) {
-                scanTextViewModel.userInfo?.validDate = checkInfomation[index]
+            if scanTextViewModel.isValidIssueDate(checkIssueDate: checkInfomation[index])
+                && ((scanTextViewModel.cardModel?.issueDate?.isEmpty)!) {
+                scanTextViewModel.cardModel?.issueDate = checkInfomation[index]
+            }
+
+            if scanTextViewModel.isValidExpiryDate(checkExpiryDate: checkInfomation[index])
+                && ((scanTextViewModel.cardModel?.expiryDate?.isEmpty)!) {
+                scanTextViewModel.cardModel?.expiryDate = checkInfomation[index]
             }
         }
         return scanTextViewModel
@@ -183,7 +205,7 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
-        detecCard(sampleBuffer: sampleBuffer)
+        detectCard(sampleBuffer: sampleBuffer)
     }
 
     // Crop image in boundingbox
@@ -192,10 +214,10 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let ciImage = CIImage(cvImageBuffer: buffer)
 
         // convert corners from normalized image coordinates to pixel coordinates
-        let topLeft = observation.topLeft.scaled(to: ciImage.extent.size)
-        let topRight = observation.topRight.scaled(to: ciImage.extent.size)
-        let bottomLeft = observation.bottomLeft.scaled(to: ciImage.extent.size)
-        let bottomRight = observation.bottomRight.scaled(to: ciImage.extent.size)
+        let topLeft = observation.topLeft.convertToPixelCoordinate(to: ciImage.extent.size)
+        let topRight = observation.topRight.convertToPixelCoordinate(to: ciImage.extent.size)
+        let bottomLeft = observation.bottomLeft.convertToPixelCoordinate(to: ciImage.extent.size)
+        let bottomRight = observation.bottomRight.convertToPixelCoordinate(to: ciImage.extent.size)
 
         // pass those to the filter to extract/rectify the image
         return ciImage.applyingFilter("CIPerspectiveCorrection", parameters: [
@@ -206,20 +228,14 @@ extension ScanViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         ])
     }
 
-    func captureOutput(_ output: AVCaptureOutput,
-                       didDrop sampleBuffer: CMSampleBuffer,
-                       from connection: AVCaptureConnection) {
-        print("captureOutput didDorp")
-    }
-
-    private func drawBoundingBox(rec: CGRect) {
+    private func drawBoundingBox(rect: CGRect) {
         layer = CAShapeLayer()
-        layer?.frame = rec
+        layer?.frame = rect
         layer?.cornerRadius = 10
         layer?.opacity = 0.75
         layer?.borderColor = UIColor.red.cgColor
         layer?.borderWidth = 5.0
-        liveVideoView.layer.addSublayer(layer ?? CAShapeLayer())
+        livePreviewView.layer.addSublayer(layer ?? CAShapeLayer())
     }
 
     private func removeBoundingBox() {

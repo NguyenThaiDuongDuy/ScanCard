@@ -8,19 +8,20 @@
 import AVFoundation
 class CameraService {
 
-    let presentViewController: ScanViewController?
-    static let nameVideoQue = "Hanle recive videoFrame"
+    let presentViewController: ScanCardViewController?
+    static let nameVideoQue = "Handle receive videoFrame"
+
     lazy var session: AVCaptureSession = {
         let session = AVCaptureSession()
         return session
     }()
 
-    init(viewcontroller: ScanViewController) {
-        self.presentViewController = viewcontroller
+    init(viewController: ScanCardViewController) {
+        self.presentViewController = viewController
         self.setUpSession()
     }
 
-    private func setUpInPut() {
+    private func setUpInput() {
         // Scan camera in device
         guard let device = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInTrueDepthCamera,
                                                                           .builtInDualCamera,
@@ -33,36 +34,36 @@ class CameraService {
         session.addInput(videoDeviceInput)
     }
 
-    private func setUpOutPut() {
-        let myVideoOutput = AVCaptureVideoDataOutput()
+    private func setUpOutput() {
+        let videoOutput = AVCaptureVideoDataOutput()
 
-        myVideoOutput.videoSettings = [ (kCVPixelBufferPixelFormatTypeKey as NSString):
+        videoOutput.videoSettings = [ (kCVPixelBufferPixelFormatTypeKey as NSString):
                                             NSNumber(value: kCVPixelFormatType_32BGRA) ] as [ String: Any ]
-        guard session.canAddOutput(myVideoOutput) else { return }
-        myVideoOutput.alwaysDiscardsLateVideoFrames = true
-        myVideoOutput.setSampleBufferDelegate(presentViewController,
-                                              queue: DispatchQueue(label: CameraService.nameVideoQue))
-        session.addOutput(myVideoOutput)
+        guard session.canAddOutput(videoOutput) else { return }
+        videoOutput.alwaysDiscardsLateVideoFrames = true
+        videoOutput.setSampleBufferDelegate(presentViewController,
+                                            queue: DispatchQueue(label: CameraService.nameVideoQue))
+        session.addOutput(videoOutput)
 
-        guard let connection = myVideoOutput.connection(with: .video), connection.isVideoMirroringSupported
+        guard let connection = videoOutput.connection(with: .video), connection.isVideoMirroringSupported
         else { return }
         connection.videoOrientation = .portrait
     }
 
     private func setUpSession() {
         session.beginConfiguration()
-        setUpInPut()
-        setUpOutPut()
+        setUpInput()
+        setUpOutput()
         session.commitConfiguration()
     }
 
-    public func startConnectCamera() {
+    func startConnectCamera() {
         if !session.isRunning {
             session.startRunning()
         }
     }
 
-    public func stopConnectCamera() {
+    func stopConnectCamera() {
         session.stopRunning()
     }
 }
