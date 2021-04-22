@@ -82,7 +82,7 @@ extension ScanTextViewController: UICollectionViewDelegate,
                                   UICollectionViewDataSource,
                                   UICollectionViewDelegateFlowLayout,
                                   LargeCellDelegate {
-    func getCardInfo(cardModel: CardModel?) {
+    func getCardInfo(cardModel: Card?) {
         guard let cardModel = cardModel else {
             return
         }
@@ -110,11 +110,11 @@ extension ScanTextViewController: UICollectionViewDelegate,
                     title = "Success"
                     message = Result.success.rawValue
                 }
-                    diaLog.dialogInfoViewModel = DialogViewModel(dialogInfoModel:
-                                                                    DialogModel(title: title,
-                                                                                message: message,
-                                                                                okButtonTitle: titleOfOkButton,
-                                                                                cancelButtonTitle: titleOfCancelButton))
+                diaLog.dialogInfoViewModel = DialogViewModel(dialogInfoModel:
+                                                                Dialog(title: title,
+                                                                       message: message,
+                                                                       okButtonTitle: titleOfOkButton,
+                                                                       cancelButtonTitle: titleOfCancelButton))
                     self.view.addSubview(diaLog)
             }
         }

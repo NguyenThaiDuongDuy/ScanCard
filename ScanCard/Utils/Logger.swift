@@ -8,7 +8,7 @@
 import Foundation
 
 enum Logger {
-    // Coppy of Truc-san
+    // Copy of Truc-san
     public static func log(_ item: Any) {
         #if DEBUG
         print(item)

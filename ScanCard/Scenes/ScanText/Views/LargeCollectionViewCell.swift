@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LargeCellDelegate: AnyObject {
-    func getCardInfo(cardModel: CardModel?)
+    func getCardInfo(cardModel: Card?)
 }
 
 class LargeCollectionViewCell: UICollectionViewCell {
@@ -92,10 +92,10 @@ class LargeCollectionViewCell: UICollectionViewCell {
     }
 
     @IBAction func tapConfirmButton(_ sender: Any) {
-        self.delegate?.getCardInfo(cardModel: CardModel(cardHolder: cardHolderTextField.text,
-                                                        cardNumber: cardNumberTextField.text,
-                                                        issueDate: issueDateTextField.text,
-                                                        expiryDate: expiryDateTextField.text))
+        self.delegate?.getCardInfo(cardModel: Card(cardHolder: cardHolderTextField.text,
+                                                   cardNumber: cardNumberTextField.text,
+                                                   issueDate: issueDateTextField.text,
+                                                   expiryDate: expiryDateTextField.text))
     }
 }
 

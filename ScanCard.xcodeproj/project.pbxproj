@@ -39,7 +39,6 @@
 		84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3E02261AEFCD0051CD0A /* LaunchScreen.storyboard */; };
 		84AE3E0F261AEFCD0051CD0A /* ScanCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E0E261AEFCD0051CD0A /* ScanCardTests.swift */; };
 		84AE3E1A261AEFCD0051CD0A /* ScanCardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E19261AEFCD0051CD0A /* ScanCardUITests.swift */; };
-		84FE2C4A261D4C4C0003A15F /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE2C49261D4C4C0003A15F /* LogService.swift */; };
 		C8B8B06A1AEA731EB8E22516 /* Pods_ScanCard_ScanCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19D6A5175686ABCB0B25407A /* Pods_ScanCard_ScanCardUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,7 +102,6 @@
 		84AE3E15261AEFCD0051CD0A /* ScanCardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanCardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE3E19261AEFCD0051CD0A /* ScanCardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCardUITests.swift; sourceTree = "<group>"; };
 		84AE3E1B261AEFCD0051CD0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84FE2C49261D4C4C0003A15F /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		8A2B85F592782C29E67D5548 /* Pods_ScanCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB7919A9F771E24EC17C6FC4 /* Pods-ScanCard-ScanCardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCard-ScanCardUITests.debug.xcconfig"; path = "Target Support Files/Pods-ScanCard-ScanCardUITests/Pods-ScanCard-ScanCardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE1CA887825CB0B4485B9FA5 /* Pods-ScanCardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCardTests.debug.xcconfig"; path = "Target Support Files/Pods-ScanCardTests/Pods-ScanCardTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 		842F484D261C574C00709423 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				84FE2C49261D4C4C0003A15F /* LogService.swift */,
 				847F1A132626A2A1003A91EA /* CameraService.swift */,
 			);
 			path = Service;
@@ -170,6 +167,7 @@
 		8489CE71262ED64500195958 /* ScanText */ = {
 			isa = PBXGroup;
 			children = (
+				84B0721226311E1400E3481F /* Controller */,
 				8489CE8A262ED8D700195958 /* ViewModel */,
 				8489CE80262ED81B00195958 /* Views */,
 			);
@@ -179,8 +177,8 @@
 		8489CE72262ED66400195958 /* ScanCard */ = {
 			isa = PBXGroup;
 			children = (
-				84AB484926281C55002F106C /* ScanCardViewController.swift */,
-				84AB484B26281C55002F106C /* PreviewView.swift */,
+				84B0721326311E3000E3481F /* Controller */,
+				84B0721426311E3F00E3481F /* Views */,
 			);
 			path = ScanCard;
 			sourceTree = "<group>";
@@ -188,8 +186,10 @@
 		8489CE80262ED81B00195958 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				849071B1262553DA00E85B36 /* CollectionCell */,
-				84AB484826281C55002F106C /* ScanTextViewController.swift */,
+				849071AB2625538E00E85B36 /* OptionCollectionViewCell.swift */,
+				849071AA2625538E00E85B36 /* OptionCollectionViewCell.xib */,
+				849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */,
+				849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */,
 				84AB484C26281C55002F106C /* CardImageView.swift */,
 				84AB488826292B21002F106C /* ScanTextCollectionView.swift */,
 			);
@@ -221,24 +221,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		849071B1262553DA00E85B36 /* CollectionCell */ = {
-			isa = PBXGroup;
-			children = (
-				849071AB2625538E00E85B36 /* OptionCollectionViewCell.swift */,
-				849071AA2625538E00E85B36 /* OptionCollectionViewCell.xib */,
-				849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */,
-				849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */,
-			);
-			path = CollectionCell;
-			sourceTree = "<group>";
-		};
-		84AB484726281C55002F106C /* Controllers */ = {
+		84AB484726281C55002F106C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				8489CE72262ED66400195958 /* ScanCard */,
 				8489CE71262ED64500195958 /* ScanText */,
 			);
-			path = Controllers;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		84AB484A26281C55002F106C /* Views */ = {
@@ -285,7 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				84AB488D26296154002F106C /* Models */,
-				84AB484726281C55002F106C /* Controllers */,
+				84AB484726281C55002F106C /* Scenes */,
 				84AB484A26281C55002F106C /* Views */,
 				847F1A0526269268003A91EA /* Utils */,
 				842F4856261C5C5600709423 /* Dialog */,
@@ -317,6 +306,30 @@
 				84AE3E1B261AEFCD0051CD0A /* Info.plist */,
 			);
 			path = ScanCardUITests;
+			sourceTree = "<group>";
+		};
+		84B0721226311E1400E3481F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				84AB484826281C55002F106C /* ScanTextViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		84B0721326311E3000E3481F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				84AB484926281C55002F106C /* ScanCardViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		84B0721426311E3F00E3481F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84AB484B26281C55002F106C /* PreviewView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E570D066C516D95850502B2C /* Pods */ = {
@@ -586,7 +599,6 @@
 				847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */,
 				842F4858261C5C7300709423 /* DialogView.swift in Sources */,
 				847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */,
-				84FE2C4A261D4C4C0003A15F /* LogService.swift in Sources */,
 				84AB485026281C55002F106C /* CardImageView.swift in Sources */,
 				84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */,
 				84AB48A226297BB8002F106C /* DialogViewMode.swift in Sources */,

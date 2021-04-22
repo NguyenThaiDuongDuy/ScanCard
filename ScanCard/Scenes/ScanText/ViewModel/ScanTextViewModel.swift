@@ -18,15 +18,15 @@ enum Result: String {
 
 class ScanTextViewModel {
 
-    var cardModel: CardModel?
+    var cardModel: Card?
     let maxCardNumber = 19
     let minCardNumber = 16
 
-    init(cardInfo: CardModel) {
+    init(cardInfo: Card) {
         self.cardModel = cardInfo
     }
 
-    func checkValidInfo(cardModel: CardModel, completion: (Result) -> Void) {
+    func checkValidInfo(cardModel: Card, completion: (Result) -> Void) {
 
         // Check valid Name
         if !isValidCardHolder(cardHolder: cardModel.cardHolder ?? "") {

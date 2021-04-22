@@ -35,7 +35,7 @@ class ScanCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScanButton()
-        setUpNavi()
+        setUpNavigationController()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -51,7 +51,7 @@ class ScanCardViewController: UIViewController {
         livePreviewView.addGestureRecognizer(tapAction)
     }
 
-    func setUpNavi() {
+    func setUpNavigationController() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(),
                                                                for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -173,10 +173,10 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
 
     func getInfoCardAuto(infomation: [String]?) -> ScanTextViewModel {
-        let scanTextViewModel = ScanTextViewModel(cardInfo: CardModel(cardHolder: "",
-                                                                      cardNumber: "",
-                                                                      issueDate: "",
-                                                                      expiryDate: ""))
+        let scanTextViewModel = ScanTextViewModel(cardInfo: Card(cardHolder: "",
+                                                                 cardNumber: "",
+                                                                 issueDate: "",
+                                                                 expiryDate: ""))
         guard let checkInfomation = infomation else { return scanTextViewModel }
 
         for index in stride(from: checkInfomation.count - 1, to: 0, by: -1) {

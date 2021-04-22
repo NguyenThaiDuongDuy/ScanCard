@@ -9,7 +9,7 @@ import AVFoundation
 class CameraService {
 
     let presentViewController: ScanCardViewController?
-    static let nameVideoQue = "Handle receive videoFrame"
+    static let videoProcessQueue = "Handle receive videoFrame"
 
     lazy var session: AVCaptureSession = {
         let session = AVCaptureSession()
@@ -42,7 +42,7 @@ class CameraService {
         guard session.canAddOutput(videoOutput) else { return }
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.setSampleBufferDelegate(presentViewController,
-                                            queue: DispatchQueue(label: CameraService.nameVideoQue))
+                                            queue: DispatchQueue(label: CameraService.videoProcessQueue))
         session.addOutput(videoOutput)
 
         guard let connection = videoOutput.connection(with: .video), connection.isVideoMirroringSupported
