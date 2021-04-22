@@ -54,7 +54,7 @@ class ScanTextViewModel {
         completion(.success)
     }
 
-    func isValidCardNumber(cardNumber: String) -> Bool {
+    private func isValidCardNumber(cardNumber: String) -> Bool {
         let vowels: Set<Character> = [" "]
         var checkCardNumber = ""
         checkCardNumber = cardNumber
@@ -68,7 +68,7 @@ class ScanTextViewModel {
         return true
     }
 
-    func isValidCardHolder(cardHolder: String) -> Bool {
+    private func isValidCardHolder(cardHolder: String) -> Bool {
         if !cardHolder.isOnlyUpCaseAndWhiteSpaceCharacter { return false }
         let nameAfterCutWhiteSpacesAndNewlines = cardHolder.components(separatedBy: .whitespacesAndNewlines)
             .filter({ !$0.isEmpty })
@@ -76,7 +76,7 @@ class ScanTextViewModel {
         return nameAfterCutWhiteSpacesAndNewlines.contains(" ")
         }
 
-    func isValidIssueDate(checkIssueDate: String) -> Bool {
+    private func isValidIssueDate(checkIssueDate: String) -> Bool {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yy"
         let inputDate = dateFormatter.date(from: checkIssueDate)
@@ -85,11 +85,41 @@ class ScanTextViewModel {
         return checkInputDate < Date()
     }
 
-    func isValidExpiryDate(checkExpiryDate: String) -> Bool {
+    private func isValidExpiryDate(checkExpiryDate: String) -> Bool {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yy"
         let inputDate = dateFormatter.date(from: checkExpiryDate)
         guard let checkInputDate = inputDate else { return false }
         return checkInputDate > Date()
+    }
+
+    static func getInfoCardAuto(information: [String]?) -> ScanTextViewModel {
+        let scanTextViewModel = ScanTextViewModel(cardInfo: Card(cardHolder: "",
+                                                                 cardNumber: "",
+                                                                 issueDate: "",
+                                                                 expiryDate: ""))
+        guard let checkInformation = information else { return scanTextViewModel }
+
+        for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
+            if scanTextViewModel.isValidCardHolder(cardHolder: checkInformation[index]) &&
+                (((scanTextViewModel.cardInfo?.cardHolder!.isEmpty)!)) {
+                scanTextViewModel.cardInfo?.cardHolder = checkInformation[index]
+            }
+            if scanTextViewModel.isValidCardNumber(cardNumber: checkInformation[index])
+                && ((scanTextViewModel.cardInfo?.cardNumber?.isEmpty)!) {
+                scanTextViewModel.cardInfo?.cardNumber = checkInformation[index]
+            }
+
+            if scanTextViewModel.isValidIssueDate(checkIssueDate: checkInformation[index])
+                && ((scanTextViewModel.cardInfo?.issueDate?.isEmpty)!) {
+                scanTextViewModel.cardInfo?.issueDate = checkInformation[index]
+            }
+
+            if scanTextViewModel.isValidExpiryDate(checkExpiryDate: checkInformation[index])
+                && ((scanTextViewModel.cardInfo?.expiryDate?.isEmpty)!) {
+                scanTextViewModel.cardInfo?.expiryDate = checkInformation[index]
+            }
+        }
+        return scanTextViewModel
     }
 }

@@ -32,14 +32,14 @@
 		84AB48A72629897E002F106C /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB48A62629897E002F106C /* String+Ext.swift */; };
 		84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */; };
 		84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */; };
-		84AE3DFC261AEFCC0051CD0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3DFA261AEFCC0051CD0A /* Main.storyboard */; };
 		84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DFD261AEFCC0051CD0A /* ScanCard.xcdatamodeld */; };
 		84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3E00261AEFCD0051CD0A /* Assets.xcassets */; };
 		84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE3E02261AEFCD0051CD0A /* LaunchScreen.storyboard */; };
 		84AE3E0F261AEFCD0051CD0A /* ScanCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E0E261AEFCD0051CD0A /* ScanCardTests.swift */; };
 		84AE3E1A261AEFCD0051CD0A /* ScanCardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E19261AEFCD0051CD0A /* ScanCardUITests.swift */; };
-		84B0722A263188E500E3481F /* ScanTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B07229263188E500E3481F /* ScanTextViewController.xib */; };
+		84B0722A263188E500E3481F /* ScanCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B07229263188E500E3481F /* ScanCardViewController.xib */; };
 		84B0722F26318D4F00E3481F /* ScanCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0722E26318D4F00E3481F /* ScanCardViewController.swift */; };
+		B3325A612631CA4600A16254 /* ScanTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3325A602631CA4600A16254 /* ScanTextViewController.xib */; };
 		C8B8B06A1AEA731EB8E22516 /* Pods_ScanCard_ScanCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19D6A5175686ABCB0B25407A /* Pods_ScanCard_ScanCardUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,7 +91,6 @@
 		84AE3DF1261AEFCC0051CD0A /* ScanCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		84AE3DFB261AEFCC0051CD0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84AE3DFE261AEFCC0051CD0A /* ScanCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScanCard.xcdatamodel; sourceTree = "<group>"; };
 		84AE3E00261AEFCD0051CD0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84AE3E03261AEFCD0051CD0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,9 +101,10 @@
 		84AE3E15261AEFCD0051CD0A /* ScanCardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanCardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE3E19261AEFCD0051CD0A /* ScanCardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCardUITests.swift; sourceTree = "<group>"; };
 		84AE3E1B261AEFCD0051CD0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84B07229263188E500E3481F /* ScanTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTextViewController.xib; sourceTree = "<group>"; };
+		84B07229263188E500E3481F /* ScanCardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanCardViewController.xib; sourceTree = "<group>"; };
 		84B0722E26318D4F00E3481F /* ScanCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCardViewController.swift; sourceTree = "<group>"; };
 		8A2B85F592782C29E67D5548 /* Pods_ScanCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3325A602631CA4600A16254 /* ScanTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTextViewController.xib; sourceTree = "<group>"; };
 		CB7919A9F771E24EC17C6FC4 /* Pods-ScanCard-ScanCardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCard-ScanCardUITests.debug.xcconfig"; path = "Target Support Files/Pods-ScanCard-ScanCardUITests/Pods-ScanCard-ScanCardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE1CA887825CB0B4485B9FA5 /* Pods-ScanCardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCardTests.debug.xcconfig"; path = "Target Support Files/Pods-ScanCardTests/Pods-ScanCardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FFF6466A7A7817A7B80C167B /* Pods-ScanCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCard.debug.xcconfig"; path = "Target Support Files/Pods-ScanCard/Pods-ScanCard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				84AB484826281C55002F106C /* ScanTextViewController.swift */,
+				B3325A602631CA4600A16254 /* ScanTextViewController.xib */,
 				84AB489C2629624D002F106C /* ScanTextViewModel.swift */,
 				8489CE80262ED81B00195958 /* Views */,
 			);
@@ -180,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				84AB484B26281C55002F106C /* PreviewView.swift */,
-				84B07229263188E500E3481F /* ScanTextViewController.xib */,
+				84B07229263188E500E3481F /* ScanCardViewController.xib */,
 				84B0722E26318D4F00E3481F /* ScanCardViewController.swift */,
 			);
 			path = ScanCard;
@@ -276,7 +277,6 @@
 				842F484D261C574C00709423 /* Service */,
 				84AE3DF4261AEFCC0051CD0A /* AppDelegate.swift */,
 				84AE3DF6261AEFCC0051CD0A /* SceneDelegate.swift */,
-				84AE3DFA261AEFCC0051CD0A /* Main.storyboard */,
 				84AE3E00261AEFCD0051CD0A /* Assets.xcassets */,
 				84AE3E02261AEFCD0051CD0A /* LaunchScreen.storyboard */,
 				84AE3E05261AEFCD0051CD0A /* Info.plist */,
@@ -437,9 +437,9 @@
 				84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */,
 				849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
+				B3325A612631CA4600A16254 /* ScanTextViewController.xib in Resources */,
 				849071AC2625538E00E85B36 /* OptionCollectionViewCell.xib in Resources */,
-				84B0722A263188E500E3481F /* ScanTextViewController.xib in Resources */,
-				84AE3DFC261AEFCC0051CD0A /* Main.storyboard in Resources */,
+				84B0722A263188E500E3481F /* ScanCardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,14 +609,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		84AE3DFA261AEFCC0051CD0A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				84AE3DFB261AEFCC0051CD0A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		84AE3E02261AEFCD0051CD0A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

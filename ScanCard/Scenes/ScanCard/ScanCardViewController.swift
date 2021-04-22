@@ -26,7 +26,7 @@ class ScanCardViewController: UIViewController {
     }()
 
     init() {
-        super.init(nibName: String(describing: ScanTextViewController.self), bundle: nil)
+        super.init(nibName: String(describing: type(of: self)), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -68,16 +68,9 @@ class ScanCardViewController: UIViewController {
             self.getCardInformation(cropFrame: cropFrame)
             self.dismiss(animated: true) {
                 self.service.stopConnectCamera()
-//                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//                if let scanTextViewController: ScanTextViewController =
-//                    mainStoryboard.instantiateViewController(withIdentifier: "ScanTextViewController")
-//                    as? ScanTextViewController {
-//                    scanTextViewController.cardImage = UIImage(ciImage: cropFrame)
-//                    scanTextViewController.viewModel = self.getInfoCardAuto(information: self.recognizedStrings)
-//                    self.navigationController?.pushViewController(scanTextViewController,
-//                                                                  animated: true)} else { return }
-//                let scanTextView = ScanTextViewController(viewModel: self.getInfoCardAuto(information: self.recognizedStrings))
-//                self.navigationController?.pushViewController(scanTextView, animated: true)
+                let scanTextView = ScanTextViewController(cardImage: UIImage(ciImage: cropFrame),
+                                                          informationCard: self.recognizedStrings)
+                self.navigationController?.pushViewController(scanTextView, animated: true)
             }
     }
 
@@ -172,36 +165,6 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         request.minimumTextHeight = 1 / 20
         let requestTextHandler = VNImageRequestHandler(ciImage: cropFrame, options: [:])
         try? requestTextHandler.perform([request])
-    }
-
-    func getInfoCardAuto(information: [String]?) -> ScanTextViewModel {
-        let scanTextViewModel = ScanTextViewModel(cardInfo: Card(cardHolder: "",
-                                                                 cardNumber: "",
-                                                                 issueDate: "",
-                                                                 expiryDate: ""))
-        guard let checkInformation = information else { return scanTextViewModel }
-
-        for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
-            if scanTextViewModel.isValidCardHolder(cardHolder: checkInformation[index]) &&
-                (((scanTextViewModel.cardInfo?.cardHolder!.isEmpty)!)) {
-                scanTextViewModel.cardInfo?.cardHolder = checkInformation[index]
-            }
-            if scanTextViewModel.isValidCardNumber(cardNumber: checkInformation[index])
-                && ((scanTextViewModel.cardInfo?.cardNumber?.isEmpty)!) {
-                scanTextViewModel.cardInfo?.cardNumber = checkInformation[index]
-            }
-
-            if scanTextViewModel.isValidIssueDate(checkIssueDate: checkInformation[index])
-                && ((scanTextViewModel.cardInfo?.issueDate?.isEmpty)!) {
-                scanTextViewModel.cardInfo?.issueDate = checkInformation[index]
-            }
-
-            if scanTextViewModel.isValidExpiryDate(checkExpiryDate: checkInformation[index])
-                && ((scanTextViewModel.cardInfo?.expiryDate?.isEmpty)!) {
-                scanTextViewModel.cardInfo?.expiryDate = checkInformation[index]
-            }
-        }
-        return scanTextViewModel
     }
 
     func captureOutput(_ output: AVCaptureOutput,

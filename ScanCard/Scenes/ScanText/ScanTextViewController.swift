@@ -9,10 +9,20 @@ import UIKit
 
 class ScanTextViewController: UIViewController {
 
+    init(cardImage: UIImage?, informationCard: [String]?) {
+        self.cardImage = cardImage
+        self.viewModel = ScanTextViewModel.getInfoCardAuto(information: informationCard)
+        super.init(nibName: String(describing: type(of: self)), bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     static let cellID = "LargeCollectionViewCell"
     @IBOutlet weak var scanCollectionView: ScanTextCollectionView!
     var cardImage: UIImage?
-    var viewModel: ScanTextViewModel?
+    private var viewModel: ScanTextViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +94,8 @@ class ScanTextViewController: UIViewController {
 extension ScanTextViewController: LargeCellDelegate {
 
     func getCardInfo(cardInfo: Card?) {
-        guard let cardModel = cardInfo else { return }
-        viewModel?.checkValidInfo(cardInfo: cardModel) { (result) in
+        guard let cardInfo = cardInfo else { return }
+        viewModel?.checkValidInfo(cardInfo: cardInfo) { (result) in
             DispatchQueue.main.async {
                 let diaLog = DialogView(frame: self.view.bounds)
                 var message: String
