@@ -15,49 +15,52 @@ protocol CardViewDelegate: AnyObject {
 
 class CardImageView: UIImageView {
 
-    weak var cardViewDelegate: CardViewDelegate?
-    var type: String?
+    weak var delegate: CardViewDelegate?
+    var modeScan: String? {
+        didSet {
+            let attributes = [
+                NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ,
+                NSAttributedString.Key.foregroundColor: UIColor.cyan
+            ]
+            let myAttributedString = NSAttributedString(string: modeScan ?? "", attributes: attributes )
+            titleOfScanArea.string = myAttributedString
+        }
+    }
 
-    lazy var textLayer: CATextLayer = {
-        let textLayer = CATextLayer()
-        textLayer.contentsScale = UIScreen.main.scale
-        return textLayer
+    lazy var titleOfScanArea: CATextLayer = {
+        let titleOfScanArea = CATextLayer()
+        titleOfScanArea.contentsScale = UIScreen.main.scale
+        return titleOfScanArea
     }()
 
-    lazy var shapeLayer: CAShapeLayer = {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.borderColor = UIColor.white.cgColor
-        shapeLayer.borderWidth = 2.0
-        shapeLayer.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        return shapeLayer
+    lazy var scanArea: CAShapeLayer = {
+        let scanArea = CAShapeLayer()
+        scanArea.borderColor = UIColor.white.cgColor
+        scanArea.borderWidth = 2.0
+        scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        return scanArea
     }()
 
     var firstPoint: CGPoint = CGPoint.zero
     var endPoint: CGPoint = CGPoint.zero
     var boundingRect: CGRect?
 
-    func setTextForScanLayer(option: String) {
-        self.type = option
-        let myAttributes = [
-            NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ,
-            NSAttributedString.Key.foregroundColor: UIColor.cyan
-        ]
-        let myAttributedString = NSAttributedString(string: option, attributes: myAttributes )
-        textLayer.string = myAttributedString
+    func setMode(modeScan: String) {
+        self.modeScan = modeScan
     }
 
     private func drawScanRect(rect: CGRect) {
 
-        self.shapeLayer.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
-        self.shapeLayer.borderColor = UIColor.white.cgColor
-        self.shapeLayer.borderWidth = 2.0
-        self.shapeLayer.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        self.scanArea.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
+        self.scanArea.borderColor = UIColor.white.cgColor
+        self.scanArea.borderWidth = 2.0
+        self.scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
 
-        let tmpFrame = CGRect(x: rect.minX, y: rect.minY - 20, width: 200, height: 100)
-        textLayer.frame = tmpFrame
+        let titleFrame = CGRect(x: rect.minX, y: rect.minY - 20, width: 200, height: 100)
+        titleOfScanArea.frame = titleFrame
 
-        self.shapeLayer.addSublayer(textLayer)
-        self.layer.addSublayer(self.shapeLayer)
+        self.scanArea.addSublayer(titleOfScanArea)
+        self.layer.addSublayer(self.scanArea)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -80,8 +83,8 @@ class CardImageView: UIImageView {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.layer.sublayers?.removeAll()
-        let mImage = self.snapshot(of: self.boundingRect)
-        guard let cgImage = mImage?.cgImage else { return }
+        let snapshotImage = self.snapshot(of: self.boundingRect)
+        guard let cgImage = snapshotImage?.cgImage else { return }
         self.getCardInformation(cgImage: cgImage)
     }
 
@@ -96,7 +99,7 @@ class CardImageView: UIImageView {
                 // Return the string of the top VNRecognizedText instance.
                 return observation.topCandidates(1).first?.string
             }
-            self.cardViewDelegate?.getResultStrings(results: recognizedStrings, type: self.type ?? "")
+            self.delegate?.getResultStrings(results: recognizedStrings, type: self.modeScan ?? "")
         }
         request.recognitionLevel = .accurate
         let requestTextHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .up, options: [:])

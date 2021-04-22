@@ -8,48 +8,48 @@
 import UIKit
 
 protocol LargeCellDelegate: AnyObject {
-    func getCardInfo(cardModel: Card?)
+    func getCardInfo(cardInfo: Card?)
 }
 
 class LargeCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var cardImageView: CardImageView!
-    @IBOutlet weak var optionsScanCollectionView: UICollectionView!
-    @IBOutlet weak var cardHolderTextField: UITextField!
-    @IBOutlet weak var cardNumberTextField: UITextField!
-    @IBOutlet weak var issueDateTextField: UITextField!
-    @IBOutlet weak var expiryDateTextField: UITextField!
-    @IBOutlet weak var cardHolderLabel: UILabel!
-    @IBOutlet weak var cardNumberLabel: UILabel!
-    @IBOutlet weak var issueDateLabel: UILabel!
-    @IBOutlet weak var expiryDateLabel: UILabel!
-    @IBOutlet weak var shadowView: ShadowView!
-    @IBOutlet weak var confirmButton: BlueStyleButton!
-    @IBOutlet weak var stackView: UIStackView!
-    weak var delegate: LargeCellDelegate?
-    var cardImage: UIImage?
-    let options: [String] = ["Card Holder",
+    static let cellID = "OptionCollectionViewCell"
+    let scanModes: [String] = ["Card Holder",
                             "Card Number",
                             "Issue Date",
                             "Expiry Date"
                             ]
-    static let cellID = "OptionCollectionViewCell"
+    @IBOutlet weak var cardView: CardImageView!
+    @IBOutlet weak var optionsScanView: UICollectionView!
+    @IBOutlet weak var cardHolderInput: UITextField!
+    @IBOutlet weak var cardNumberInput: UITextField!
+    @IBOutlet weak var issueDateInput: UITextField!
+    @IBOutlet weak var expiryDateInput: UITextField!
+    @IBOutlet weak var cardHolderTitle: UILabel!
+    @IBOutlet weak var cardNumberTitle: UILabel!
+    @IBOutlet weak var issueDateTitle: UILabel!
+    @IBOutlet weak var expiryDateTitle: UILabel!
+    @IBOutlet weak var shadowOfInformationView: ShadowView!
+    @IBOutlet weak var confirmButton: BlueStyleButton!
+    @IBOutlet weak var informationView: UIStackView!
+    weak var delegate: LargeCellDelegate?
+    var cardImage: UIImage?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpCardImageView()
+        setUpCardView()
         setUpOptionsScanCollectionView()
         setDefaultSelectedCell()
         setUpConfirmButton()
-        setUpTitleLabel()
+        setUpTitleInfoView()
     }
 
-    func setUpTitleLabel() {
-        for stackView in stackView.subviews {
+    func setUpTitleInfoView() {
+        for stackView in informationView.subviews {
             for view in stackView.subviews {
                 if view.isKind(of: UILabel.self) {
                     guard let label = view as? UILabel else { return }
-                    label.text = options[label.tag]
+                    label.text = scanModes[label.tag]
                 }
             }
         }
@@ -60,9 +60,9 @@ class LargeCollectionViewCell: UICollectionViewCell {
     }
 
     private func setDefaultSelectedCell() {
-        let indexPath = IndexPath(item: 0, section: 0)
-        self.optionsScanCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
-        cardImageView.setTextForScanLayer(option: options[indexPath.item])
+        let defaultIndexPath = IndexPath(item: 0, section: 0)
+        optionsScanView.selectItem(at: defaultIndexPath, animated: false, scrollPosition: .top)
+        cardView.setMode(modeScan: scanModes[defaultIndexPath.item])
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -70,80 +70,85 @@ class LargeCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpShadowView() {
-        shadowView.cornerRadius = 15.0
+        shadowOfInformationView.cornerRadius = 15.0
     }
 
-    private func setUpCardImageView() {
-        cardImageView.isUserInteractionEnabled = true
-        cardImageView.cardViewDelegate = self
-        cardImageView.image = cardImage
-        cardImageView.contentMode = .scaleAspectFit
+    private func setUpCardView() {
+        cardView.isUserInteractionEnabled = true
+        cardView.delegate = self
+        cardView.image = cardImage
+        cardView.contentMode = .scaleAspectFit
     }
 
     private func setUpOptionsScanCollectionView() {
         let nib = UINib(nibName: LargeCollectionViewCell.cellID, bundle: .main)
-        optionsScanCollectionView.register(nib, forCellWithReuseIdentifier: LargeCollectionViewCell.cellID)
-        optionsScanCollectionView.delegate = self
-        optionsScanCollectionView.dataSource = self
-        optionsScanCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        optionsScanCollectionView.showsHorizontalScrollIndicator = false
-        guard let layout = optionsScanCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        optionsScanView.register(nib, forCellWithReuseIdentifier: LargeCollectionViewCell.cellID)
+        optionsScanView.delegate = self
+        optionsScanView.dataSource = self
+        optionsScanView.translatesAutoresizingMaskIntoConstraints = false
+        optionsScanView.showsHorizontalScrollIndicator = false
+        guard let layout = optionsScanView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 
     @IBAction func tapConfirmButton(_ sender: Any) {
-        self.delegate?.getCardInfo(cardModel: Card(cardHolder: cardHolderTextField.text,
-                                                   cardNumber: cardNumberTextField.text,
-                                                   issueDate: issueDateTextField.text,
-                                                   expiryDate: expiryDateTextField.text))
+        delegate?.getCardInfo(cardInfo: Card(cardHolder: cardHolderInput.text,
+                                             cardNumber: cardNumberInput.text,
+                                             issueDate: issueDateInput.text,
+                                             expiryDate: expiryDateInput.text))
     }
 }
 
-extension LargeCollectionViewCell: CardViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+extension LargeCollectionViewCell: CardViewDelegate {
+
     func getResultStrings(results: [String]?, type: String) {
         guard let resultStrings = results, !resultStrings.isEmpty else { return }
         let result = resultStrings.first
-        switch type {
-        case "Card Holder":
-            self.cardHolderTextField.text = result
-        case "Card Number":
-            self.cardNumberTextField.text = result
-        case "Issue Date":
-            self.issueDateTextField.text = result
-        case "Expiry Date":
-            self.expiryDateTextField.text = result
-
-        default:
-            print("error")
-        }
-    }
-
-    func setInformationToTextFiled(scanTextViewModel: ScanTextViewModel?) {
-        guard let info = scanTextViewModel else { return }
         DispatchQueue.main.async {
-            self.cardHolderTextField.text = info.cardModel?.cardHolder
-            self.cardNumberTextField.text = info.cardModel?.cardNumber
-            self.issueDateTextField.text = info.cardModel?.issueDate
-            self.expiryDateTextField.text = info.cardModel?.expiryDate
+            switch type {
+            case "Card Holder":
+                self.cardHolderInput.text = result
+            case "Card Number":
+                self.cardNumberInput.text = result
+            case "Issue Date":
+                self.issueDateInput.text = result
+            case "Expiry Date":
+                self.expiryDateInput.text = result
+
+            default:
+                print("error")
+            }
         }
     }
+
+    func setInformationToTextFiled(viewModel: ScanTextViewModel?) {
+        guard let info = viewModel else { return }
+        DispatchQueue.main.async {
+            self.cardHolderInput.text = info.cardInfo?.cardHolder
+            self.cardNumberInput.text = info.cardInfo?.cardNumber
+            self.issueDateInput.text = info.cardInfo?.issueDate
+            self.expiryDateInput.text = info.cardInfo?.expiryDate
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cardView.setMode(modeScan: scanModes[indexPath.item])
+    }
+}
+
+extension LargeCollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        options.count
+        scanModes.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeCollectionViewCell.cellID,
                                                             for: indexPath)
-                as? OptionCollectionViewCell else { return UICollectionViewCell() }
+                as? ModeScanCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.optionLabel.text = options[indexPath.item]
+        cell.modeName.text = scanModes[indexPath.item]
         return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let type = options[indexPath.item]
-        cardImageView.setTextForScanLayer(option: type)
     }
 }

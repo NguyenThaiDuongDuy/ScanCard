@@ -31,15 +31,15 @@ class PreviewView: UIView {
         scanArea.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
         scanArea.opacity = 0.5
 
-        let myLayer = CALayer()
-        let myImage = UIImage(named: "backward")?.cgImage
-        myLayer.frame = CGRect(x: self.bounds.width / 2 - 140,
-                               y: self.bounds.height / 2 - 12,
-                               width: 24,
-                               height: 24)
-        myLayer.contents = myImage
-        scanArea.addSublayer(myLayer)
-       return scanArea
+        let layer = CALayer()
+        let arrowImage = UIImage(named: "backward")?.cgImage
+        layer.frame = CGRect(x: self.bounds.width / 2 - 140,
+                             y: self.bounds.height / 2 - 12,
+                             width: 24,
+                             height: 24)
+        layer.contents = arrowImage
+        scanArea.addSublayer(layer)
+        return scanArea
     }()
 
     override func layoutSubviews() {

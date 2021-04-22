@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h1b-k3-ulN">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,14 +13,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ScanCardViewController" customModule="ScanCard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6d-tT-Z4D" customClass="ShadowView" customModule="ScanCard" customModuleProvider="target">
-                                <rect key="frame" x="15" y="59" width="570" height="471"/>
+                                <rect key="frame" x="15" y="59" width="384" height="733"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4et-pf-81p" customClass="PreviewView" customModule="ScanCard" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="570" height="471"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="733"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
@@ -32,14 +33,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOH-N2-cHe" customClass="BlueStyleButton" customModule="ScanCard" customModuleProvider="target">
-                                <rect key="frame" x="15" y="545" width="570" height="40"/>
+                                <rect key="frame" x="15" y="807" width="384" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fYI-fJ-eZ2"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="tapScanButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H3q-Kq-HIs"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -55,11 +53,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lSy-Jc-GXl"/>
-                    <connections>
-                        <outlet property="livePreviewView" destination="4et-pf-81p" id="bml-kc-ros"/>
-                        <outlet property="scanButton" destination="bOH-N2-cHe" id="sGF-nO-tue"/>
-                        <outlet property="shadowView" destination="4et-pf-81p" id="Ovd-AK-nkx"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -69,12 +62,12 @@
         <scene sceneID="QS4-8T-pnX">
             <objects>
                 <viewController storyboardIdentifier="ScanTextViewController" id="cUM-mF-837" customClass="ScanTextViewController" customModule="ScanCard" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="el1-ez-hWu">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ScanTextViewController" id="el1-ez-hWu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wLm-5A-qL7" customClass="ScanTextCollectionView" customModule="ScanCard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vRa-zc-g3o">
                                     <size key="itemSize" width="128" height="128"/>
@@ -112,9 +105,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Cw9-h7-sAN"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3bQ-wo-hd1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

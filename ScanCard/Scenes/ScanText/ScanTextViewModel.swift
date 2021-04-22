@@ -18,36 +18,36 @@ enum Result: String {
 
 class ScanTextViewModel {
 
-    var cardModel: Card?
+    var cardInfo: Card?
     let maxCardNumber = 19
     let minCardNumber = 16
 
     init(cardInfo: Card) {
-        self.cardModel = cardInfo
+        self.cardInfo = cardInfo
     }
 
-    func checkValidInfo(cardModel: Card, completion: (Result) -> Void) {
+    func checkValidInfo(cardInfo: Card, completion: (Result) -> Void) {
 
         // Check valid Name
-        if !isValidCardHolder(cardHolder: cardModel.cardHolder ?? "") {
+        if !isValidCardHolder(cardHolder: cardInfo.cardHolder ?? "") {
             completion(.invalidCardHolder)
             return
         }
 
         // Check valid bank number
-        if !isValidCardNumber(cardNumber: cardModel.cardNumber ?? "") {
+        if !isValidCardNumber(cardNumber: cardInfo.cardNumber ?? "") {
             completion(.invalidCardNumber)
             return
         }
 
         // check valid created date
-        if !isValidIssueDate(checkIssueDate: cardModel.issueDate ?? "") {
+        if !isValidIssueDate(checkIssueDate: cardInfo.issueDate ?? "") {
             completion(.invalidIssueDate)
             return
         }
 
         // check valid validate date
-        if !isValidExpiryDate(checkExpiryDate: cardModel.expiryDate ?? "") {
+        if !isValidExpiryDate(checkExpiryDate: cardInfo.expiryDate ?? "") {
             completion(.invalidExpiryDate)
             return
         }
@@ -56,13 +56,13 @@ class ScanTextViewModel {
 
     func isValidCardNumber(cardNumber: String) -> Bool {
         let vowels: Set<Character> = [" "]
-        var tmpString = ""
-        tmpString = cardNumber
-        tmpString.removeAll(where: { vowels.contains($0) })
+        var checkCardNumber = ""
+        checkCardNumber = cardNumber
+        checkCardNumber.removeAll(where: { vowels.contains($0) })
 
-        if !tmpString.isNumeric { return false }
+        if !checkCardNumber.isNumeric { return false }
 
-        if tmpString.count<minCardNumber || tmpString.count>maxCardNumber {
+        if checkCardNumber.count<minCardNumber || checkCardNumber.count>maxCardNumber {
             return false
         }
         return true

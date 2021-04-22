@@ -10,17 +10,17 @@ import UIKit
 
 class DialogView: UIView {
     @IBOutlet var contentView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var message: UILabel!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
 
     var dialogInfoViewModel: DialogViewModel? {
         didSet {
-            self.titleLabel.text = dialogInfoViewModel?.dialogInfoModel?.title
-            self.messageLabel.text = dialogInfoViewModel?.dialogInfoModel?.message
-            self.cancelButton.setTitle(dialogInfoViewModel?.dialogInfoModel?.cancelButtonTitle, for: .normal)
-            self.okButton.setTitle(dialogInfoViewModel?.dialogInfoModel?.okButtonTitle, for: .normal)
+            self.title.text = dialogInfoViewModel?.dialogInfo?.title
+            self.message.text = dialogInfoViewModel?.dialogInfo?.message
+            self.cancelButton.setTitle(dialogInfoViewModel?.dialogInfo?.cancelButtonTitle, for: .normal)
+            self.okButton.setTitle(dialogInfoViewModel?.dialogInfo?.okButtonTitle, for: .normal)
         }
     }
 
@@ -34,7 +34,7 @@ class DialogView: UIView {
         commonInit()
     }
 
-    func commonInit() {
+    private func commonInit() {
         Bundle.main.loadNibNamed("DialogView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = self.frame

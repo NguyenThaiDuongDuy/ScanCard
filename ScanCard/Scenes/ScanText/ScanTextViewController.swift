@@ -9,10 +9,10 @@ import UIKit
 
 class ScanTextViewController: UIViewController {
 
+    static let cellID = "LargeCollectionViewCell"
     @IBOutlet weak var scanCollectionView: ScanTextCollectionView!
     var cardImage: UIImage?
-    static let cellID = "LargeCollectionViewCell"
-    var scanTextViewModel: ScanTextViewModel?
+    var viewModel: ScanTextViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,10 @@ class ScanTextViewController: UIViewController {
     }
 
     private func configHiddenKeyboard() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        let tapToHideKeyboard = UITapGestureRecognizer(target: self,
+                                                       action: #selector(UIInputViewController.dismissKeyboard))
+        tapToHideKeyboard.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapToHideKeyboard)
     }
 
     private func setUpScanCollectionView () {
@@ -41,10 +42,12 @@ class ScanTextViewController: UIViewController {
     private func registerEventKeyBoard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,19 +77,15 @@ class ScanTextViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        scanTextViewModel = nil
+        viewModel = nil
     }
 }
 
-extension ScanTextViewController: UICollectionViewDelegate,
-                                  UICollectionViewDataSource,
-                                  UICollectionViewDelegateFlowLayout,
-                                  LargeCellDelegate {
-    func getCardInfo(cardModel: Card?) {
-        guard let cardModel = cardModel else {
-            return
-        }
-        scanTextViewModel?.checkValidInfo(cardModel: cardModel) { (result) in
+extension ScanTextViewController: LargeCellDelegate {
+
+    func getCardInfo(cardInfo: Card?) {
+        guard let cardModel = cardInfo else { return }
+        viewModel?.checkValidInfo(cardInfo: cardModel) { (result) in
             DispatchQueue.main.async {
                 let diaLog = DialogView(frame: self.view.bounds)
                 var message: String
@@ -94,31 +93,34 @@ extension ScanTextViewController: UICollectionViewDelegate,
                 let titleOfOkButton = "Ok"
                 let titleOfCancelButton = "Cancel"
                 switch result {
-                case .invalidCardHolder :
+                case .invalidCardHolder:
                     message = Result.invalidCardHolder.rawValue
 
-                case .invalidCardNumber :
+                case .invalidCardNumber:
                     message = Result.invalidCardNumber.rawValue
 
-                case .invalidIssueDate :
+                case .invalidIssueDate:
                     message = Result.invalidIssueDate.rawValue
 
-                case .invalidExpiryDate :
+                case .invalidExpiryDate:
                     message = Result.invalidExpiryDate.rawValue
 
-                default :
+                default:
                     title = "Success"
                     message = Result.success.rawValue
                 }
-                diaLog.dialogInfoViewModel = DialogViewModel(dialogInfoModel:
+                diaLog.dialogInfoViewModel = DialogViewModel(dialogInfo:
                                                                 Dialog(title: title,
                                                                        message: message,
                                                                        okButtonTitle: titleOfOkButton,
                                                                        cancelButtonTitle: titleOfCancelButton))
-                    self.view.addSubview(diaLog)
+                self.view.addSubview(diaLog)
             }
         }
     }
+}
+
+extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          1
@@ -131,11 +133,13 @@ extension ScanTextViewController: UICollectionViewDelegate,
                 as? LargeCollectionViewCell
         else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.cardImageView.image = self.cardImage
-        cell.setInformationToTextFiled(scanTextViewModel: scanTextViewModel)
+        cell.cardView.image = self.cardImage
+        cell.setInformationToTextFiled(viewModel: viewModel)
         return cell
     }
+}
 
+extension ScanTextViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -148,19 +147,19 @@
             </constraints>
             <size key="customSize" width="526" height="786"/>
             <connections>
-                <outlet property="cardHolderLabel" destination="Wn9-4w-Gcy" id="LRb-pp-QPC"/>
-                <outlet property="cardHolderTextField" destination="dMG-ZJ-In8" id="fMZ-2X-n08"/>
-                <outlet property="cardImageView" destination="rwW-2C-vDc" id="8ON-BQ-bNo"/>
-                <outlet property="cardNumberLabel" destination="MVK-lC-Uin" id="bQy-ze-25n"/>
-                <outlet property="cardNumberTextField" destination="Zly-Qe-1cD" id="gCk-yx-o8Z"/>
+                <outlet property="cardHolderInput" destination="dMG-ZJ-In8" id="fMZ-2X-n08"/>
+                <outlet property="cardHolderTitle" destination="Wn9-4w-Gcy" id="LRb-pp-QPC"/>
+                <outlet property="cardNumberInput" destination="Zly-Qe-1cD" id="gCk-yx-o8Z"/>
+                <outlet property="cardNumberTitle" destination="MVK-lC-Uin" id="bQy-ze-25n"/>
+                <outlet property="cardView" destination="rwW-2C-vDc" id="8ON-BQ-bNo"/>
                 <outlet property="confirmButton" destination="DGF-Ye-Jvq" id="tFh-aa-iOy"/>
-                <outlet property="expiryDateLabel" destination="7Kt-WP-JqY" id="5oc-Po-boA"/>
-                <outlet property="expiryDateTextField" destination="OOb-Cu-HTk" id="Va2-9h-Joo"/>
-                <outlet property="issueDateLabel" destination="Rue-np-OPl" id="GBP-Wm-VRz"/>
-                <outlet property="issueDateTextField" destination="SXH-7B-220" id="jWy-Xl-O6r"/>
-                <outlet property="optionsScanCollectionView" destination="JrM-Vv-XYB" id="Nfd-WU-ww7"/>
-                <outlet property="shadowView" destination="72X-Du-yqc" id="8Ka-RD-KqC"/>
-                <outlet property="stackView" destination="NRz-7W-3z4" id="10R-CC-7mP"/>
+                <outlet property="expiryDateInput" destination="OOb-Cu-HTk" id="Va2-9h-Joo"/>
+                <outlet property="expiryDateTitle" destination="7Kt-WP-JqY" id="5oc-Po-boA"/>
+                <outlet property="informationView" destination="NRz-7W-3z4" id="10R-CC-7mP"/>
+                <outlet property="issueDateInput" destination="SXH-7B-220" id="jWy-Xl-O6r"/>
+                <outlet property="issueDateTitle" destination="Rue-np-OPl" id="GBP-Wm-VRz"/>
+                <outlet property="optionsScanView" destination="JrM-Vv-XYB" id="Nfd-WU-ww7"/>
+                <outlet property="shadowOfInformationView" destination="72X-Du-yqc" id="8Ka-RD-KqC"/>
             </connections>
             <point key="canvasLocation" x="114.49275362318842" y="145.98214285714286"/>
         </collectionViewCell>

@@ -6,9 +6,10 @@
 //
 
 import AVFoundation
+import UIKit
 class CameraService {
 
-    let presentViewController: ScanCardViewController?
+    let presentViewController: ScanCardViewController
     static let videoProcessQueue = "Handle receive videoFrame"
 
     lazy var session: AVCaptureSession = {
