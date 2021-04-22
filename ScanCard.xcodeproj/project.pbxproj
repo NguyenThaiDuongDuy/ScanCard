@@ -167,8 +167,8 @@
 		8489CE71262ED64500195958 /* ScanText */ = {
 			isa = PBXGroup;
 			children = (
-				84B0721226311E1400E3481F /* Controller */,
-				8489CE8A262ED8D700195958 /* ViewModel */,
+				84AB484826281C55002F106C /* ScanTextViewController.swift */,
+				84AB489C2629624D002F106C /* ScanTextViewModel.swift */,
 				8489CE80262ED81B00195958 /* Views */,
 			);
 			path = ScanText;
@@ -177,8 +177,8 @@
 		8489CE72262ED66400195958 /* ScanCard */ = {
 			isa = PBXGroup;
 			children = (
-				84B0721326311E3000E3481F /* Controller */,
-				84B0721426311E3F00E3481F /* Views */,
+				84AB484926281C55002F106C /* ScanCardViewController.swift */,
+				84AB484B26281C55002F106C /* PreviewView.swift */,
 			);
 			path = ScanCard;
 			sourceTree = "<group>";
@@ -194,14 +194,6 @@
 				84AB488826292B21002F106C /* ScanTextCollectionView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		8489CE8A262ED8D700195958 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				84AB489C2629624D002F106C /* ScanTextViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		8489CE8B262EDA7400195958 /* View */ = {
@@ -306,30 +298,6 @@
 				84AE3E1B261AEFCD0051CD0A /* Info.plist */,
 			);
 			path = ScanCardUITests;
-			sourceTree = "<group>";
-		};
-		84B0721226311E1400E3481F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				84AB484826281C55002F106C /* ScanTextViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		84B0721326311E3000E3481F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				84AB484926281C55002F106C /* ScanCardViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		84B0721426311E3F00E3481F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				84AB484B26281C55002F106C /* PreviewView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		E570D066C516D95850502B2C /* Pods */ = {
