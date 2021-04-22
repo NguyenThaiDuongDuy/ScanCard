@@ -14,7 +14,7 @@ class ScanCardViewController: UIViewController {
     static let minimumAspectRatioCard = VNAspectRatio(1.3)
     static let maximumAspectRatioCard = VNAspectRatio(1.6)
     static let maximum1TimeCardDetect = 1
-    static let minimunSizeDetectCard = Float(0.5)
+    static let minimumSizeDetectCard = Float(0.5)
 
     @IBOutlet weak var livePreviewView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
@@ -65,7 +65,7 @@ class ScanCardViewController: UIViewController {
                   let mSampleBuffer = self.sampleBuffer else { return }
             guard let imageBuffer = mSampleBuffer.imageBuffer else { return }
             let result = self.extractPerspectiveRect(mVNRectangleObservation, from: imageBuffer)
-            self.getCardInformation(ciimage: result)
+            self.getCardInformation(ciImage: result)
             self.dismiss(animated: true) {
                 self.cameraService.stopConnectCamera()
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -73,7 +73,7 @@ class ScanCardViewController: UIViewController {
                     mainStoryboard.instantiateViewController(withIdentifier: "ScanTextViewController")
                     as? ScanTextViewController {
                     scanTextViewController.cardImage = UIImage(ciImage: result)
-                    scanTextViewController.scanTextViewModel = self.getInfoCardAuto(infomation: self.recognizedStrings)
+                    scanTextViewController.scanTextViewModel = self.getInfoCardAuto(information: self.recognizedStrings)
                     self.navigationController?.pushViewController(scanTextViewController,
                                                                   animated: true)} else { return }
             }
@@ -113,7 +113,7 @@ class ScanCardViewController: UIViewController {
             print("User restricted")
             return
         @unknown default:
-            print("Something cameup")
+            print("Something came up")
         }
     }
 }
@@ -144,7 +144,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let request = VNDetectRectanglesRequest(completionHandler: detectRectanglesCompletionHandler)
         request.minimumAspectRatio = ScanCardViewController.minimumAspectRatioCard
         request.maximumAspectRatio = ScanCardViewController.maximumAspectRatioCard
-        request.minimumSize = ScanCardViewController.minimunSizeDetectCard
+        request.minimumSize = ScanCardViewController.minimumSizeDetectCard
         request.maximumObservations = ScanCardViewController.maximum1TimeCardDetect
 
         let requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
@@ -152,7 +152,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         try? requestHandler.perform([request])
     }
 
-    func getCardInformation(ciimage: CIImage) {
+    func getCardInformation(ciImage: CIImage) {
         let request = VNRecognizeTextRequest { (request, _) in
             guard let observations =
                     request.results as? [VNRecognizedTextObservation] else {
@@ -168,35 +168,35 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         request.recognitionLevel = .accurate
         request.minimumTextHeight = 1 / 20
-        let requestTextHandler = VNImageRequestHandler(ciImage: ciimage, options: [:])
+        let requestTextHandler = VNImageRequestHandler(ciImage: ciImage, options: [:])
         try? requestTextHandler.perform([request])
     }
 
-    func getInfoCardAuto(infomation: [String]?) -> ScanTextViewModel {
+    func getInfoCardAuto(information: [String]?) -> ScanTextViewModel {
         let scanTextViewModel = ScanTextViewModel(cardInfo: Card(cardHolder: "",
                                                                  cardNumber: "",
                                                                  issueDate: "",
                                                                  expiryDate: ""))
-        guard let checkInfomation = infomation else { return scanTextViewModel }
+        guard let checkInformation = information else { return scanTextViewModel }
 
-        for index in stride(from: checkInfomation.count - 1, to: 0, by: -1) {
-            if scanTextViewModel.isValidCardHolder(cardHolder: checkInfomation[index]) &&
+        for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
+            if scanTextViewModel.isValidCardHolder(cardHolder: checkInformation[index]) &&
                 (((scanTextViewModel.cardModel?.cardHolder!.isEmpty)!)) {
-                scanTextViewModel.cardModel?.cardHolder = checkInfomation[index]
+                scanTextViewModel.cardModel?.cardHolder = checkInformation[index]
             }
-            if scanTextViewModel.isValidCardNumber(cardNumber: checkInfomation[index])
+            if scanTextViewModel.isValidCardNumber(cardNumber: checkInformation[index])
                 && ((scanTextViewModel.cardModel?.cardNumber?.isEmpty)!) {
-                scanTextViewModel.cardModel?.cardNumber = checkInfomation[index]
+                scanTextViewModel.cardModel?.cardNumber = checkInformation[index]
             }
 
-            if scanTextViewModel.isValidIssueDate(checkIssueDate: checkInfomation[index])
+            if scanTextViewModel.isValidIssueDate(checkIssueDate: checkInformation[index])
                 && ((scanTextViewModel.cardModel?.issueDate?.isEmpty)!) {
-                scanTextViewModel.cardModel?.issueDate = checkInfomation[index]
+                scanTextViewModel.cardModel?.issueDate = checkInformation[index]
             }
 
-            if scanTextViewModel.isValidExpiryDate(checkExpiryDate: checkInfomation[index])
+            if scanTextViewModel.isValidExpiryDate(checkExpiryDate: checkInformation[index])
                 && ((scanTextViewModel.cardModel?.expiryDate?.isEmpty)!) {
-                scanTextViewModel.cardModel?.expiryDate = checkInfomation[index]
+                scanTextViewModel.cardModel?.expiryDate = checkInformation[index]
             }
         }
         return scanTextViewModel

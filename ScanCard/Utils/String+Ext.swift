@@ -12,8 +12,8 @@ extension String {
     }
 
     var isOnlyUpCaseAndWhiteSpaceCharacter: Bool {
-        let characterset = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ ")
-        if self.rangeOfCharacter(from: characterset.inverted) != nil {
+        let characterSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ ")
+        if self.rangeOfCharacter(from: characterSet.inverted) != nil {
             return false
         } else {
             return true

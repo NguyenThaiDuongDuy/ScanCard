@@ -13,19 +13,20 @@ class PreviewView: UIView {
 
     lazy var scanAreaShapeLayer: CAShapeLayer = {
         let scanArea = CAShapeLayer()
-        let largeRectpath = UIBezierPath(roundedRect: CGRect(x: self.bounds.origin.x,
-                                                             y: self.bounds.origin.y,
-                                                             width: self.bounds.width,
-                                                             height: self.bounds.height), cornerRadius: 0)
+        let largeRectanglePath = UIBezierPath(roundedRect: CGRect(x: self.bounds.origin.x,
+                                                                  y: self.bounds.origin.y,
+                                                                  width: self.bounds.width,
+                                                                  height: self.bounds.height),
+                                              cornerRadius: 0)
 
-        let smallRectpath = UIBezierPath(roundedRect: CGRect(x: self.bounds.width / 2 - 150,
-                                                             y: self.bounds.height / 2 - 100,
-                                                             width: 300,
-                                                             height: 200),
-                                                             cornerRadius: 20)
-        largeRectpath.append(smallRectpath)
-        largeRectpath.usesEvenOddFillRule = true
-        scanArea.path = largeRectpath.cgPath
+        let smallRectanglePath = UIBezierPath(roundedRect: CGRect(x: self.bounds.width / 2 - 150,
+                                                                  y: self.bounds.height / 2 - 100,
+                                                                  width: 300,
+                                                                  height: 200),
+                                              cornerRadius: 20)
+        largeRectanglePath.append(smallRectanglePath)
+        largeRectanglePath.usesEvenOddFillRule = true
+        scanArea.path = largeRectanglePath.cgPath
         scanArea.fillRule = .evenOdd
         scanArea.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
         scanArea.opacity = 0.5

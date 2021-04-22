@@ -70,10 +70,10 @@ class ScanTextViewModel {
 
     func isValidCardHolder(cardHolder: String) -> Bool {
         if !cardHolder.isOnlyUpCaseAndWhiteSpaceCharacter { return false }
-        let nameAfterCutwhiteSpacesAndNewlines = cardHolder.components(separatedBy: .whitespacesAndNewlines)
+        let nameAfterCutWhiteSpacesAndNewlines = cardHolder.components(separatedBy: .whitespacesAndNewlines)
             .filter({ !$0.isEmpty })
             .joined(separator: " ")
-        return nameAfterCutwhiteSpacesAndNewlines.contains(" ")
+        return nameAfterCutWhiteSpacesAndNewlines.contains(" ")
         }
 
     func isValidIssueDate(checkIssueDate: String) -> Bool {

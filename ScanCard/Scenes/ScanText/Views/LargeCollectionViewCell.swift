@@ -38,9 +38,9 @@ class LargeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpCardImageView()
-        setUpoptionsScanCollectionView()
-        setDefaultSelectedcell()
-        setUpconfirmButton()
+        setUpOptionsScanCollectionView()
+        setDefaultSelectedCell()
+        setUpConfirmButton()
         setUpTitleLabel()
     }
 
@@ -55,11 +55,11 @@ class LargeCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func setUpconfirmButton () {
+    func setUpConfirmButton () {
         confirmButton.setTitle("Confirm", for: .normal)
     }
 
-    private func setDefaultSelectedcell() {
+    private func setDefaultSelectedCell() {
         let indexPath = IndexPath(item: 0, section: 0)
         self.optionsScanCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
         cardImageView.setTextForScanLayer(option: options[indexPath.item])
@@ -80,7 +80,7 @@ class LargeCollectionViewCell: UICollectionViewCell {
         cardImageView.contentMode = .scaleAspectFit
     }
 
-    private func setUpoptionsScanCollectionView() {
+    private func setUpOptionsScanCollectionView() {
         let nib = UINib(nibName: LargeCollectionViewCell.cellID, bundle: .main)
         optionsScanCollectionView.register(nib, forCellWithReuseIdentifier: LargeCollectionViewCell.cellID)
         optionsScanCollectionView.delegate = self
@@ -118,7 +118,7 @@ extension LargeCollectionViewCell: CardViewDelegate, UICollectionViewDataSource,
         }
     }
 
-    func setInfotoTextFiled(scanTextViewModel: ScanTextViewModel?) {
+    func setInformationToTextFiled(scanTextViewModel: ScanTextViewModel?) {
         guard let info = scanTextViewModel else { return }
         DispatchQueue.main.async {
             self.cardHolderTextField.text = info.cardModel?.cardHolder

@@ -13,10 +13,10 @@ class OptionCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpcell()
+        setUpCell()
     }
 
-    private func setUpcell() {
+    private func setUpCell() {
         optionView.clipsToBounds = true
         optionView.layer.cornerRadius = 15.0
         optionView.backgroundColor = UIColor(rgb: 0x22A7F0).withAlphaComponent(0.5)

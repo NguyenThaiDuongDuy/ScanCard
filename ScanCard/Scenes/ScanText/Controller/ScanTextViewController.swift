@@ -132,7 +132,7 @@ extension ScanTextViewController: UICollectionViewDelegate,
         else { return UICollectionViewCell() }
         cell.delegate = self
         cell.cardImageView.image = self.cardImage
-        cell.setInfotoTextFiled(scanTextViewModel: scanTextViewModel)
+        cell.setInformationToTextFiled(scanTextViewModel: scanTextViewModel)
         return cell
     }
 
