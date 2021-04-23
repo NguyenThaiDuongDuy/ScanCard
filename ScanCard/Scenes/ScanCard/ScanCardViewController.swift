@@ -8,12 +8,16 @@ class ScanCardViewController: UIViewController {
     static let maximumAspectRatioCard = VNAspectRatio(1.6)
     static let maximum1TimeCardDetect = 1
     static let minimumSizeDetectCard = Float(0.5)
-    static let scanTitleOfButton = "Scan"
-    static let scanTitleOfNavigation = "Scan Card"
+    let scanTitleOfButton = "Scan"
+    let scanTitleOfNavigation = "Scan Card"
+    let languages = ["En", "Vn"]
+    let numberOfComponentInLanguageChosenView = 1
+    let numberOfRowLanguageChosenView = 2
 
     @IBOutlet weak var liveVideoView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
     @IBOutlet weak var shadowView: ShadowView!
+    @IBOutlet weak var languageChosenView: UIPickerView!
 
     var layer: CALayer?
     var rectangleDetectFromVisionService: VNRectangleObservation?
@@ -35,12 +39,18 @@ class ScanCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpScanButton()
+        setLanguageForView()
         setUpNavigationController()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setUpLiveView()
+        setUpLanguageChosenView()
+    }
+
+    private func setUpLanguageChosenView() {
+        languageChosenView.delegate = self
+        languageChosenView.dataSource = self
     }
 
     private func setUpLiveView() {
@@ -56,7 +66,6 @@ class ScanCardViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(),
                                                                for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        title = ScanCardViewController.scanTitleOfNavigation
     }
 
     @objc func tapLiveVideoView() {
@@ -74,8 +83,9 @@ class ScanCardViewController: UIViewController {
             }
     }
 
-    func setUpScanButton() {
-        scanButton.setTitle(ScanCardViewController.scanTitleOfButton, for: .normal)
+    private func setLanguageForView() {
+        scanButton.setTitle(Language.share.localized(string: scanTitleOfButton), for: .normal)
+        title = Language.share.localized(string: scanTitleOfNavigation)
     }
 
     @IBAction func tapScanButton(_ sender: Any) {
@@ -207,5 +217,27 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         if let layer = layer {
             layer.removeFromSuperlayer()
         }
+    }
+}
+
+extension ScanCardViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        numberOfComponentInLanguageChosenView
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        numberOfRowLanguageChosenView
+    }
+
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
+                    forComponent component: Int) -> NSAttributedString? {
+        NSAttributedString(string: languages[row],
+                           attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        Language.share.isEnglish = languages[row] == "En"
+        setLanguageForView()
     }
 }

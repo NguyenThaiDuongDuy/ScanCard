@@ -10,6 +10,8 @@
 		5897911685DD4D884C3DA853 /* Pods_ScanCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 133491DA2D52CD58C2C26428 /* Pods_ScanCardTests.framework */; };
 		842F4858261C5C7300709423 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F4857261C5C7300709423 /* DialogView.swift */; };
 		842F4860261C5D5E00709423 /* DialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F485F261C5D5E00709423 /* DialogView.xib */; };
+		8454F53F2632C19C002C7E95 /* Vietnamese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8454F53E2632C19C002C7E95 /* Vietnamese.strings */; };
+		8454F5452632C1F1002C7E95 /* LanguageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454F5442632C1F1002C7E95 /* LanguageSupport.swift */; };
 		847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A062626929C003A91EA /* UIView+Ext.swift */; };
 		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
 		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
@@ -68,6 +70,8 @@
 		701088F9105C03D2986D2716 /* Pods-ScanCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCard.release.xcconfig"; path = "Target Support Files/Pods-ScanCard/Pods-ScanCard.release.xcconfig"; sourceTree = "<group>"; };
 		842F4857261C5C7300709423 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		842F485F261C5D5E00709423 /* DialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialogView.xib; sourceTree = "<group>"; };
+		8454F53E2632C19C002C7E95 /* Vietnamese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Vietnamese.strings; sourceTree = "<group>"; };
+		8454F5442632C1F1002C7E95 /* LanguageSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSupport.swift; sourceTree = "<group>"; };
 		847F1A062626929C003A91EA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
@@ -154,6 +158,14 @@
 			path = Dialog;
 			sourceTree = "<group>";
 		};
+		8454F5432632C1AA002C7E95 /* LanguagesSupport */ = {
+			isa = PBXGroup;
+			children = (
+				8454F53E2632C19C002C7E95 /* Vietnamese.strings */,
+			);
+			path = LanguagesSupport;
+			sourceTree = "<group>";
+		};
 		847F1A0526269268003A91EA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +174,7 @@
 				847F1A572627060E003A91EA /* CGPoint+Ext.swift */,
 				84AB48A62629897E002F106C /* String+Ext.swift */,
 				8489CE9A262EDD9E00195958 /* Logger.swift */,
+				8454F5442632C1F1002C7E95 /* LanguageSupport.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -269,6 +282,7 @@
 		84AE3DF3261AEFCC0051CD0A /* ScanCard */ = {
 			isa = PBXGroup;
 			children = (
+				8454F5432632C1AA002C7E95 /* LanguagesSupport */,
 				84AB488D26296154002F106C /* Models */,
 				84AB484726281C55002F106C /* Scenes */,
 				84AB484A26281C55002F106C /* Views */,
@@ -434,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				842F4860261C5D5E00709423 /* DialogView.xib in Resources */,
+				8454F53F2632C19C002C7E95 /* Vietnamese.strings in Resources */,
 				84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */,
 				849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
@@ -552,6 +567,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B0722F26318D4F00E3481F /* ScanCardViewController.swift in Sources */,
+				8454F5452632C1F1002C7E95 /* LanguageSupport.swift in Sources */,
 				84AB4890262961C2002F106C /* Card.swift in Sources */,
 				84AB4898262961D4002F106C /* Dialog.swift in Sources */,
 				84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */,

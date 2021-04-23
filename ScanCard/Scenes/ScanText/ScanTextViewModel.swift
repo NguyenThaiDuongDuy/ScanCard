@@ -26,33 +26,29 @@ class ScanTextViewModel {
         self.cardInfo = cardInfo
     }
 
-    func checkValidInfo(cardInfo: Card, completion: (Result) -> Void) {
+    func checkValidInfo(cardInfo: Card) -> Result {
 
         // Check valid Name
         if !isValidCardHolder(cardHolder: cardInfo.cardHolder ?? "") {
-            completion(.invalidCardHolder)
-            return
+            return Result.invalidCardHolder
         }
 
         // Check valid bank number
         if !isValidCardNumber(cardNumber: cardInfo.cardNumber ?? "") {
-            completion(.invalidCardNumber)
-            return
+            return Result.invalidCardHolder
         }
 
         // check valid created date
         if !isValidIssueDate(checkIssueDate: cardInfo.issueDate ?? "") {
-            completion(.invalidIssueDate)
-            return
+            return Result.invalidIssueDate
         }
 
         // check valid validate date
         if !isValidExpiryDate(checkExpiryDate: cardInfo.expiryDate ?? "") {
-            completion(.invalidExpiryDate)
-            return
+            return Result.invalidExpiryDate
         }
-        completion(.success)
         self.cardInfo = cardInfo
+        return Result.success
     }
 
     private func isValidCardNumber(cardNumber: String) -> Bool {

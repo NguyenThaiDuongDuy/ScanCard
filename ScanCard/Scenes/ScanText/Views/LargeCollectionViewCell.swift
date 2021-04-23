@@ -49,14 +49,14 @@ class LargeCollectionViewCell: UICollectionViewCell {
             for view in stackView.subviews {
                 if view.isKind(of: UILabel.self) {
                     guard let label = view as? UILabel else { return }
-                    label.text = scanModes[label.tag]
+                    label.text = Language.share.localized(string: scanModes[label.tag])
                 }
             }
         }
     }
 
     func setUpConfirmButton () {
-        confirmButton.setTitle("Confirm", for: .normal)
+        confirmButton.setTitle(Language.share.localized(string: "Confirm"), for: .normal)
     }
 
     private func setDefaultSelectedCell() {
@@ -148,7 +148,7 @@ extension LargeCollectionViewCell: UICollectionViewDataSource, UICollectionViewD
                                                             for: indexPath)
                 as? ModeScanCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.modeName.text = scanModes[indexPath.item]
+        cell.modeName.text = Language.share.localized(string: scanModes[indexPath.item])
         return cell
     }
 }

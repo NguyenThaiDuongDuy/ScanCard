@@ -22,7 +22,8 @@ class CardImageView: UIImageView {
                 NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ,
                 NSAttributedString.Key.foregroundColor: UIColor.cyan
             ]
-            let myAttributedString = NSAttributedString(string: modeScan ?? "", attributes: attributes )
+            let myAttributedString = NSAttributedString(string: Language.share.localized(string: modeScan ?? ""),
+                                                        attributes: attributes )
             titleOfScanArea.string = myAttributedString
         }
     }

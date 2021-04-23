@@ -95,16 +95,16 @@ extension ScanTextViewController: LargeCellDelegate {
 
     func getCardInfo(cardInfo: Card?) {
         guard let cardInfo = cardInfo else { return }
-        viewModel?.checkValidInfo(cardInfo: cardInfo) { (result) in
-            DispatchQueue.main.async {
-                let diaLog = DialogView(viewModel:
-                                            DialogViewModel(dialogInfo: Dialog(title: "Notice",
-                                                                               message: "",
-                                                                               okButtonTitle: "Ok",
-                                                                               cancelButtonTitle: "Cancel"),
-                                                            resultCheckInfo: result))
-                self.view.addSubview(diaLog)
-            }
+        guard let  resultCheckInfo = self.viewModel?.checkValidInfo(cardInfo: cardInfo) else { return }
+        let dialogInfo = Dialog(title: "Notice",
+                                message: "",
+                                okButtonTitle: "Ok",
+                                cancelButtonTitle: "Cancel")
+        DispatchQueue.main.async {
+            let diaLog = DialogView(viewModel:
+                                        DialogViewModel(dialogInfo: dialogInfo,
+                                                        resultCheckInfo: resultCheckInfo))
+            self.view.addSubview(diaLog)
         }
     }
 }

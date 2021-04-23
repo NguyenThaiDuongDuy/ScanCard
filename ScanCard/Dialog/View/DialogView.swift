@@ -47,9 +47,9 @@ class DialogView: UIView {
     }
 
     func setInformationDialog() {
-        title.text = viewModel?.title
-        message.text = viewModel?.message
-        cancelButton.setTitle(viewModel?.cancelButtonTitle, for: .normal)
-        okButton.setTitle(viewModel?.okButtonTitle, for: .normal)
+        title.text = Language.share.localized(string: viewModel?.title ?? "")
+        message.text = Language.share.localized(string: viewModel?.message ?? "")
+        cancelButton.setTitle(Language.share.localized(string: viewModel?.cancelButtonTitle ?? ""), for: .normal)
+        okButton.setTitle(Language.share.localized(string: viewModel?.okButtonTitle ?? ""), for: .normal)
     }
 }
