@@ -97,33 +97,12 @@ extension ScanTextViewController: LargeCellDelegate {
         guard let cardInfo = cardInfo else { return }
         viewModel?.checkValidInfo(cardInfo: cardInfo) { (result) in
             DispatchQueue.main.async {
-                let diaLog = DialogView(frame: self.view.bounds)
-                var message: String
-                var title = "Error"
-                let titleOfOkButton = "Ok"
-                let titleOfCancelButton = "Cancel"
-                switch result {
-                case .invalidCardHolder:
-                    message = Result.invalidCardHolder.rawValue
-
-                case .invalidCardNumber:
-                    message = Result.invalidCardNumber.rawValue
-
-                case .invalidIssueDate:
-                    message = Result.invalidIssueDate.rawValue
-
-                case .invalidExpiryDate:
-                    message = Result.invalidExpiryDate.rawValue
-
-                default:
-                    title = "Success"
-                    message = Result.success.rawValue
-                }
-                diaLog.dialogInfoViewModel = DialogViewModel(dialogInfo:
-                                                                Dialog(title: title,
-                                                                       message: message,
-                                                                       okButtonTitle: titleOfOkButton,
-                                                                       cancelButtonTitle: titleOfCancelButton))
+                let diaLog = DialogView(viewModel:
+                                            DialogViewModel(dialogInfo: Dialog(title: "Notice",
+                                                                               message: "",
+                                                                               okButtonTitle: "Ok",
+                                                                               cancelButtonTitle: "Cancel"),
+                                                            resultCheckInfo: result))
                 self.view.addSubview(diaLog)
             }
         }

@@ -52,6 +52,7 @@ class ScanTextViewModel {
             return
         }
         completion(.success)
+        self.cardInfo = cardInfo
     }
 
     private func isValidCardNumber(cardNumber: String) -> Bool {
@@ -101,10 +102,12 @@ class ScanTextViewModel {
         guard let checkInformation = information else { return scanTextViewModel }
 
         for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
+
             if scanTextViewModel.isValidCardHolder(cardHolder: checkInformation[index]) &&
                 (((scanTextViewModel.cardInfo?.cardHolder!.isEmpty)!)) {
                 scanTextViewModel.cardInfo?.cardHolder = checkInformation[index]
             }
+
             if scanTextViewModel.isValidCardNumber(cardNumber: checkInformation[index])
                 && ((scanTextViewModel.cardInfo?.cardNumber?.isEmpty)!) {
                 scanTextViewModel.cardInfo?.cardNumber = checkInformation[index]

@@ -8,8 +8,31 @@
 import Foundation
 
 class DialogViewModel {
-    var dialogInfo: Dialog?
-    init(dialogInfo: Dialog) {
-        self.dialogInfo = dialogInfo
+
+    var title: String?
+    var message: String?
+    var cancelButtonTitle: String?
+    var okButtonTitle: String?
+
+    init(dialogInfo: Dialog, resultCheckInfo: Result) {
+        title = dialogInfo.title
+        okButtonTitle = dialogInfo.okButtonTitle
+        cancelButtonTitle = dialogInfo.cancelButtonTitle
+        switch resultCheckInfo {
+        case .invalidCardHolder:
+            message = Result.invalidCardHolder.rawValue
+
+        case .invalidCardNumber:
+            message = Result.invalidCardNumber.rawValue
+
+        case .invalidIssueDate:
+            message = Result.invalidIssueDate.rawValue
+
+        case .invalidExpiryDate:
+            message = Result.invalidExpiryDate.rawValue
+
+        default:
+            message = Result.success.rawValue
+        }
     }
 }

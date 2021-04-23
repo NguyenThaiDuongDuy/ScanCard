@@ -15,17 +15,14 @@ class DialogView: UIView {
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
 
-    var dialogInfoViewModel: DialogViewModel? {
-        didSet {
-            self.title.text = dialogInfoViewModel?.dialogInfo?.title
-            self.message.text = dialogInfoViewModel?.dialogInfo?.message
-            self.cancelButton.setTitle(dialogInfoViewModel?.dialogInfo?.cancelButtonTitle, for: .normal)
-            self.okButton.setTitle(dialogInfoViewModel?.dialogInfo?.okButtonTitle, for: .normal)
-        }
-    }
+    var viewModel: DialogViewModel?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: DialogViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: CGRect(x: 0,
+                                 y: 0,
+                                 width: UIScreen.main.bounds.width,
+                                 height: UIScreen.main.bounds.height))
         commonInit()
     }
 
@@ -37,7 +34,8 @@ class DialogView: UIView {
     private func commonInit() {
         Bundle.main.loadNibNamed("DialogView", owner: self, options: nil)
         addSubview(contentView)
-        contentView.frame = self.frame
+        contentView.frame = frame
+        setInformationDialog()
     }
 
     @IBAction func tapCancelButton(_ sender: Any) {
@@ -46,5 +44,12 @@ class DialogView: UIView {
 
     @IBAction func tapOkButton(_ sender: Any) {
         removeFromSuperview()
+    }
+
+    func setInformationDialog() {
+        title.text = viewModel?.title
+        message.text = viewModel?.message
+        cancelButton.setTitle(viewModel?.cancelButtonTitle, for: .normal)
+        okButton.setTitle(viewModel?.okButtonTitle, for: .normal)
     }
 }
