@@ -9,10 +9,11 @@ import UIKit
 
 class ScanTextViewController: UIViewController {
 
-    init(cardImage: UIImage?, informationCard: [String]?) {
-        self.cardImage = cardImage
-        self.viewModel = ScanTextViewModel.getInfoCardAuto(information: informationCard)
+    init(cardImage: CIImage?) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
+        viewModel = ScanTextViewModel(image: cardImage)
+        viewModel?.delegate = self
+        viewModel?.parseCardInfo()
     }
 
     required init?(coder: NSCoder) {
@@ -21,7 +22,6 @@ class ScanTextViewController: UIViewController {
 
     static let cellID = "LargeCollectionViewCell"
     @IBOutlet weak var scanCollectionView: ScanTextCollectionView!
-    var cardImage: UIImage?
     private var viewModel: ScanTextViewModel?
 
     override func viewDidLoad() {
@@ -121,9 +121,10 @@ extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDe
                                                             for: indexPath)
                 as? LargeCollectionViewCell
         else { return UICollectionViewCell() }
+        cell.cardView.image = UIImage(ciImage: (viewModel?.image)!)
+        cell.cardView.delegate = self
         cell.delegate = self
-        cell.cardView.image = self.cardImage
-        cell.setInformationToTextFiled(viewModel: viewModel)
+        cell.setInformationToTextFiled(cardInfo: viewModel?.cardInfo)
         return cell
     }
 }
@@ -133,5 +134,19 @@ extension ScanTextViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
          CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
+}
+
+extension ScanTextViewController: CardViewDelegate {
+    func getTextFromImage(textImage: CGImage?, mode: String) {
+        self.viewModel?.setTextInfoWithMode(textImage: textImage, mode: mode)
+    }
+}
+
+extension ScanTextViewController: ScanTextViewModelDelegate {
+    func didGetInfo() {
+        DispatchQueue.main.async {
+            self.scanCollectionView.reloadData()
+        }
     }
 }

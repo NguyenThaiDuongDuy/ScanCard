@@ -12,7 +12,6 @@ class ScanCardViewController: UIViewController {
     let scanTitleOfNavigation = "Scan Card"
     let languages = ["En", "Vn"]
     let numberOfComponentInLanguageChosenView = 1
-    let numberOfRowLanguageChosenView = 2
 
     @IBOutlet weak var liveVideoView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
@@ -74,11 +73,9 @@ class ScanCardViewController: UIViewController {
                   let videoFrame = self.videoFrame else { return }
             guard let imageBuffer = videoFrame.imageBuffer else { return }
             let cropFrame = self.extractPerspectiveRect(rectangleDetectFromVisionService, from: imageBuffer)
-            self.getCardInformation(cropFrame: cropFrame)
             self.dismiss(animated: true) {
                 self.service.stopConnectCamera()
-                let scanTextView = ScanTextViewController(cardImage: UIImage(ciImage: cropFrame),
-                                                          informationCard: self.recognizedStrings)
+                let scanTextView = ScanTextViewController(cardImage: cropFrame)
                 self.navigationController?.pushViewController(scanTextView, animated: true)
             }
     }
@@ -124,63 +121,24 @@ class ScanCardViewController: UIViewController {
 
 extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
-    func detectCard(videoFrame: CMSampleBuffer) {
-        func detectRectanglesCompletionHandler (request: VNRequest, error: Error?) {
-            DispatchQueue.main.async {
-                // Request fail
-                if let error = error {
-                    print(error)
-                    return
-                }
-                self.removeBoundingBox()
-                guard let rectanglesDetectFromVisionService = request.results as?
-                        [VNRectangleObservation] else { return }
-                guard let rectangleDetectFromVisionService = rectanglesDetectFromVisionService.first else { return }
-
-                self.rectangleDetectFromVisionService = rectangleDetectFromVisionService
-                self.videoFrame = videoFrame
-                let convertUIKitRect = VNImageRectForNormalizedRect(rectangleDetectFromVisionService.boundingBox,
-                                                                    (Int)(self.liveVideoView.bounds.width),
-                                                                    (Int)(self.liveVideoView.bounds.height))
-                self.drawBoundingBox(rect: convertUIKitRect)
-            }
-        }
-
-        let request = VNDetectRectanglesRequest(completionHandler: detectRectanglesCompletionHandler)
-        request.minimumAspectRatio = ScanCardViewController.minimumAspectRatioCard
-        request.maximumAspectRatio = ScanCardViewController.maximumAspectRatioCard
-        request.minimumSize = ScanCardViewController.minimumSizeDetectCard
-        request.maximumObservations = ScanCardViewController.maximum1TimeCardDetect
-
-        let requestHandler = VNImageRequestHandler(cmSampleBuffer: videoFrame, options: [:])
-
-        try? requestHandler.perform([request])
-    }
-
-    func getCardInformation(cropFrame: CIImage) {
-        let request = VNRecognizeTextRequest { (request, _) in
-            guard let textObservations =
-                    request.results as? [VNRecognizedTextObservation] else {
-                return
-            }
-
-            let recognizedStrings = textObservations.compactMap { textObservation in
-                textObservation.topCandidates(1).first?.string
-            }
-
-            self.recognizedStrings = recognizedStrings
-            Logger.log(self.recognizedStrings as Any)
-        }
-        request.recognitionLevel = .accurate
-        request.minimumTextHeight = 1 / 20
-        let requestTextHandler = VNImageRequestHandler(ciImage: cropFrame, options: [:])
-        try? requestTextHandler.perform([request])
-    }
-
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
-        detectCard(videoFrame: sampleBuffer)
+        DispatchQueue.main.async {
+            self.removeBoundingBox()
+            Detector.share.detectCard(videoFrame: sampleBuffer) { resultOfDetectCard in
+
+                switch resultOfDetectCard {
+                case .success(let rectangleFromVisionService):
+                    self.drawBoundingBox(rectFromVisionService: rectangleFromVisionService)
+                    self.videoFrame = sampleBuffer
+                    self.rectangleDetectFromVisionService = rectangleFromVisionService
+
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 
     // Crop image in boundingbox
@@ -203,20 +161,21 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         ])
     }
 
-    private func drawBoundingBox(rect: CGRect) {
-        layer = CAShapeLayer()
-        layer?.frame = rect
-        layer?.cornerRadius = 10
-        layer?.opacity = 0.75
-        layer?.borderColor = UIColor.red.cgColor
-        layer?.borderWidth = 5.0
-        liveVideoView.layer.addSublayer(layer ?? CAShapeLayer())
+    private func drawBoundingBox(rectFromVisionService: VNRectangleObservation) {
+        let convertUIKitRect = VNImageRectForNormalizedRect(rectFromVisionService.boundingBox,
+                                                            (Int)(self.liveVideoView.bounds.width),
+                                                            (Int)(self.liveVideoView.bounds.height))
+        self.layer = CAShapeLayer()
+        self.layer?.frame = convertUIKitRect
+        self.layer?.cornerRadius = 10
+        self.layer?.opacity = 0.75
+        self.layer?.borderColor = UIColor.red.cgColor
+        self.layer?.borderWidth = 5.0
+        self.liveVideoView.layer.addSublayer(self.layer ?? CAShapeLayer())
     }
 
     private func removeBoundingBox() {
-        if let layer = layer {
-            layer.removeFromSuperlayer()
-        }
+        layer?.removeFromSuperlayer()
     }
 }
 
@@ -227,7 +186,7 @@ extension ScanCardViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        numberOfRowLanguageChosenView
+        languages.count
     }
 
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,

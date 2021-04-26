@@ -75,7 +75,6 @@ class LargeCollectionViewCell: UICollectionViewCell {
 
     private func setUpCardView() {
         cardView.isUserInteractionEnabled = true
-        cardView.delegate = self
         cardView.image = cardImage
         cardView.contentMode = .scaleAspectFit
     }
@@ -97,42 +96,14 @@ class LargeCollectionViewCell: UICollectionViewCell {
                                              issueDate: issueDateInput.text,
                                              expiryDate: expiryDateInput.text))
     }
-}
 
-extension LargeCollectionViewCell: CardViewDelegate {
-
-    func getResultStrings(results: [String]?, type: String) {
-        guard let resultStrings = results, !resultStrings.isEmpty else { return }
-        let result = resultStrings.first
+    func setInformationToTextFiled(cardInfo: Card?) {
         DispatchQueue.main.async {
-            switch type {
-            case "Card Holder":
-                self.cardHolderInput.text = result
-            case "Card Number":
-                self.cardNumberInput.text = result
-            case "Issue Date":
-                self.issueDateInput.text = result
-            case "Expiry Date":
-                self.expiryDateInput.text = result
-
-            default:
-                print("error")
-            }
+            self.cardHolderInput.text = cardInfo?.cardHolder ?? ""
+            self.cardNumberInput.text = cardInfo?.cardNumber ?? ""
+            self.issueDateInput.text = cardInfo?.issueDate ?? ""
+            self.expiryDateInput.text = cardInfo?.expiryDate ?? ""
         }
-    }
-
-    func setInformationToTextFiled(viewModel: ScanTextViewModel?) {
-        guard let info = viewModel else { return }
-        DispatchQueue.main.async {
-            self.cardHolderInput.text = info.cardInfo?.cardHolder
-            self.cardNumberInput.text = info.cardInfo?.cardNumber
-            self.issueDateInput.text = info.cardInfo?.issueDate
-            self.expiryDateInput.text = info.cardInfo?.expiryDate
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        cardView.setMode(modeScan: scanModes[indexPath.item])
     }
 }
 
@@ -150,5 +121,9 @@ extension LargeCollectionViewCell: UICollectionViewDataSource, UICollectionViewD
 
         cell.modeName.text = Language.share.localized(string: scanModes[indexPath.item])
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cardView.setMode(modeScan: scanModes[indexPath.item])
     }
 }

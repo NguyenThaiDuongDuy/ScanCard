@@ -10,7 +10,7 @@ import UIKit
 import Vision
 
 protocol CardViewDelegate: AnyObject {
-    func getResultStrings(results: [String]?, type: String)
+    func getTextFromImage(textImage: CGImage?, mode: String)
 }
 
 class CardImageView: UIImageView {
@@ -86,24 +86,6 @@ class CardImageView: UIImageView {
         self.layer.sublayers?.removeAll()
         let snapshotImage = self.snapshot(of: self.boundingRect)
         guard let cgImage = snapshotImage?.cgImage else { return }
-        self.getCardInformation(cgImage: cgImage)
-    }
-
-    func getCardInformation(cgImage: CGImage) {
-        let request = VNRecognizeTextRequest { (request, _) in
-            guard let observations =
-                    request.results as? [VNRecognizedTextObservation] else {
-                return
-            }
-
-            let recognizedStrings = observations.compactMap { observation in
-                // Return the string of the top VNRecognizedText instance.
-                return observation.topCandidates(1).first?.string
-            }
-            self.delegate?.getResultStrings(results: recognizedStrings, type: self.modeScan ?? "")
-        }
-        request.recognitionLevel = .accurate
-        let requestTextHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .up, options: [:])
-        try? requestTextHandler.perform([request])
+        self.delegate!.getTextFromImage(textImage: cgImage, mode: self.modeScan ?? "")
     }
 }

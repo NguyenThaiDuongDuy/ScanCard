@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol ScanTextViewModelDelegate: AnyObject {
+    func didGetInfo()
+}
+
 enum Result: String {
     case success
     case invalidCardHolder
@@ -19,11 +23,13 @@ enum Result: String {
 class ScanTextViewModel {
 
     var cardInfo: Card?
+    var image: CIImage?
     let maxCardNumber = 19
     let minCardNumber = 16
+    weak var delegate: ScanTextViewModelDelegate?
 
-    init(cardInfo: Card) {
-        self.cardInfo = cardInfo
+    init(image: CIImage?) {
+        self.image = image
     }
 
     func checkValidInfo(cardInfo: Card) -> Result {
@@ -90,35 +96,66 @@ class ScanTextViewModel {
         return checkInputDate > Date()
     }
 
-    static func getInfoCardAuto(information: [String]?) -> ScanTextViewModel {
-        let scanTextViewModel = ScanTextViewModel(cardInfo: Card(cardHolder: "",
-                                                                 cardNumber: "",
-                                                                 issueDate: "",
-                                                                 expiryDate: ""))
-        guard let checkInformation = information else { return scanTextViewModel }
+    func getInfoCardAuto(information: [String]?) -> Card {
+        var cardInfo = Card(cardHolder: "",
+                            cardNumber: "",
+                            issueDate: "",
+                            expiryDate: "")
+        guard let checkInformation = information else { return cardInfo }
 
         for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
 
-            if scanTextViewModel.isValidCardHolder(cardHolder: checkInformation[index]) &&
-                (((scanTextViewModel.cardInfo?.cardHolder!.isEmpty)!)) {
-                scanTextViewModel.cardInfo?.cardHolder = checkInformation[index]
+            if self.isValidCardHolder(cardHolder: checkInformation[index]) &&
+                (((cardInfo.cardHolder!.isEmpty))) {
+                cardInfo.cardHolder = checkInformation[index]
             }
 
-            if scanTextViewModel.isValidCardNumber(cardNumber: checkInformation[index])
-                && ((scanTextViewModel.cardInfo?.cardNumber?.isEmpty)!) {
-                scanTextViewModel.cardInfo?.cardNumber = checkInformation[index]
+            if self.isValidCardNumber(cardNumber: checkInformation[index])
+                && ((cardInfo.cardNumber!.isEmpty)) {
+                cardInfo.cardNumber = checkInformation[index]
             }
 
-            if scanTextViewModel.isValidIssueDate(checkIssueDate: checkInformation[index])
-                && ((scanTextViewModel.cardInfo?.issueDate?.isEmpty)!) {
-                scanTextViewModel.cardInfo?.issueDate = checkInformation[index]
+            if self.isValidIssueDate(checkIssueDate: checkInformation[index])
+                && ((cardInfo.issueDate!.isEmpty)) {
+                cardInfo.issueDate = checkInformation[index]
             }
 
-            if scanTextViewModel.isValidExpiryDate(checkExpiryDate: checkInformation[index])
-                && ((scanTextViewModel.cardInfo?.expiryDate?.isEmpty)!) {
-                scanTextViewModel.cardInfo?.expiryDate = checkInformation[index]
+            if self.isValidExpiryDate(checkExpiryDate: checkInformation[index])
+                && ((cardInfo.expiryDate!.isEmpty)) {
+                cardInfo.expiryDate = checkInformation[index]
             }
         }
-        return scanTextViewModel
+        return cardInfo
+    }
+
+    func parseCardInfo() {
+        let context = CIContext()
+        let mCgImage = context.createCGImage(image!, from: image!.extent)
+        Detector.share.getTextsFromImage(cgImage: mCgImage) { (strings) in
+            Logger.log("with Detector: \(strings)")
+            self.cardInfo = self.getInfoCardAuto(information: strings)
+        }
+    }
+
+    func setTextInfoWithMode(textImage: CGImage?, mode: String) {
+        Detector.share.getTextsFromImage(cgImage: textImage) { (strings) in
+            switch mode {
+            case "Card Holder":
+                self.cardInfo?.cardHolder = strings.first
+
+            case "Card Number":
+                self.cardInfo?.cardNumber = strings.first
+
+            case "Issue Date":
+                self.cardInfo?.issueDate = strings.first
+
+            case "Expiry Date":
+                self.cardInfo?.expiryDate = strings.first
+
+            default:
+                print("error")
+            }
+        }
+        self.delegate?.didGetInfo()
     }
 }
