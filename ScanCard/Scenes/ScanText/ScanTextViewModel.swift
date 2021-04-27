@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ScanTextViewModelDelegate: AnyObject {
-    func didGetInfo()
+    func didGetCardInfo()
 }
 
 enum Result: String {
@@ -156,6 +156,6 @@ class ScanTextViewModel {
                 print("error")
             }
         }
-        self.delegate?.didGetInfo()
+        self.delegate?.didGetCardInfo()
     }
 }

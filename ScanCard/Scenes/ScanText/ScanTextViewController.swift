@@ -121,10 +121,7 @@ extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDe
                                                             for: indexPath)
                 as? LargeCollectionViewCell
         else { return UICollectionViewCell() }
-        cell.cardView.image = UIImage(ciImage: (viewModel?.image)!)
-        cell.cardView.delegate = self
-        cell.delegate = self
-        cell.setInformationToTextFiled(cardInfo: viewModel?.cardInfo)
+        cell.configCell(data: viewModel, delegate: self)
         return cell
     }
 }
@@ -144,7 +141,7 @@ extension ScanTextViewController: CardViewDelegate {
 }
 
 extension ScanTextViewController: ScanTextViewModelDelegate {
-    func didGetInfo() {
+    func didGetCardInfo() {
         DispatchQueue.main.async {
             self.scanCollectionView.reloadData()
         }

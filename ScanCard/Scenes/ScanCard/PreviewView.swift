@@ -30,15 +30,15 @@ class PreviewView: UIView {
         scanArea.fillRule = .evenOdd
         scanArea.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
         scanArea.opacity = 0.5
-
-        let layer = CALayer()
+        
+        let layerArrow = CALayer()
         let arrowImage = UIImage(named: "backward")?.cgImage
-        layer.frame = CGRect(x: self.bounds.width / 2 - 140,
-                             y: self.bounds.height / 2 - 12,
-                             width: 24,
-                             height: 24)
-        layer.contents = arrowImage
-        scanArea.addSublayer(layer)
+        layerArrow.frame = CGRect(x: self.bounds.width / 2 - 140,
+                                  y: self.bounds.height / 2 - 12,
+                                  width: 24,
+                                  height: 24)
+        layerArrow.contents = arrowImage
+        scanArea.addSublayer(layerArrow)
         return scanArea
     }()
 

@@ -18,7 +18,7 @@ class ScanCardViewController: UIViewController {
     @IBOutlet weak var shadowView: ShadowView!
     @IBOutlet weak var languageChosenView: UIPickerView!
 
-    var layer: CALayer?
+    var layerBoundingBox: CALayer?
     var rectangleDetectFromVisionService: VNRectangleObservation?
     var videoFrame: CMSampleBuffer?
     var recognizedStrings: [String]?
@@ -165,17 +165,17 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let convertUIKitRect = VNImageRectForNormalizedRect(rectFromVisionService.boundingBox,
                                                             (Int)(self.liveVideoView.bounds.width),
                                                             (Int)(self.liveVideoView.bounds.height))
-        self.layer = CAShapeLayer()
-        self.layer?.frame = convertUIKitRect
-        self.layer?.cornerRadius = 10
-        self.layer?.opacity = 0.75
-        self.layer?.borderColor = UIColor.red.cgColor
-        self.layer?.borderWidth = 5.0
-        self.liveVideoView.layer.addSublayer(self.layer ?? CAShapeLayer())
+        self.layerBoundingBox = CAShapeLayer()
+        self.layerBoundingBox?.frame = convertUIKitRect
+        self.layerBoundingBox?.cornerRadius = 10
+        self.layerBoundingBox?.opacity = 0.75
+        self.layerBoundingBox?.borderColor = UIColor.red.cgColor
+        self.layerBoundingBox?.borderWidth = 5.0
+        self.liveVideoView.layer.addSublayer(self.layerBoundingBox ?? CAShapeLayer())
     }
 
     private func removeBoundingBox() {
-        layer?.removeFromSuperlayer()
+        layerBoundingBox?.removeFromSuperlayer()
     }
 }
 

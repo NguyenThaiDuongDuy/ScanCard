@@ -33,11 +33,22 @@ class LargeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var confirmButton: BlueStyleButton!
     @IBOutlet weak var informationView: UIStackView!
     weak var delegate: LargeCellDelegate?
-    var cardImage: UIImage?
+
+    var dataOfCell: ScanTextViewModel? {
+        didSet {
+            setInformationToTextFiled()
+            setUpCardView()
+        }
+    }
+
+    func configCell(data: ScanTextViewModel?, delegate: ScanTextViewController) {
+        self.cardView.delegate = delegate
+        self.delegate = delegate
+        self.dataOfCell = data
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpCardView()
         setUpOptionsScanCollectionView()
         setDefaultSelectedCell()
         setUpConfirmButton()
@@ -75,7 +86,7 @@ class LargeCollectionViewCell: UICollectionViewCell {
 
     private func setUpCardView() {
         cardView.isUserInteractionEnabled = true
-        cardView.image = cardImage
+        cardView.image = UIImage(ciImage: (dataOfCell?.image)!)
         cardView.contentMode = .scaleAspectFit
     }
 
@@ -97,12 +108,12 @@ class LargeCollectionViewCell: UICollectionViewCell {
                                              expiryDate: expiryDateInput.text))
     }
 
-    func setInformationToTextFiled(cardInfo: Card?) {
+    func setInformationToTextFiled() {
         DispatchQueue.main.async {
-            self.cardHolderInput.text = cardInfo?.cardHolder ?? ""
-            self.cardNumberInput.text = cardInfo?.cardNumber ?? ""
-            self.issueDateInput.text = cardInfo?.issueDate ?? ""
-            self.expiryDateInput.text = cardInfo?.expiryDate ?? ""
+            self.cardHolderInput.text = self.dataOfCell?.cardInfo?.cardHolder ?? ""
+            self.cardNumberInput.text = self.dataOfCell?.cardInfo?.cardNumber ?? ""
+            self.issueDateInput.text = self.dataOfCell?.cardInfo?.issueDate ?? ""
+            self.expiryDateInput.text = self.dataOfCell?.cardInfo?.expiryDate ?? ""
         }
     }
 }
