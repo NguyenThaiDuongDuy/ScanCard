@@ -16,11 +16,11 @@
 		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
 		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
 		847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A572627060E003A91EA /* CGPoint+Ext.swift */; };
-		84853F7026365643000F0C3C /* Detetor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84853F6F26365643000F0C3C /* Detetor.swift */; };
+		84853F7026365643000F0C3C /* ImageDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84853F6F26365643000F0C3C /* ImageDetector.swift */; };
 		8489CE37262EAB8900195958 /* BlueStyleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE36262EAB8900195958 /* BlueStyleButton.swift */; };
 		8489CE56262EB16100195958 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE55262EB16100195958 /* ShadowView.swift */; };
 		8489CE9B262EDD9E00195958 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE9A262EDD9E00195958 /* Logger.swift */; };
-		849071AC2625538E00E85B36 /* OptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* OptionCollectionViewCell.xib */; };
+		849071AC2625538E00E85B36 /* ModeScanCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */; };
 		849071AD2625538E00E85B36 /* ModeScanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */; };
 		849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */; };
 		849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */; };
@@ -77,11 +77,11 @@
 		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		847F1A572627060E003A91EA /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
-		84853F6F26365643000F0C3C /* Detetor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detetor.swift; sourceTree = "<group>"; };
+		84853F6F26365643000F0C3C /* ImageDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetector.swift; sourceTree = "<group>"; };
 		8489CE36262EAB8900195958 /* BlueStyleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueStyleButton.swift; sourceTree = "<group>"; };
 		8489CE55262EB16100195958 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8489CE9A262EDD9E00195958 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		849071AA2625538E00E85B36 /* OptionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionCollectionViewCell.xib; sourceTree = "<group>"; };
+		849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModeScanCollectionViewCell.xib; sourceTree = "<group>"; };
 		849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeScanCollectionViewCell.swift; sourceTree = "<group>"; };
 		849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCollectionViewCell.swift; sourceTree = "<group>"; };
 		849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				84AB48A62629897E002F106C /* String+Ext.swift */,
 				8489CE9A262EDD9E00195958 /* Logger.swift */,
 				8454F5442632C1F1002C7E95 /* LanguageSupport.swift */,
-				84853F6F26365643000F0C3C /* Detetor.swift */,
+				84853F6F26365643000F0C3C /* ImageDetector.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -207,7 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */,
-				849071AA2625538E00E85B36 /* OptionCollectionViewCell.xib */,
+				849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */,
 				849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */,
 				849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */,
 				84AB484C26281C55002F106C /* CardImageView.swift */,
@@ -456,7 +456,7 @@
 				849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
 				B3325A612631CA4600A16254 /* ScanTextViewController.xib in Resources */,
-				849071AC2625538E00E85B36 /* OptionCollectionViewCell.xib in Resources */,
+				849071AC2625538E00E85B36 /* ModeScanCollectionViewCell.xib in Resources */,
 				84B0722A263188E500E3481F /* ScanCardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,7 +575,7 @@
 				84AB4898262961D4002F106C /* Dialog.swift in Sources */,
 				84AE3DFF261AEFCC0051CD0A /* ScanCard.xcdatamodeld in Sources */,
 				84AB489D2629624D002F106C /* ScanTextViewModel.swift in Sources */,
-				84853F7026365643000F0C3C /* Detetor.swift in Sources */,
+				84853F7026365643000F0C3C /* ImageDetector.swift in Sources */,
 				8489CE37262EAB8900195958 /* BlueStyleButton.swift in Sources */,
 				84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */,
 				8489CE9B262EDD9E00195958 /* Logger.swift in Sources */,
