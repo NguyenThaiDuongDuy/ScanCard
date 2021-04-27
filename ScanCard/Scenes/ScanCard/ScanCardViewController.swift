@@ -11,37 +11,37 @@ enum ModeScan {
 }
 
 class ScanCardViewController: UIViewController {
-    
+
     let scanTitleOfButton = "Scan"
     let scanTitleOfNavigation = "Scan Card"
     let languages = ["En", "Vn"]
     let numberOfComponentInLanguageChosenView = 1
     var modeScan: ModeScan?
-    
+
     @IBOutlet weak var liveVideoView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
     @IBOutlet weak var shadowView: ShadowView!
     @IBOutlet weak var languageChosenView: UIPickerView!
-    
+
     var layerBoundingBox: CALayer?
     var rectangleDetect: VNRectangleObservation?
     var videoFrame: CMSampleBuffer?
     var recognizedStrings: [String]?
-    
+
     lazy var service: CameraService = {
         let service = CameraService(viewController: self)
         return service
     }()
-    
+
     init(modeScan: ModeScan = .all) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
         self.modeScan = modeScan
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setLanguageForView()
@@ -52,12 +52,12 @@ class ScanCardViewController: UIViewController {
         setUpLiveView()
         setUpLanguageChosenView()
     }
-    
+
     private func setUpLanguageChosenView() {
         languageChosenView.delegate = self
         languageChosenView.dataSource = self
     }
-    
+
     private func setUpLiveView() {
         liveVideoView.videoPreviewLayer.videoGravity = .resizeAspectFill
         liveVideoView.videoPreviewLayer.cornerRadius = 30
@@ -66,13 +66,13 @@ class ScanCardViewController: UIViewController {
         let tapAction = UITapGestureRecognizer(target: self, action: #selector(tapLiveVideoView))
         liveVideoView.addGestureRecognizer(tapAction)
     }
-    
+
     func setUpNavigationController() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(),
                                                                for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
+
     @objc func tapLiveVideoView() {
         service.session.stopRunning()
         guard let rectangleDetect = self.rectangleDetect,
@@ -85,19 +85,19 @@ class ScanCardViewController: UIViewController {
             self.navigationController?.pushViewController(scanTextView, animated: true)
         }
     }
-    
+
     private func setLanguageForView() {
         scanButton.setTitle(Language.share.localized(string: scanTitleOfButton), for: .normal)
         title = Language.share.localized(string: scanTitleOfNavigation)
     }
-    
+
     @IBAction func tapScanButton(_ sender: Any) {
         liveVideoView.videoPreviewLayer.session = service.session
         service.startConnectCamera()
         requestUsingCamera { (_) in
         }
     }
-    
+
     func requestUsingCamera(completion: (AVAuthorizationStatus) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // The user has previously granted access to the camera.
@@ -133,7 +133,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         DispatchQueue.main.async {
             self.removeBoundingBox()
             ImageDetector.detectCard(sampleBuffer: sampleBuffer) { resultOfDetectCard in
-                
+
                 switch resultOfDetectCard {
                 case .success(let rectangle):
                     self.drawBoundingBox(rect: rectangle)
@@ -190,17 +190,17 @@ extension ScanCardViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         numberOfComponentInLanguageChosenView
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         languages.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
                     forComponent component: Int) -> NSAttributedString? {
         NSAttributedString(string: languages[row],
                            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         Language.share.isEnglish = languages[row] == "En"
         setLanguageForView()

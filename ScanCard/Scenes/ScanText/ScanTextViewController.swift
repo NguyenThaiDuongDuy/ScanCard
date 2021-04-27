@@ -1,54 +1,77 @@
 //
-//  ScanTextViewController.swift
+//  ScanTextViewController2.swift
 //  ScanCard
 //
-//  Created by admin on 13/04/2021.
+//  Created by DuyNguyen on 27/04/2021.
 //
 
 import UIKit
 
 class ScanTextViewController: UIViewController {
-    
+
+    let cellID = "ModeScanCollectionViewCell"
+
+    let scanModes: [String] = ["Card Holder",
+                               "Card Number",
+                               "Issue Date",
+                               "Expiry Date"
+    ]
+
+    private var viewModel: ScanTextViewModel?
+
+    @IBOutlet weak var cardView: CardImageView!
+    @IBOutlet weak var optionsScanView: UICollectionView!
+    @IBOutlet weak var cardHolderTextField: UITextField!
+    @IBOutlet weak var cardNumberTextField: UITextField!
+    @IBOutlet weak var issueDateTextField: UITextField!
+    @IBOutlet weak var expiryDateTextField: UITextField!
+    @IBOutlet weak var cardHolderLabel: UILabel!
+    @IBOutlet weak var cardNumberLabel: UILabel!
+    @IBOutlet weak var issueDateLabel: UILabel!
+    @IBOutlet weak var expiryDateLabel: UILabel!
+    @IBOutlet weak var shadowOfInformationView: ShadowView!
+    @IBOutlet weak var confirmButton: BlueStyleButton!
+    @IBOutlet weak var informationView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
+
     init(cardImage: CIImage) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
         viewModel = ScanTextViewModel(image: cardImage)
         viewModel?.delegate = self
         viewModel?.parseCardInfo()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    static let cellID = "LargeCollectionViewCell"
-    @IBOutlet weak var scanCollectionView: ScanTextCollectionView!
-    private var viewModel: ScanTextViewModel?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpScanCollectionView()
+        setUpOptionsScanCollectionView()
         configHiddenKeyboard()
+        setUpCardView()
+        setUpConfirmButton()
+        setInformationToTextFiled()
+        setDefaultSelectedCell()
+        setUpTitleInfoView()
     }
 
-    private func configHiddenKeyboard() {
-        let tapToHideKeyboard = UITapGestureRecognizer(target: self,
-                                                       action: #selector(UIInputViewController.dismissKeyboard))
-        tapToHideKeyboard.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapToHideKeyboard)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerEventKeyBoard()
     }
 
-    private func setUpScanCollectionView () {
-        let nib = UINib(nibName: ScanTextViewController.cellID, bundle: Bundle.main)
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        self.scanCollectionView.register(nib, forCellWithReuseIdentifier: ScanTextViewController.cellID)
-        self.scanCollectionView.collectionViewLayout = layout
-        self.scanCollectionView.alwaysBounceVertical = false
-        self.scanCollectionView.delegate = self
-        self.scanCollectionView.dataSource = self
-        self.scanCollectionView.delaysContentTouches = true
+    private func setUpCardView() {
+        cardView.delegate = self
+        cardView.isUserInteractionEnabled = true
+        cardView.image = UIImage(ciImage: (viewModel?.image)!)
+        cardView.contentMode = .scaleAspectFit
     }
-    
+
+    private func setUpShadowView() {
+        shadowOfInformationView.cornerRadius = 15.0
+    }
+
+    private func setUpConfirmButton () {
+        confirmButton.setTitle(Language.share.localized(string: "Confirm"), for: .normal)
+    }
+
     private func registerEventKeyBoard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
@@ -60,40 +83,59 @@ class ScanTextViewController: UIViewController {
                                                object: nil)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerEventKeyBoard()
-    }
-
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey]
                                             as? NSValue)?.cgRectValue else { return }
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
 
-        var contentInset: UIEdgeInsets = self.scanCollectionView.contentInset
+        var contentInset: UIEdgeInsets = scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + 20
-        scanCollectionView.contentInset = contentInset
+        scrollView.contentInset = contentInset
     }
-    
+
     @objc func keyboardWillHide(notification: NSNotification) {
         let contentInset: UIEdgeInsets = UIEdgeInsets.zero
-        scanCollectionView.contentInset = contentInset
+        scrollView.contentInset = contentInset
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-}
 
-extension ScanTextViewController: LargeCellDelegate {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
-    func getCardInfo(cardInfo: Card?) {
-        guard let cardInfo = cardInfo else { return }
+    private func setUpOptionsScanCollectionView() {
+        let nib = UINib(nibName: cellID, bundle: .main)
+        optionsScanView.register(nib, forCellWithReuseIdentifier: cellID)
+        optionsScanView.delegate = self
+        optionsScanView.dataSource = self
+        optionsScanView.translatesAutoresizingMaskIntoConstraints = false
+        optionsScanView.showsHorizontalScrollIndicator = false
+        guard let layout = optionsScanView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    private func configHiddenKeyboard() {
+        let tapToHideKeyboard = UITapGestureRecognizer(target: self,
+                                                       action: #selector(UIInputViewController.dismissKeyboard))
+        tapToHideKeyboard.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapToHideKeyboard)
+    }
+
+    @IBAction func tapConfirmButton(_ sender: Any) {
+
+        let cardInfo = Card(cardHolder: cardHolderTextField.text ?? "",
+                            cardNumber: cardNumberTextField.text ?? "",
+                            issueDate: issueDateTextField.text,
+                            expiryDate: expiryDateTextField.text)
+
         guard let  resultCheckInfo = self.viewModel?.checkValidInfo(cardInfo: cardInfo) else { return }
         let dialogInfo = Dialog(title: "Notice",
                                 message: "",
@@ -106,35 +148,59 @@ extension ScanTextViewController: LargeCellDelegate {
             self.view.addSubview(diaLog)
         }
     }
+
+    func setInformationToTextFiled() {
+        cardHolderTextField.text = viewModel!.cardInfo?.cardHolder ?? ""
+        cardNumberTextField.text = viewModel!.cardInfo?.cardNumber ?? ""
+        issueDateTextField.text = viewModel!.cardInfo?.issueDate ?? ""
+        expiryDateTextField.text = viewModel!.cardInfo?.expiryDate ?? ""
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpShadowView()
+    }
+
+    private func setDefaultSelectedCell() {
+        let defaultIndexPath = IndexPath(item: 0, section: 0)
+        optionsScanView.selectItem(at: defaultIndexPath, animated: false, scrollPosition: .top)
+        cardView.setMode(modeScan: scanModes[defaultIndexPath.item])
+    }
+
+    func setUpTitleInfoView() {
+        for stackView in informationView.subviews {
+            for view in stackView.subviews {
+                if view.isKind(of: UILabel.self) {
+                    guard let label = view as? UILabel else { return }
+                    label.text = Language.share.localized(string: scanModes[label.tag])
+                }
+            }
+        }
+    }
 }
 
 extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        scanModes.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScanTextViewController.cellID,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID,
                                                             for: indexPath)
-                as? LargeCollectionViewCell
-        else { return UICollectionViewCell() }
-        cell.configCell(data: viewModel, delegate: self)
+                as? ModeScanCollectionViewCell else { return UICollectionViewCell() }
+
+        cell.modeName.text = Language.share.localized(string: scanModes[indexPath.item])
         return cell
     }
-}
 
-extension ScanTextViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cardView.setMode(modeScan: scanModes[indexPath.item])
     }
 }
 
 extension ScanTextViewController: CardViewDelegate {
-
     func getTextFromImage(textImage: CGImage, mode: String) {
         self.viewModel?.setTextInfoWithMode(textImage: textImage, mode: mode)
     }
@@ -142,8 +208,6 @@ extension ScanTextViewController: CardViewDelegate {
 
 extension ScanTextViewController: ScanTextViewModelDelegate {
     func didGetCardInfo() {
-        DispatchQueue.main.async {
-            self.scanCollectionView.reloadData()
-        }
+        setInformationToTextFiled()
     }
 }

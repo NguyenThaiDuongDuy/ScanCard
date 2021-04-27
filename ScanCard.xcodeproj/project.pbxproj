@@ -22,9 +22,6 @@
 		8489CE9B262EDD9E00195958 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE9A262EDD9E00195958 /* Logger.swift */; };
 		849071AC2625538E00E85B36 /* ModeScanCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */; };
 		849071AD2625538E00E85B36 /* ModeScanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */; };
-		849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */; };
-		849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */; };
-		84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484826281C55002F106C /* ScanTextViewController.swift */; };
 		84AB484F26281C55002F106C /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484B26281C55002F106C /* PreviewView.swift */; };
 		84AB485026281C55002F106C /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484C26281C55002F106C /* CardImageView.swift */; };
 		84AB488926292B21002F106C /* ScanTextCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB488826292B21002F106C /* ScanTextCollectionView.swift */; };
@@ -42,7 +39,8 @@
 		84AE3E1A261AEFCD0051CD0A /* ScanCardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3E19261AEFCD0051CD0A /* ScanCardUITests.swift */; };
 		84B0722A263188E500E3481F /* ScanCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B07229263188E500E3481F /* ScanCardViewController.xib */; };
 		84B0722F26318D4F00E3481F /* ScanCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0722E26318D4F00E3481F /* ScanCardViewController.swift */; };
-		B3325A612631CA4600A16254 /* ScanTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3325A602631CA4600A16254 /* ScanTextViewController.xib */; };
+		B3B223A226384DCA00FE37AD /* ScanTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B223A126384DC900FE37AD /* ScanTextViewController.swift */; };
+		B3B223A726384DEB00FE37AD /* ScanTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B223A626384DEB00FE37AD /* ScanTextViewController.xib */; };
 		C8B8B06A1AEA731EB8E22516 /* Pods_ScanCard_ScanCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19D6A5175686ABCB0B25407A /* Pods_ScanCard_ScanCardUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,9 +81,6 @@
 		8489CE9A262EDD9E00195958 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModeScanCollectionViewCell.xib; sourceTree = "<group>"; };
 		849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeScanCollectionViewCell.swift; sourceTree = "<group>"; };
-		849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCollectionViewCell.swift; sourceTree = "<group>"; };
-		849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCollectionViewCell.xib; sourceTree = "<group>"; };
-		84AB484826281C55002F106C /* ScanTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTextViewController.swift; sourceTree = "<group>"; };
 		84AB484B26281C55002F106C /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		84AB484C26281C55002F106C /* CardImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		84AB488826292B21002F106C /* ScanTextCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextCollectionView.swift; sourceTree = "<group>"; };
@@ -110,7 +105,8 @@
 		84B07229263188E500E3481F /* ScanCardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanCardViewController.xib; sourceTree = "<group>"; };
 		84B0722E26318D4F00E3481F /* ScanCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCardViewController.swift; sourceTree = "<group>"; };
 		8A2B85F592782C29E67D5548 /* Pods_ScanCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3325A602631CA4600A16254 /* ScanTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTextViewController.xib; sourceTree = "<group>"; };
+		B3B223A126384DC900FE37AD /* ScanTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextViewController.swift; sourceTree = "<group>"; };
+		B3B223A626384DEB00FE37AD /* ScanTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTextViewController.xib; sourceTree = "<group>"; };
 		CB7919A9F771E24EC17C6FC4 /* Pods-ScanCard-ScanCardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCard-ScanCardUITests.debug.xcconfig"; path = "Target Support Files/Pods-ScanCard-ScanCardUITests/Pods-ScanCard-ScanCardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE1CA887825CB0B4485B9FA5 /* Pods-ScanCardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCardTests.debug.xcconfig"; path = "Target Support Files/Pods-ScanCardTests/Pods-ScanCardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FFF6466A7A7817A7B80C167B /* Pods-ScanCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanCard.debug.xcconfig"; path = "Target Support Files/Pods-ScanCard/Pods-ScanCard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -185,10 +181,10 @@
 		8489CE71262ED64500195958 /* ScanText */ = {
 			isa = PBXGroup;
 			children = (
-				84AB484826281C55002F106C /* ScanTextViewController.swift */,
-				B3325A602631CA4600A16254 /* ScanTextViewController.xib */,
 				84AB489C2629624D002F106C /* ScanTextViewModel.swift */,
 				8489CE80262ED81B00195958 /* Views */,
+				B3B223A126384DC900FE37AD /* ScanTextViewController.swift */,
+				B3B223A626384DEB00FE37AD /* ScanTextViewController.xib */,
 			);
 			path = ScanText;
 			sourceTree = "<group>";
@@ -208,8 +204,6 @@
 			children = (
 				849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */,
 				849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */,
-				849071C1262598EA00E85B36 /* LargeCollectionViewCell.swift */,
-				849071C2262598EA00E85B36 /* LargeCollectionViewCell.xib */,
 				84AB484C26281C55002F106C /* CardImageView.swift */,
 				84AB488826292B21002F106C /* ScanTextCollectionView.swift */,
 			);
@@ -453,9 +447,8 @@
 				842F4860261C5D5E00709423 /* DialogView.xib in Resources */,
 				8454F53F2632C19C002C7E95 /* Vietnamese.strings in Resources */,
 				84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */,
-				849071C4262598EA00E85B36 /* LargeCollectionViewCell.xib in Resources */,
+				B3B223A726384DEB00FE37AD /* ScanTextViewController.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
-				B3325A612631CA4600A16254 /* ScanTextViewController.xib in Resources */,
 				849071AC2625538E00E85B36 /* ModeScanCollectionViewCell.xib in Resources */,
 				84B0722A263188E500E3481F /* ScanCardViewController.xib in Resources */,
 			);
@@ -516,7 +509,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nif which swiftlint >/dev/null; then\nswiftlint --config .swiftlint.yml\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "\nif which swiftlint >/dev/null; then\nswiftlint autocorrect && swiftlint --config .swiftlint.yml\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		B3057ED82BD1603069E207BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -577,10 +570,8 @@
 				84AB489D2629624D002F106C /* ScanTextViewModel.swift in Sources */,
 				84853F7026365643000F0C3C /* ImageDetector.swift in Sources */,
 				8489CE37262EAB8900195958 /* BlueStyleButton.swift in Sources */,
-				84AB484D26281C55002F106C /* ScanTextViewController.swift in Sources */,
 				8489CE9B262EDD9E00195958 /* Logger.swift in Sources */,
 				847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */,
-				849071C3262598EA00E85B36 /* LargeCollectionViewCell.swift in Sources */,
 				84AB484F26281C55002F106C /* PreviewView.swift in Sources */,
 				849071AD2625538E00E85B36 /* ModeScanCollectionViewCell.swift in Sources */,
 				84AB48A72629897E002F106C /* String+Ext.swift in Sources */,
@@ -592,6 +583,7 @@
 				842F4858261C5C7300709423 /* DialogView.swift in Sources */,
 				847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */,
 				84AB485026281C55002F106C /* CardImageView.swift in Sources */,
+				B3B223A226384DCA00FE37AD /* ScanTextViewController.swift in Sources */,
 				84AE3DF7261AEFCC0051CD0A /* SceneDelegate.swift in Sources */,
 				84AB48A226297BB8002F106C /* DialogViewMode.swift in Sources */,
 			);

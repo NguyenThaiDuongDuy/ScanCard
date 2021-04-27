@@ -7,7 +7,7 @@
 import Vision
 
 enum ImageDetector {
-    
+
     static func detectCard(sampleBuffer: CMSampleBuffer,
                            completion: @escaping (Result<VNRectangleObservation, Error>) -> Void) {
         let request = VNDetectRectanglesRequest { (request, error) in
@@ -23,16 +23,16 @@ enum ImageDetector {
         request.maximumAspectRatio = VNAspectRatio(1.6)
         request.minimumSize = Float(0.5)
         request.maximumObservations = 1
-        
+
         let requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
-        
+
         do {
             try requestHandler.perform([request])
         } catch let error {
             Logger.log(error.localizedDescription)
         }
     }
-    
+
     static func detectText(cgImage: CGImage, completion: @escaping ([String]) -> Void) {
         let request = VNRecognizeTextRequest { (request, error) in
 
@@ -40,12 +40,12 @@ enum ImageDetector {
                 Logger.log(error)
                 return
             }
-            
+
             guard let observations =
                     request.results as? [VNRecognizedTextObservation] else {
                 return
             }
-            
+
             let recognizedStrings = observations.compactMap { observation in
                 observation.topCandidates(1).first?.string
             }

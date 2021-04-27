@@ -40,7 +40,7 @@ class ScanTextViewModel {
 
         // Check valid bank number
         if !isValidCardNumber(cardNumber: cardInfo.cardNumber ?? "") {
-            return ResultCheckInfo.invalidCardHolder
+            return ResultCheckInfo.invalidCardNumber
         }
 
         // check valid created date

@@ -13,7 +13,7 @@ protocol CardViewDelegate: AnyObject {
 }
 
 class CardImageView: UIImageView {
-    
+
     weak var delegate: CardViewDelegate?
     var modeScan: String? {
         didSet {
@@ -26,13 +26,13 @@ class CardImageView: UIImageView {
             titleOfScanArea.string = myAttributedString
         }
     }
-    
+
     lazy var titleOfScanArea: CATextLayer = {
         let titleOfScanArea = CATextLayer()
         titleOfScanArea.contentsScale = UIScreen.main.scale
         return titleOfScanArea
     }()
-    
+
     lazy var scanArea: CAShapeLayer = {
         let scanArea = CAShapeLayer()
         scanArea.borderColor = UIColor.white.cgColor
@@ -40,35 +40,35 @@ class CardImageView: UIImageView {
         scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
         return scanArea
     }()
-    
+
     var firstPoint: CGPoint = CGPoint.zero
     var endPoint: CGPoint = CGPoint.zero
     var boundingRect: CGRect?
-    
+
     func setMode(modeScan: String) {
         self.modeScan = modeScan
     }
-    
+
     private func drawScanRect(rect: CGRect) {
-        
+
         self.scanArea.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
         self.scanArea.borderColor = UIColor.white.cgColor
         self.scanArea.borderWidth = 2.0
         self.scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        
+
         let titleFrame = CGRect(x: rect.minX, y: rect.minY - 20, width: 200, height: 100)
         titleOfScanArea.frame = titleFrame
-        
+
         self.scanArea.addSublayer(titleOfScanArea)
         self.layer.addSublayer(self.scanArea)
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         let touch = touches.first?.location(in: self)
         firstPoint = touch ?? CGPoint.zero
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         let touch = touches.first?.location(in: self)
@@ -80,7 +80,7 @@ class CardImageView: UIImageView {
         self.drawScanRect(rect: rect)
         self.boundingRect = rect
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.layer.sublayers?.removeAll()
         let snapshotImage = self.snapshot(of: self.boundingRect)

@@ -8,17 +8,17 @@
 import UIKit
 
 class BlueStyleButton: UIButton {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initCommon()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initCommon()
     }
-    
+
     func initCommon() {
         self.backgroundColor = UIColor(rgb: 0x22A7F0)
         self.tintColor = .white
