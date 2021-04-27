@@ -8,8 +8,8 @@
 import Foundation
 
 struct Card {
-    var cardHolder: String?
-    var cardNumber: String?
+    var cardHolder: String
+    var cardNumber: String
     var issueDate: String?
     var expiryDate: String?
 }

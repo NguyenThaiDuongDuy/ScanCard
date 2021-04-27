@@ -8,22 +8,22 @@
 import UIKit
 
 class ScanTextViewController: UIViewController {
-
-    init(cardImage: CIImage?) {
+    
+    init(cardImage: CIImage) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
         viewModel = ScanTextViewModel(image: cardImage)
         viewModel?.delegate = self
         viewModel?.parseCardInfo()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     static let cellID = "LargeCollectionViewCell"
     @IBOutlet weak var scanCollectionView: ScanTextCollectionView!
     private var viewModel: ScanTextViewModel?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScanCollectionView()
@@ -48,7 +48,7 @@ class ScanTextViewController: UIViewController {
         self.scanCollectionView.dataSource = self
         self.scanCollectionView.delaysContentTouches = true
     }
-
+    
     private func registerEventKeyBoard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
@@ -68,7 +68,7 @@ class ScanTextViewController: UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey]
@@ -79,7 +79,7 @@ class ScanTextViewController: UIViewController {
         contentInset.bottom = keyboardFrame.size.height + 20
         scanCollectionView.contentInset = contentInset
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         let contentInset: UIEdgeInsets = UIEdgeInsets.zero
         scanCollectionView.contentInset = contentInset
@@ -87,7 +87,6 @@ class ScanTextViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        viewModel = nil
     }
 }
 
@@ -112,7 +111,7 @@ extension ScanTextViewController: LargeCellDelegate {
 extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         1
+        1
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -130,12 +129,13 @@ extension ScanTextViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-         CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 }
 
 extension ScanTextViewController: CardViewDelegate {
-    func getTextFromImage(textImage: CGImage?, mode: String) {
+
+    func getTextFromImage(textImage: CGImage, mode: String) {
         self.viewModel?.setTextInfoWithMode(textImage: textImage, mode: mode)
     }
 }

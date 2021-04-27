@@ -7,11 +7,11 @@
 import Foundation
 
 class Language {
-
+    
     private init() {}
     var isEnglish: Bool = true
     static let share = Language()
-
+    
     func localized(string: String) -> String {
         NSLocalizedString(string,
                           tableName: isEnglish ? "English" : "Vietnamese",

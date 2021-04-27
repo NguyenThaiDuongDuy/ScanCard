@@ -29,7 +29,6 @@ class CameraService {
                                                                           .builtInWideAngleCamera],
                                                             mediaType: .video,
                                                             position: .back).devices.first else { return }
-
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: device), session.canAddInput(videoDeviceInput)
         else { return }
         session.addInput(videoDeviceInput)

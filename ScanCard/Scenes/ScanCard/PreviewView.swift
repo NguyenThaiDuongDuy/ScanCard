@@ -30,7 +30,7 @@ class PreviewView: UIView {
         scanArea.fillRule = .evenOdd
         scanArea.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
         scanArea.opacity = 0.5
-        
+
         let layerArrow = CALayer()
         let arrowImage = UIImage(named: "backward")?.cgImage
         layerArrow.frame = CGRect(x: self.bounds.width / 2 - 140,
@@ -55,7 +55,7 @@ class PreviewView: UIView {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
         if let avLayer: AVCaptureVideoPreviewLayer = layer as? AVCaptureVideoPreviewLayer {
             return avLayer } else {
-            return AVCaptureVideoPreviewLayer()
-        }
+                return AVCaptureVideoPreviewLayer()
+            }
     }
 }

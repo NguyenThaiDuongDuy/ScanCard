@@ -2,40 +2,46 @@ import AVKit
 import UIKit
 import Vision
 
-class ScanCardViewController: UIViewController {
+enum ModeScan {
+    case all
+    case cardHolder
+    case cardNumBer
+    case issueDate
+    case expiryDate
+}
 
-    static let minimumAspectRatioCard = VNAspectRatio(1.3)
-    static let maximumAspectRatioCard = VNAspectRatio(1.6)
-    static let maximum1TimeCardDetect = 1
-    static let minimumSizeDetectCard = Float(0.5)
+class ScanCardViewController: UIViewController {
+    
     let scanTitleOfButton = "Scan"
     let scanTitleOfNavigation = "Scan Card"
     let languages = ["En", "Vn"]
     let numberOfComponentInLanguageChosenView = 1
-
+    var modeScan: ModeScan?
+    
     @IBOutlet weak var liveVideoView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
     @IBOutlet weak var shadowView: ShadowView!
     @IBOutlet weak var languageChosenView: UIPickerView!
-
+    
     var layerBoundingBox: CALayer?
-    var rectangleDetectFromVisionService: VNRectangleObservation?
+    var rectangleDetect: VNRectangleObservation?
     var videoFrame: CMSampleBuffer?
     var recognizedStrings: [String]?
-
+    
     lazy var service: CameraService = {
         let service = CameraService(viewController: self)
         return service
     }()
-
-    init() {
+    
+    init(modeScan: ModeScan = .all) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
+        self.modeScan = modeScan
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setLanguageForView()
@@ -46,12 +52,12 @@ class ScanCardViewController: UIViewController {
         setUpLiveView()
         setUpLanguageChosenView()
     }
-
+    
     private func setUpLanguageChosenView() {
         languageChosenView.delegate = self
         languageChosenView.dataSource = self
     }
-
+    
     private func setUpLiveView() {
         liveVideoView.videoPreviewLayer.videoGravity = .resizeAspectFill
         liveVideoView.videoPreviewLayer.cornerRadius = 30
@@ -60,38 +66,38 @@ class ScanCardViewController: UIViewController {
         let tapAction = UITapGestureRecognizer(target: self, action: #selector(tapLiveVideoView))
         liveVideoView.addGestureRecognizer(tapAction)
     }
-
+    
     func setUpNavigationController() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(),
                                                                for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
-
+    
     @objc func tapLiveVideoView() {
-            self.service.session.stopRunning()
-            guard let rectangleDetectFromVisionService = self.rectangleDetectFromVisionService,
-                  let videoFrame = self.videoFrame else { return }
-            guard let imageBuffer = videoFrame.imageBuffer else { return }
-            let cropFrame = self.extractPerspectiveRect(rectangleDetectFromVisionService, from: imageBuffer)
-            self.dismiss(animated: true) {
-                self.service.stopConnectCamera()
-                let scanTextView = ScanTextViewController(cardImage: cropFrame)
-                self.navigationController?.pushViewController(scanTextView, animated: true)
-            }
+        service.session.stopRunning()
+        guard let rectangleDetect = self.rectangleDetect,
+              let videoFrame = self.videoFrame else { return }
+        guard let imageBuffer = videoFrame.imageBuffer else { return }
+        let cropFrame = self.extractPerspectiveRect(rectangleDetect, from: imageBuffer)
+        self.dismiss(animated: true) {
+            self.service.stopConnectCamera()
+            let scanTextView = ScanTextViewController(cardImage: cropFrame)
+            self.navigationController?.pushViewController(scanTextView, animated: true)
+        }
     }
-
+    
     private func setLanguageForView() {
         scanButton.setTitle(Language.share.localized(string: scanTitleOfButton), for: .normal)
         title = Language.share.localized(string: scanTitleOfNavigation)
     }
-
+    
     @IBAction func tapScanButton(_ sender: Any) {
         liveVideoView.videoPreviewLayer.session = service.session
         service.startConnectCamera()
-        self.requestUsingCamera { (_) in
+        requestUsingCamera { (_) in
         }
     }
-
+    
     func requestUsingCamera(completion: (AVAuthorizationStatus) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // The user has previously granted access to the camera.
@@ -126,13 +132,13 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        from connection: AVCaptureConnection) {
         DispatchQueue.main.async {
             self.removeBoundingBox()
-            Detector.share.detectCard(videoFrame: sampleBuffer) { resultOfDetectCard in
-
+            ImageDetector.detectCard(sampleBuffer: sampleBuffer) { resultOfDetectCard in
+                
                 switch resultOfDetectCard {
-                case .success(let rectangleFromVisionService):
-                    self.drawBoundingBox(rectFromVisionService: rectangleFromVisionService)
+                case .success(let rectangle):
+                    self.drawBoundingBox(rect: rectangle)
                     self.videoFrame = sampleBuffer
-                    self.rectangleDetectFromVisionService = rectangleFromVisionService
+                    self.rectangleDetect = rectangle
 
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -161,17 +167,17 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         ])
     }
 
-    private func drawBoundingBox(rectFromVisionService: VNRectangleObservation) {
-        let convertUIKitRect = VNImageRectForNormalizedRect(rectFromVisionService.boundingBox,
+    private func drawBoundingBox(rect: VNRectangleObservation) {
+        let convertUIKitRect = VNImageRectForNormalizedRect(rect.boundingBox,
                                                             (Int)(self.liveVideoView.bounds.width),
                                                             (Int)(self.liveVideoView.bounds.height))
-        self.layerBoundingBox = CAShapeLayer()
-        self.layerBoundingBox?.frame = convertUIKitRect
-        self.layerBoundingBox?.cornerRadius = 10
-        self.layerBoundingBox?.opacity = 0.75
-        self.layerBoundingBox?.borderColor = UIColor.red.cgColor
-        self.layerBoundingBox?.borderWidth = 5.0
-        self.liveVideoView.layer.addSublayer(self.layerBoundingBox ?? CAShapeLayer())
+        layerBoundingBox = CAShapeLayer()
+        layerBoundingBox?.frame = convertUIKitRect
+        layerBoundingBox?.cornerRadius = 10
+        layerBoundingBox?.opacity = 0.75
+        layerBoundingBox?.borderColor = UIColor.red.cgColor
+        layerBoundingBox?.borderWidth = 5.0
+        liveVideoView.layer.addSublayer(layerBoundingBox ?? CAShapeLayer())
     }
 
     private func removeBoundingBox() {
@@ -184,17 +190,17 @@ extension ScanCardViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         numberOfComponentInLanguageChosenView
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         languages.count
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
                     forComponent component: Int) -> NSAttributedString? {
         NSAttributedString(string: languages[row],
                            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         Language.share.isEnglish = languages[row] == "En"
         setLanguageForView()

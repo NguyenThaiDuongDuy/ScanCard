@@ -14,9 +14,9 @@ class DialogView: UIView {
     @IBOutlet weak var message: UILabel!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-
+    
     var viewModel: DialogViewModel?
-
+    
     init(viewModel: DialogViewModel) {
         self.viewModel = viewModel
         super.init(frame: CGRect(x: 0,
@@ -25,27 +25,27 @@ class DialogView: UIView {
                                  height: UIScreen.main.bounds.height))
         commonInit()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-
+    
     private func commonInit() {
         Bundle.main.loadNibNamed("DialogView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = frame
         setInformationDialog()
     }
-
+    
     @IBAction func tapCancelButton(_ sender: Any) {
         removeFromSuperview()
     }
-
+    
     @IBAction func tapOkButton(_ sender: Any) {
         removeFromSuperview()
     }
-
+    
     func setInformationDialog() {
         title.text = Language.share.localized(string: viewModel?.title ?? "")
         message.text = Language.share.localized(string: viewModel?.message ?? "")

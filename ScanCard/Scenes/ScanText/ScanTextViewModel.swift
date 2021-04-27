@@ -5,14 +5,13 @@
 //  Created by admin on 16/04/2021.
 //
 
-import Foundation
 import UIKit
 
 protocol ScanTextViewModelDelegate: AnyObject {
     func didGetCardInfo()
 }
 
-enum Result: String {
+enum ResultCheckInfo: String {
     case success
     case invalidCardHolder
     case invalidCardNumber
@@ -23,38 +22,38 @@ enum Result: String {
 class ScanTextViewModel {
 
     var cardInfo: Card?
-    var image: CIImage?
+    var image: CIImage
     let maxCardNumber = 19
     let minCardNumber = 16
     weak var delegate: ScanTextViewModelDelegate?
 
-    init(image: CIImage?) {
+    init(image: CIImage) {
         self.image = image
     }
 
-    func checkValidInfo(cardInfo: Card) -> Result {
+    func checkValidInfo(cardInfo: Card) -> ResultCheckInfo {
 
         // Check valid Name
         if !isValidCardHolder(cardHolder: cardInfo.cardHolder ?? "") {
-            return Result.invalidCardHolder
+            return ResultCheckInfo.invalidCardHolder
         }
 
         // Check valid bank number
         if !isValidCardNumber(cardNumber: cardInfo.cardNumber ?? "") {
-            return Result.invalidCardHolder
+            return ResultCheckInfo.invalidCardHolder
         }
 
         // check valid created date
         if !isValidIssueDate(checkIssueDate: cardInfo.issueDate ?? "") {
-            return Result.invalidIssueDate
+            return ResultCheckInfo.invalidIssueDate
         }
 
         // check valid validate date
         if !isValidExpiryDate(checkExpiryDate: cardInfo.expiryDate ?? "") {
-            return Result.invalidExpiryDate
+            return ResultCheckInfo.invalidExpiryDate
         }
         self.cardInfo = cardInfo
-        return Result.success
+        return ResultCheckInfo.success
     }
 
     private func isValidCardNumber(cardNumber: String) -> Bool {
@@ -106,12 +105,12 @@ class ScanTextViewModel {
         for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
 
             if self.isValidCardHolder(cardHolder: checkInformation[index]) &&
-                (((cardInfo.cardHolder!.isEmpty))) {
+                (((cardInfo.cardHolder.isEmpty))) {
                 cardInfo.cardHolder = checkInformation[index]
             }
 
             if self.isValidCardNumber(cardNumber: checkInformation[index])
-                && ((cardInfo.cardNumber!.isEmpty)) {
+                && ((cardInfo.cardNumber.isEmpty)) {
                 cardInfo.cardNumber = checkInformation[index]
             }
 
@@ -130,21 +129,23 @@ class ScanTextViewModel {
 
     func parseCardInfo() {
         let context = CIContext()
-        let mCgImage = context.createCGImage(image!, from: image!.extent)
-        Detector.share.getTextsFromImage(cgImage: mCgImage) { (strings) in
+        guard let cgImage = context.createCGImage(image, from: image.extent) else {
+            Logger.log("Can't created cgImage from image")
+            return }
+        ImageDetector.detectText(cgImage: cgImage) { (strings) in
             Logger.log("with Detector: \(strings)")
             self.cardInfo = self.getInfoCardAuto(information: strings)
         }
     }
 
-    func setTextInfoWithMode(textImage: CGImage?, mode: String) {
-        Detector.share.getTextsFromImage(cgImage: textImage) { (strings) in
+    func setTextInfoWithMode(textImage: CGImage, mode: String) {
+        ImageDetector.detectText(cgImage: textImage) { (strings) in
             switch mode {
             case "Card Holder":
-                self.cardInfo?.cardHolder = strings.first
+                self.cardInfo?.cardHolder = strings.first ?? ""
 
             case "Card Number":
-                self.cardInfo?.cardNumber = strings.first
+                self.cardInfo?.cardNumber = strings.first ?? ""
 
             case "Issue Date":
                 self.cardInfo?.issueDate = strings.first

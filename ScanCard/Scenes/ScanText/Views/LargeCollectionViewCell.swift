@@ -12,23 +12,23 @@ protocol LargeCellDelegate: AnyObject {
 }
 
 class LargeCollectionViewCell: UICollectionViewCell {
-
-    static let cellID = "OptionCollectionViewCell"
+    
+    static let cellID = "ModeScanCollectionViewCell"
     let scanModes: [String] = ["Card Holder",
-                            "Card Number",
-                            "Issue Date",
-                            "Expiry Date"
-                            ]
+                               "Card Number",
+                               "Issue Date",
+                               "Expiry Date"
+    ]
     @IBOutlet weak var cardView: CardImageView!
     @IBOutlet weak var optionsScanView: UICollectionView!
-    @IBOutlet weak var cardHolderInput: UITextField!
-    @IBOutlet weak var cardNumberInput: UITextField!
-    @IBOutlet weak var issueDateInput: UITextField!
-    @IBOutlet weak var expiryDateInput: UITextField!
-    @IBOutlet weak var cardHolderTitle: UILabel!
-    @IBOutlet weak var cardNumberTitle: UILabel!
-    @IBOutlet weak var issueDateTitle: UILabel!
-    @IBOutlet weak var expiryDateTitle: UILabel!
+    @IBOutlet weak var cardHolderTextField: UITextField!
+    @IBOutlet weak var cardNumberTextField: UITextField!
+    @IBOutlet weak var issueDateTextField: UITextField!
+    @IBOutlet weak var expiryDateTextField: UITextField!
+    @IBOutlet weak var cardHolderLabel: UILabel!
+    @IBOutlet weak var cardNumberLabel: UILabel!
+    @IBOutlet weak var issueDateLabel: UILabel!
+    @IBOutlet weak var expiryDateLabel: UILabel!
     @IBOutlet weak var shadowOfInformationView: ShadowView!
     @IBOutlet weak var confirmButton: BlueStyleButton!
     @IBOutlet weak var informationView: UIStackView!
@@ -102,38 +102,38 @@ class LargeCollectionViewCell: UICollectionViewCell {
     }
 
     @IBAction func tapConfirmButton(_ sender: Any) {
-        delegate?.getCardInfo(cardInfo: Card(cardHolder: cardHolderInput.text,
-                                             cardNumber: cardNumberInput.text,
-                                             issueDate: issueDateInput.text,
-                                             expiryDate: expiryDateInput.text))
+        delegate?.getCardInfo(cardInfo: Card(cardHolder: cardHolderTextField.text ?? "",
+                                             cardNumber: cardNumberTextField.text ?? "",
+                                             issueDate: issueDateTextField.text,
+                                             expiryDate: expiryDateTextField.text))
     }
 
     func setInformationToTextFiled() {
-        DispatchQueue.main.async {
-            self.cardHolderInput.text = self.dataOfCell?.cardInfo?.cardHolder ?? ""
-            self.cardNumberInput.text = self.dataOfCell?.cardInfo?.cardNumber ?? ""
-            self.issueDateInput.text = self.dataOfCell?.cardInfo?.issueDate ?? ""
-            self.expiryDateInput.text = self.dataOfCell?.cardInfo?.expiryDate ?? ""
-        }
+        //DispatchQueue.main.async {
+            self.cardHolderTextField.text = self.dataOfCell?.cardInfo?.cardHolder ?? ""
+            self.cardNumberTextField.text = self.dataOfCell?.cardInfo?.cardNumber ?? ""
+            self.issueDateTextField.text = self.dataOfCell?.cardInfo?.issueDate ?? ""
+            self.expiryDateTextField.text = self.dataOfCell?.cardInfo?.expiryDate ?? ""
+        //}
     }
 }
 
 extension LargeCollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         scanModes.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeCollectionViewCell.cellID,
                                                             for: indexPath)
                 as? ModeScanCollectionViewCell else { return UICollectionViewCell() }
-
+        
         cell.modeName.text = Language.share.localized(string: scanModes[indexPath.item])
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cardView.setMode(modeScan: scanModes[indexPath.item])
     }
