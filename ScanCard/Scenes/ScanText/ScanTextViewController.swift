@@ -32,7 +32,7 @@ class ScanTextViewController: UIViewController {
     @IBOutlet weak var shadowOfInformationView: ShadowView!
     @IBOutlet weak var confirmButton: BlueStyleButton!
     @IBOutlet weak var informationView: UIStackView!
-    @IBOutlet weak var scrollView: ScanTextCollectionView!
+    @IBOutlet weak var scrollView: ScanTextScrollView!
 
     init(cardImage: CIImage) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)

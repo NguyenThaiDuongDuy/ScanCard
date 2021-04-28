@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScanTextCollectionView: UIScrollView {
+class ScanTextScrollView: UIScrollView {
 
     override func touchesShouldCancel(in view: UIView) -> Bool {
 
