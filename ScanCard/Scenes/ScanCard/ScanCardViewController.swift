@@ -92,34 +92,40 @@ class ScanCardViewController: UIViewController {
     }
 
     @IBAction func tapScanButton(_ sender: Any) {
-        liveVideoView.videoPreviewLayer.session = service.session
-        service.startConnectCamera()
-        requestUsingCamera { (_) in
+        requestUsingCamera { (canUse) in
+            if canUse {
+                self.liveVideoView.videoPreviewLayer.session = self.service.session
+                self.service.startConnectCamera()
+            }
         }
     }
 
-    func requestUsingCamera(completion: (AVAuthorizationStatus) -> Void) {
+    func requestUsingCamera(completion: @escaping (Bool) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // The user has previously granted access to the camera.
-            completion(.authorized)
+            Logger.log("User authorized")
+            completion(true)
         case .notDetermined: // The user has not yet been asked for camera access.
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted {
                     Logger.log("User granted")
+                    completion(true)
                 } else {
                     Logger.log("User not granted")
+                    completion(false)
                 }
             }
         case .denied: // The user has previously denied access.
             // Show dialog
-            completion(.denied)
+            completion(false)
             Logger.log("User denied")
-            return
+
         case .restricted: // The user can't grant access due to restrictions.
-            completion(.restricted)
+            completion(false)
             Logger.log("User restricted")
-            return
+
         @unknown default:
+            completion(false)
             Logger.log("Something came up")
         }
     }
