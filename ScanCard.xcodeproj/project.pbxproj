@@ -12,6 +12,7 @@
 		842F4860261C5D5E00709423 /* DialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F485F261C5D5E00709423 /* DialogView.xib */; };
 		8454F53F2632C19C002C7E95 /* Vietnamese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8454F53E2632C19C002C7E95 /* Vietnamese.strings */; };
 		8454F5452632C1F1002C7E95 /* LanguageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454F5442632C1F1002C7E95 /* LanguageSupport.swift */; };
+		847AFBBD263900EB006C7B5D /* ScanTextScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AFBBC263900EB006C7B5D /* ScanTextScrollView.swift */; };
 		847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A062626929C003A91EA /* UIView+Ext.swift */; };
 		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
 		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
@@ -24,7 +25,6 @@
 		849071AD2625538E00E85B36 /* ModeScanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */; };
 		84AB484F26281C55002F106C /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484B26281C55002F106C /* PreviewView.swift */; };
 		84AB485026281C55002F106C /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484C26281C55002F106C /* CardImageView.swift */; };
-		84AB488926292B21002F106C /* ScanTextCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB488826292B21002F106C /* ScanTextCollectionView.swift */; };
 		84AB4890262961C2002F106C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB488F262961C2002F106C /* Card.swift */; };
 		84AB4898262961D4002F106C /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4897262961D4002F106C /* Dialog.swift */; };
 		84AB489D2629624D002F106C /* ScanTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB489C2629624D002F106C /* ScanTextViewModel.swift */; };
@@ -71,6 +71,8 @@
 		842F485F261C5D5E00709423 /* DialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialogView.xib; sourceTree = "<group>"; };
 		8454F53E2632C19C002C7E95 /* Vietnamese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Vietnamese.strings; sourceTree = "<group>"; };
 		8454F5442632C1F1002C7E95 /* LanguageSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSupport.swift; sourceTree = "<group>"; };
+		847AFBBC263900EB006C7B5D /* ScanTextScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTextScrollView.swift; sourceTree = "<group>"; };
+		847AFBC12639015D006C7B5D /* ScanTextScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScanTextScrollView.swift; path = ScanCard/Scenes/ScanText/Views/ScanTextScrollView.swift; sourceTree = "<group>"; };
 		847F1A062626929C003A91EA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
@@ -83,7 +85,6 @@
 		849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeScanCollectionViewCell.swift; sourceTree = "<group>"; };
 		84AB484B26281C55002F106C /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		84AB484C26281C55002F106C /* CardImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
-		84AB488826292B21002F106C /* ScanTextCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextCollectionView.swift; sourceTree = "<group>"; };
 		84AB488F262961C2002F106C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		84AB4897262961D4002F106C /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		84AB489C2629624D002F106C /* ScanTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTextViewModel.swift; sourceTree = "<group>"; };
@@ -182,9 +183,9 @@
 			isa = PBXGroup;
 			children = (
 				84AB489C2629624D002F106C /* ScanTextViewModel.swift */,
-				8489CE80262ED81B00195958 /* Views */,
 				B3B223A126384DC900FE37AD /* ScanTextViewController.swift */,
 				B3B223A626384DEB00FE37AD /* ScanTextViewController.xib */,
+				8489CE80262ED81B00195958 /* Views */,
 			);
 			path = ScanText;
 			sourceTree = "<group>";
@@ -202,10 +203,10 @@
 		8489CE80262ED81B00195958 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				847AFBBC263900EB006C7B5D /* ScanTextScrollView.swift */,
 				849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */,
 				849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */,
 				84AB484C26281C55002F106C /* CardImageView.swift */,
-				84AB488826292B21002F106C /* ScanTextCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -257,6 +258,7 @@
 		84AE3DE8261AEFCC0051CD0A = {
 			isa = PBXGroup;
 			children = (
+				847AFBC12639015D006C7B5D /* ScanTextScrollView.swift */,
 				84AE3DF3261AEFCC0051CD0A /* ScanCard */,
 				84AE3E0D261AEFCD0051CD0A /* ScanCardTests */,
 				84AE3E18261AEFCD0051CD0A /* ScanCardUITests */,
@@ -562,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847AFBBD263900EB006C7B5D /* ScanTextScrollView.swift in Sources */,
 				84B0722F26318D4F00E3481F /* ScanCardViewController.swift in Sources */,
 				8454F5452632C1F1002C7E95 /* LanguageSupport.swift in Sources */,
 				84AB4890262961C2002F106C /* Card.swift in Sources */,
@@ -578,7 +581,6 @@
 				8489CE56262EB16100195958 /* ShadowView.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,
 				847F1A142626A2A1003A91EA /* CameraService.swift in Sources */,
-				84AB488926292B21002F106C /* ScanTextCollectionView.swift in Sources */,
 				847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */,
 				842F4858261C5C7300709423 /* DialogView.swift in Sources */,
 				847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */,

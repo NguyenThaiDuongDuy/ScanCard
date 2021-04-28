@@ -11,8 +11,8 @@ class DialogViewModel {
 
     var title: String?
     var message: String?
-    var cancelButtonTitle: String?
-    var okButtonTitle: String?
+    let cancelButtonTitle: String
+    let okButtonTitle: String
 
     init(dialogInfo: Dialog, resultCheckInfo: ResultCheckInfo) {
         title = dialogInfo.title

@@ -18,10 +18,10 @@ class ShadowView: UIView {
 
         if shadowLayer == nil {
             shadowLayer = CAShapeLayer()
-            shadowLayer?.path = UIBezierPath(roundedRect: bounds, cornerRadius: self.cornerRadius ?? 30).cgPath
+            shadowLayer?.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius ?? 30).cgPath
             shadowLayer?.fillColor = UIColor.white.cgColor
 
-            shadowLayer?.shadowColor = self.color?.cgColor ?? UIColor.darkGray.cgColor
+            shadowLayer?.shadowColor = color?.cgColor ?? UIColor.darkGray.cgColor
             shadowLayer?.shadowPath = shadowLayer?.path
             shadowLayer?.shadowOffset = CGSize(width: 2.0, height: 2.0)
             shadowLayer?.shadowOpacity = 0.8

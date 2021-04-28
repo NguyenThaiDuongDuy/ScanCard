@@ -23,8 +23,8 @@ class ScanTextViewModel {
 
     var cardInfo: Card?
     var image: CIImage
-    let maxCardNumber = 19
-    let minCardNumber = 16
+    private let maxCardNumber = 19
+    private let minCardNumber = 16
     weak var delegate: ScanTextViewModelDelegate?
 
     init(image: CIImage) {
@@ -34,12 +34,12 @@ class ScanTextViewModel {
     func checkValidInfo(cardInfo: Card) -> ResultCheckInfo {
 
         // Check valid Name
-        if !isValidCardHolder(cardHolder: cardInfo.cardHolder ?? "") {
+        if !isValidCardHolder(cardHolder: cardInfo.cardHolder) {
             return ResultCheckInfo.invalidCardHolder
         }
 
         // Check valid bank number
-        if !isValidCardNumber(cardNumber: cardInfo.cardNumber ?? "") {
+        if !isValidCardNumber(cardNumber: cardInfo.cardNumber) {
             return ResultCheckInfo.invalidCardNumber
         }
 
@@ -76,7 +76,7 @@ class ScanTextViewModel {
             .filter({ !$0.isEmpty })
             .joined(separator: " ")
         return nameAfterCutWhiteSpacesAndNewlines.contains(" ")
-        }
+    }
 
     private func isValidIssueDate(checkIssueDate: String) -> Bool {
         let dateFormatter = DateFormatter()
@@ -95,7 +95,7 @@ class ScanTextViewModel {
         return checkInputDate > Date()
     }
 
-    func getInfoCardAuto(information: [String]?) -> Card {
+    private func getInfoCardAuto(information: [String]?) -> Card {
         var cardInfo = Card(cardHolder: "",
                             cardNumber: "",
                             issueDate: "",
@@ -132,29 +132,41 @@ class ScanTextViewModel {
         guard let cgImage = context.createCGImage(image, from: image.extent) else {
             Logger.log("Can't created cgImage from image")
             return }
-        ImageDetector.detectText(cgImage: cgImage) { (strings) in
-            Logger.log("with Detector: \(strings)")
-            self.cardInfo = self.getInfoCardAuto(information: strings)
+
+        ImageDetector.detectText(cgImage: cgImage) { (resultOfDetectText) in
+            switch resultOfDetectText {
+            case .success(let strings):
+                self.cardInfo = self.getInfoCardAuto(information: strings)
+
+            case .failure(let error):
+                Logger.log(error.localizedDescription)
+            }
         }
     }
 
     func setTextInfoWithMode(textImage: CGImage, mode: String) {
-        ImageDetector.detectText(cgImage: textImage) { (strings) in
-            switch mode {
-            case "Card Holder":
-                self.cardInfo?.cardHolder = strings.first ?? ""
+        ImageDetector.detectText(cgImage: textImage) { (resultOfDetectText) in
+            switch resultOfDetectText {
+            case .success(let strings):
+                switch mode {
+                case "Card Holder":
+                    self.cardInfo?.cardHolder = strings.first ?? ""
 
-            case "Card Number":
-                self.cardInfo?.cardNumber = strings.first ?? ""
+                case "Card Number":
+                    self.cardInfo?.cardNumber = strings.first ?? ""
 
-            case "Issue Date":
-                self.cardInfo?.issueDate = strings.first
+                case "Issue Date":
+                    self.cardInfo?.issueDate = strings.first
 
-            case "Expiry Date":
-                self.cardInfo?.expiryDate = strings.first
+                case "Expiry Date":
+                    self.cardInfo?.expiryDate = strings.first
 
-            default:
-                print("error")
+                default:
+                    Logger.log("error")
+                }
+
+            case .failure(let error):
+                Logger.log(error.localizedDescription)
             }
         }
         self.delegate?.didGetCardInfo()

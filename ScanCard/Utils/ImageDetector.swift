@@ -33,12 +33,11 @@ enum ImageDetector {
         }
     }
 
-    static func detectText(cgImage: CGImage, completion: @escaping ([String]) -> Void) {
+    static func detectText(cgImage: CGImage, completion: @escaping ((Result<[String], Error>)) -> Void) {
         let request = VNRecognizeTextRequest { (request, error) in
 
             if let error = error {
-                Logger.log(error)
-                return
+                completion(.failure(error))
             }
 
             guard let observations =
@@ -50,7 +49,7 @@ enum ImageDetector {
                 observation.topCandidates(1).first?.string
             }
 
-            completion(recognizedStrings)
+            completion(.success(recognizedStrings))
         }
         request.recognitionLevel = .accurate
         request.minimumTextHeight = 1 / 20

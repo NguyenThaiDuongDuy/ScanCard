@@ -15,7 +15,7 @@ protocol CardViewDelegate: AnyObject {
 class CardImageView: UIImageView {
 
     weak var delegate: CardViewDelegate?
-    var modeScan: String? {
+    private var modeScan: String? {
         didSet {
             let attributes = [
                 NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ,
@@ -27,13 +27,13 @@ class CardImageView: UIImageView {
         }
     }
 
-    lazy var titleOfScanArea: CATextLayer = {
+    private lazy var titleOfScanArea: CATextLayer = {
         let titleOfScanArea = CATextLayer()
         titleOfScanArea.contentsScale = UIScreen.main.scale
         return titleOfScanArea
     }()
 
-    lazy var scanArea: CAShapeLayer = {
+    private lazy var scanArea: CAShapeLayer = {
         let scanArea = CAShapeLayer()
         scanArea.borderColor = UIColor.white.cgColor
         scanArea.borderWidth = 2.0
@@ -41,9 +41,9 @@ class CardImageView: UIImageView {
         return scanArea
     }()
 
-    var firstPoint: CGPoint = CGPoint.zero
-    var endPoint: CGPoint = CGPoint.zero
-    var boundingRect: CGRect?
+    private var firstPoint: CGPoint = CGPoint.zero
+    private var endPoint: CGPoint = CGPoint.zero
+    private var boundingRect: CGRect?
 
     func setMode(modeScan: String) {
         self.modeScan = modeScan
@@ -51,16 +51,16 @@ class CardImageView: UIImageView {
 
     private func drawScanRect(rect: CGRect) {
 
-        self.scanArea.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
-        self.scanArea.borderColor = UIColor.white.cgColor
-        self.scanArea.borderWidth = 2.0
-        self.scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        scanArea.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
+        scanArea.borderColor = UIColor.white.cgColor
+        scanArea.borderWidth = 2.0
+        scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
 
         let titleFrame = CGRect(x: rect.minX, y: rect.minY - 20, width: 200, height: 100)
         titleOfScanArea.frame = titleFrame
 
-        self.scanArea.addSublayer(titleOfScanArea)
-        self.layer.addSublayer(self.scanArea)
+        scanArea.addSublayer(titleOfScanArea)
+        layer.addSublayer(scanArea)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -77,14 +77,14 @@ class CardImageView: UIImageView {
                           y: min(firstPoint.y, endPoint.y),
                           width: abs(firstPoint.x - endPoint.x),
                           height: abs(firstPoint.y - endPoint.y))
-        self.drawScanRect(rect: rect)
-        self.boundingRect = rect
+        drawScanRect(rect: rect)
+        boundingRect = rect
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.layer.sublayers?.removeAll()
-        let snapshotImage = self.snapshot(of: self.boundingRect)
+        let snapshotImage = snapshot(of: boundingRect)
         guard let cgImage = snapshotImage?.cgImage else { return }
-        self.delegate!.getTextFromImage(textImage: cgImage, mode: self.modeScan ?? "")
+        delegate!.getTextFromImage(textImage: cgImage, mode: modeScan ?? "")
     }
 }

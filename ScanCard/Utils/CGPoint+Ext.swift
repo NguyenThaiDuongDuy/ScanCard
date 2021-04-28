@@ -8,7 +8,7 @@
 import UIKit
 extension CGPoint {
     func convertToPixelCoordinate(to size: CGSize) -> CGPoint {
-        CGPoint(x: self.x * size.width,
-                y: self.y * size.height)
+        CGPoint(x: x * size.width,
+                y: y * size.height)
     }
 }

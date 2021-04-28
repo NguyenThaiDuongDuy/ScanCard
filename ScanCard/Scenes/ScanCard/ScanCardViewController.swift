@@ -12,10 +12,10 @@ enum ModeScan {
 
 class ScanCardViewController: UIViewController {
 
-    let scanTitleOfButton = "Scan"
-    let scanTitleOfNavigation = "Scan Card"
-    let languages = ["En", "Vn"]
-    let numberOfComponentInLanguageChosenView = 1
+    private let scanButtonTitle = "Scan"
+    private let scanNavigationTitle = "Scan Card"
+    private let languages = ["En", "Vn"]
+    private let numberOfComponentInLanguageChosenView = 1
     var modeScan: ModeScan?
 
     @IBOutlet weak var liveVideoView: PreviewView!
@@ -23,12 +23,12 @@ class ScanCardViewController: UIViewController {
     @IBOutlet weak var shadowView: ShadowView!
     @IBOutlet weak var languageChosenView: UIPickerView!
 
-    var layerBoundingBox: CALayer?
-    var rectangleDetect: VNRectangleObservation?
-    var videoFrame: CMSampleBuffer?
-    var recognizedStrings: [String]?
+    private var layerBoundingBox: CALayer?
+    private var rectangleDetect: VNRectangleObservation?
+    private var videoFrame: CMSampleBuffer?
+    private var recognizedStrings: [String]?
 
-    lazy var service: CameraService = {
+    private lazy var service: CameraService = {
         let service = CameraService(viewController: self)
         return service
     }()
@@ -67,7 +67,7 @@ class ScanCardViewController: UIViewController {
         liveVideoView.addGestureRecognizer(tapAction)
     }
 
-    func setUpNavigationController() {
+    private func setUpNavigationController() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(),
                                                                for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -87,8 +87,8 @@ class ScanCardViewController: UIViewController {
     }
 
     private func setLanguageForView() {
-        scanButton.setTitle(Language.share.localized(string: scanTitleOfButton), for: .normal)
-        title = Language.share.localized(string: scanTitleOfNavigation)
+        scanButton.setTitle(Language.share.localized(string: scanButtonTitle), for: .normal)
+        title = Language.share.localized(string: scanNavigationTitle)
     }
 
     @IBAction func tapScanButton(_ sender: Any) {
@@ -105,22 +105,22 @@ class ScanCardViewController: UIViewController {
         case .notDetermined: // The user has not yet been asked for camera access.
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted {
-                    print("User granted")
+                    Logger.log("User granted")
                 } else {
-                    print("User not granted")
+                    Logger.log("User not granted")
                 }
             }
         case .denied: // The user has previously denied access.
             // Show dialog
             completion(.denied)
-            print("User denied")
+            Logger.log("User denied")
             return
         case .restricted: // The user can't grant access due to restrictions.
             completion(.restricted)
-            print("User restricted")
+            Logger.log("User restricted")
             return
         @unknown default:
-            print("Something came up")
+            Logger.log("Something came up")
         }
     }
 }
@@ -133,7 +133,6 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         DispatchQueue.main.async {
             self.removeBoundingBox()
             ImageDetector.detectCard(sampleBuffer: sampleBuffer) { resultOfDetectCard in
-
                 switch resultOfDetectCard {
                 case .success(let rectangle):
                     self.drawBoundingBox(rect: rectangle)
@@ -141,7 +140,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     self.rectangleDetect = rectangle
 
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    Logger.log(error.localizedDescription)
                 }
             }
         }

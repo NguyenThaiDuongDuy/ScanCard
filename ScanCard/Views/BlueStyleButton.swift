@@ -20,8 +20,8 @@ class BlueStyleButton: UIButton {
     }
 
     func initCommon() {
-        self.backgroundColor = UIColor(rgb: 0x22A7F0)
-        self.tintColor = .white
-        self.layer.cornerRadius = self.bounds.height / 2
+        backgroundColor = UIColor(rgb: 0x22A7F0)
+        tintColor = .white
+        layer.cornerRadius = bounds.height / 2
     }
 }

@@ -9,9 +9,9 @@ import UIKit
 
 class ScanTextViewController: UIViewController {
 
-    let cellID = "ModeScanCollectionViewCell"
+    private let cellID = "ModeScanCollectionViewCell"
 
-    let scanModes: [String] = ["Card Holder",
+    private let scanModes: [String] = ["Card Holder",
                                "Card Number",
                                "Issue Date",
                                "Expiry Date"
@@ -57,6 +57,19 @@ class ScanTextViewController: UIViewController {
         registerEventKeyBoard()
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpShadowView()
+    }
+
     private func setUpCardView() {
         cardView.delegate = self
         cardView.isUserInteractionEnabled = true
@@ -87,7 +100,7 @@ class ScanTextViewController: UIViewController {
         guard let userInfo = notification.userInfo else { return }
         guard var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey]
                                             as? NSValue)?.cgRectValue else { return }
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
 
         var contentInset: UIEdgeInsets = scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + 20
@@ -97,14 +110,6 @@ class ScanTextViewController: UIViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
         let contentInset: UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
 
     private func setUpOptionsScanCollectionView() {
@@ -149,16 +154,11 @@ class ScanTextViewController: UIViewController {
         }
     }
 
-    func setInformationToTextFiled() {
+    private func setInformationToTextFiled() {
         cardHolderTextField.text = viewModel!.cardInfo?.cardHolder ?? ""
         cardNumberTextField.text = viewModel!.cardInfo?.cardNumber ?? ""
         issueDateTextField.text = viewModel!.cardInfo?.issueDate ?? ""
         expiryDateTextField.text = viewModel!.cardInfo?.expiryDate ?? ""
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setUpShadowView()
     }
 
     private func setDefaultSelectedCell() {
@@ -167,7 +167,7 @@ class ScanTextViewController: UIViewController {
         cardView.setMode(modeScan: scanModes[defaultIndexPath.item])
     }
 
-    func setUpTitleInfoView() {
+    private func setUpTitleInfoView() {
         for stackView in informationView.subviews {
             for view in stackView.subviews {
                 if view.isKind(of: UILabel.self) {
@@ -202,7 +202,7 @@ extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDe
 
 extension ScanTextViewController: CardViewDelegate {
     func getTextFromImage(textImage: CGImage, mode: String) {
-        self.viewModel?.setTextInfoWithMode(textImage: textImage, mode: mode)
+        viewModel?.setTextInfoWithMode(textImage: textImage, mode: mode)
     }
 }
 

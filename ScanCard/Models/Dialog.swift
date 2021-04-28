@@ -10,6 +10,6 @@ import Foundation
 struct Dialog {
     var title: String?
     var message: String?
-    var okButtonTitle: String?
-    var cancelButtonTitle: String?
+    let okButtonTitle: String
+    let cancelButtonTitle: String
 }
