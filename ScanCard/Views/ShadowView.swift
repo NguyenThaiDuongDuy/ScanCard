@@ -10,7 +10,7 @@ import UIKit
 class ShadowView: UIView {
 
     private var shadowLayer: CAShapeLayer?
-    var color: UIColor?
+    var shadowColor: UIColor?
     var cornerRadius: CGFloat?
 
     override func layoutSubviews() {
@@ -21,7 +21,7 @@ class ShadowView: UIView {
             shadowLayer?.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius ?? 30).cgPath
             shadowLayer?.fillColor = UIColor.white.cgColor
 
-            shadowLayer?.shadowColor = color?.cgColor ?? UIColor.darkGray.cgColor
+            shadowLayer?.shadowColor = shadowColor?.cgColor ?? UIColor.darkGray.cgColor
             shadowLayer?.shadowPath = shadowLayer?.path
             shadowLayer?.shadowOffset = CGSize(width: 2.0, height: 2.0)
             shadowLayer?.shadowOpacity = 0.8

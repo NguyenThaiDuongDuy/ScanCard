@@ -8,7 +8,7 @@
 import UIKit
 
 class ModeScanCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var modeName: UILabel!
+    @IBOutlet weak var modeNameLabel: UILabel!
     @IBOutlet weak var modeView: UIView!
 
     override func awakeFromNib() {
@@ -20,7 +20,7 @@ class ModeScanCollectionViewCell: UICollectionViewCell {
         modeView.clipsToBounds = true
         modeView.layer.cornerRadius = 15.0
         modeView.backgroundColor = UIColor(rgb: 0x22A7F0).withAlphaComponent(0.5)
-        modeName.textColor = .white
+        modeNameLabel.textColor = .white
     }
 
     override var isSelected: Bool {

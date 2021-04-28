@@ -12,9 +12,9 @@ class ScanTextViewController: UIViewController {
     private let cellID = "ModeScanCollectionViewCell"
 
     private let scanModes: [String] = ["Card Holder",
-                               "Card Number",
-                               "Issue Date",
-                               "Expiry Date"
+                                       "Card Number",
+                                       "Issue Date",
+                                       "Expiry Date"
     ]
 
     private var viewModel: ScanTextViewModel?
@@ -191,7 +191,7 @@ extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDe
                                                             for: indexPath)
                 as? ModeScanCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.modeName.text = Language.share.localized(string: scanModes[indexPath.item])
+        cell.modeNameLabel.text = Language.share.localized(string: scanModes[indexPath.item])
         return cell
     }
 

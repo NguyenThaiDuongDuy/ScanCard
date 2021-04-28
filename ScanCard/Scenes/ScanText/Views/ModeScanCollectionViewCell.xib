@@ -45,7 +45,7 @@
             </constraints>
             <size key="customSize" width="451" height="115"/>
             <connections>
-                <outlet property="modeName" destination="WUH-R1-War" id="xm5-KS-68Y"/>
+                <outlet property="modeNameLabel" destination="WUH-R1-War" id="xm5-KS-68Y"/>
                 <outlet property="modeView" destination="lfU-6q-eR8" id="VV9-F1-q89"/>
             </connections>
             <point key="canvasLocation" x="206.52173913043481" y="123.54910714285714"/>

@@ -15,17 +15,17 @@ class ScanCardViewController: UIViewController {
     private let scanButtonTitle = "Scan"
     private let scanNavigationTitle = "Scan Card"
     private let languages = ["En", "Vn"]
-    private let numberOfComponentInLanguageChosenView = 1
+    private let numberOfComponent = 1
     var modeScan: ModeScan?
 
     @IBOutlet weak var liveVideoView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
     @IBOutlet weak var shadowView: ShadowView!
-    @IBOutlet weak var languageChosenView: UIPickerView!
+    @IBOutlet weak var languagePickerView: UIPickerView!
 
     private var layerBoundingBox: CALayer?
     private var rectangleDetect: VNRectangleObservation?
-    private var videoFrame: CMSampleBuffer?
+    private var sampleBuffer: CMSampleBuffer?
     private var recognizedStrings: [String]?
 
     private lazy var service: CameraService = {
@@ -54,8 +54,8 @@ class ScanCardViewController: UIViewController {
     }
 
     private func setUpLanguageChosenView() {
-        languageChosenView.delegate = self
-        languageChosenView.dataSource = self
+        languagePickerView.delegate = self
+        languagePickerView.dataSource = self
     }
 
     private func setUpLiveView() {
@@ -76,8 +76,8 @@ class ScanCardViewController: UIViewController {
     @objc func tapLiveVideoView() {
         service.session.stopRunning()
         guard let rectangleDetect = self.rectangleDetect,
-              let videoFrame = self.videoFrame else { return }
-        guard let imageBuffer = videoFrame.imageBuffer else { return }
+              let sampleBuffer = self.sampleBuffer else { return }
+        guard let imageBuffer = sampleBuffer.imageBuffer else { return }
         let cropFrame = self.extractPerspectiveRect(rectangleDetect, from: imageBuffer)
         self.dismiss(animated: true) {
             self.service.stopConnectCamera()
@@ -134,9 +134,10 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             self.removeBoundingBox()
             ImageDetector.detectCard(sampleBuffer: sampleBuffer) { resultOfDetectCard in
                 switch resultOfDetectCard {
+
                 case .success(let rectangle):
                     self.drawBoundingBox(rect: rectangle)
-                    self.videoFrame = sampleBuffer
+                    self.sampleBuffer = sampleBuffer
                     self.rectangleDetect = rectangle
 
                 case .failure(let error):
@@ -187,7 +188,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 extension ScanCardViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        numberOfComponentInLanguageChosenView
+        numberOfComponent
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
