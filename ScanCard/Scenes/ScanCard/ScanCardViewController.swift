@@ -33,7 +33,7 @@ class ScanCardViewController: UIViewController {
         return service
     }()
 
-    init(modeScan: ModeScan = .all) {
+    public init(modeScan: ModeScan = .all) {
         super.init(nibName: String(describing: type(of: self)), bundle: nil)
         self.modeScan = modeScan
     }
@@ -94,8 +94,10 @@ class ScanCardViewController: UIViewController {
     @IBAction func tapScanButton(_ sender: Any) {
         requestUsingCamera { (canUse) in
             if canUse {
-                self.liveVideoView.videoPreviewLayer.session = self.service.session
-                self.service.startConnectCamera()
+                DispatchQueue.main.async {
+                    self.liveVideoView.videoPreviewLayer.session = self.service.session
+                    self.service.startConnectCamera()
+                }
             }
         }
     }

@@ -12,7 +12,7 @@
 		842F4860261C5D5E00709423 /* DialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F485F261C5D5E00709423 /* DialogView.xib */; };
 		8454F53F2632C19C002C7E95 /* Vietnamese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8454F53E2632C19C002C7E95 /* Vietnamese.strings */; };
 		8454F5452632C1F1002C7E95 /* LanguageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454F5442632C1F1002C7E95 /* LanguageSupport.swift */; };
-		847AFBBD263900EB006C7B5D /* ScanTextScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AFBBC263900EB006C7B5D /* ScanTextScrollView.swift */; };
+		847AFBF026395C56006C7B5D /* ScanTextScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AFBEF26395C56006C7B5D /* ScanTextScrollView.swift */; };
 		847F1A072626929C003A91EA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A062626929C003A91EA /* UIView+Ext.swift */; };
 		847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A0E262692B7003A91EA /* UIColor+Ext.swift */; };
 		847F1A142626A2A1003A91EA /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F1A132626A2A1003A91EA /* CameraService.swift */; };
@@ -71,8 +71,7 @@
 		842F485F261C5D5E00709423 /* DialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialogView.xib; sourceTree = "<group>"; };
 		8454F53E2632C19C002C7E95 /* Vietnamese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Vietnamese.strings; sourceTree = "<group>"; };
 		8454F5442632C1F1002C7E95 /* LanguageSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSupport.swift; sourceTree = "<group>"; };
-		847AFBBC263900EB006C7B5D /* ScanTextScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTextScrollView.swift; sourceTree = "<group>"; };
-		847AFBC12639015D006C7B5D /* ScanTextScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScanTextScrollView.swift; path = ScanCard/Scenes/ScanText/Views/ScanTextScrollView.swift; sourceTree = "<group>"; };
+		847AFBEF26395C56006C7B5D /* ScanTextScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTextScrollView.swift; sourceTree = "<group>"; };
 		847F1A062626929C003A91EA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		847F1A0E262692B7003A91EA /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		847F1A132626A2A1003A91EA /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
@@ -203,7 +202,7 @@
 		8489CE80262ED81B00195958 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				847AFBBC263900EB006C7B5D /* ScanTextScrollView.swift */,
+				847AFBEF26395C56006C7B5D /* ScanTextScrollView.swift */,
 				849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */,
 				849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */,
 				84AB484C26281C55002F106C /* CardImageView.swift */,
@@ -258,7 +257,6 @@
 		84AE3DE8261AEFCC0051CD0A = {
 			isa = PBXGroup;
 			children = (
-				847AFBC12639015D006C7B5D /* ScanTextScrollView.swift */,
 				84AE3DF3261AEFCC0051CD0A /* ScanCard */,
 				84AE3E0D261AEFCD0051CD0A /* ScanCardTests */,
 				84AE3E18261AEFCD0051CD0A /* ScanCardUITests */,
@@ -564,7 +562,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				847AFBBD263900EB006C7B5D /* ScanTextScrollView.swift in Sources */,
 				84B0722F26318D4F00E3481F /* ScanCardViewController.swift in Sources */,
 				8454F5452632C1F1002C7E95 /* LanguageSupport.swift in Sources */,
 				84AB4890262961C2002F106C /* Card.swift in Sources */,
@@ -580,6 +577,7 @@
 				84AB48A72629897E002F106C /* String+Ext.swift in Sources */,
 				8489CE56262EB16100195958 /* ShadowView.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,
+				847AFBF026395C56006C7B5D /* ScanTextScrollView.swift in Sources */,
 				847F1A142626A2A1003A91EA /* CameraService.swift in Sources */,
 				847F1A0F262692B7003A91EA /* UIColor+Ext.swift in Sources */,
 				842F4858261C5C7300709423 /* DialogView.swift in Sources */,

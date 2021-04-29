@@ -20,4 +20,16 @@ extension String {
             return true
         }
     }
+
+    func getDateString() -> Substring {
+        guard let range = self.range(of: "/") else { return "" }
+        let indexOfCharacter = range.lowerBound
+        let start = index(indexOfCharacter, offsetBy: -2, limitedBy: startIndex)
+        let endOfString = index(startIndex, offsetBy: count - 1)
+        let end = index(indexOfCharacter, offsetBy: +2, limitedBy: endOfString)
+        if let start = start, let end = end {
+            return self[start...end]
+        }
+        return ""
+    }
 }

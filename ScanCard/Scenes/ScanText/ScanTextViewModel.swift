@@ -79,23 +79,26 @@ class ScanTextViewModel {
     }
 
     private func isValidIssueDate(checkIssueDate: String) -> Bool {
+        let dateFilter = String(checkIssueDate.getDateString())
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yy"
-        let inputDate = dateFormatter.date(from: checkIssueDate)
+        let inputDate = dateFormatter.date(from: dateFilter)
         guard let checkInputDate = inputDate else {
             return false }
         return checkInputDate < Date()
     }
 
     private func isValidExpiryDate(checkExpiryDate: String) -> Bool {
+        let dateFilter = String(checkExpiryDate.getDateString())
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yy"
-        let inputDate = dateFormatter.date(from: checkExpiryDate)
+        let inputDate = dateFormatter.date(from: dateFilter)
         guard let checkInputDate = inputDate else { return false }
         return checkInputDate > Date()
     }
 
     private func getInfoCardAuto(information: [String]?) -> Card {
+        Logger.log(information as Any)
         var cardInfo = Card(cardHolder: "",
                             cardNumber: "",
                             issueDate: "",
@@ -116,12 +119,12 @@ class ScanTextViewModel {
 
             if self.isValidIssueDate(checkIssueDate: checkInformation[index])
                 && ((cardInfo.issueDate!.isEmpty)) {
-                cardInfo.issueDate = checkInformation[index]
+                cardInfo.issueDate = String(checkInformation[index].getDateString())
             }
 
             if self.isValidExpiryDate(checkExpiryDate: checkInformation[index])
                 && ((cardInfo.expiryDate!.isEmpty)) {
-                cardInfo.expiryDate = checkInformation[index]
+                cardInfo.expiryDate = String(checkInformation[index].getDateString())
             }
         }
         return cardInfo
