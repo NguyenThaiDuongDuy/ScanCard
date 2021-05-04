@@ -133,12 +133,12 @@ class ScanTextViewController: UIViewController {
 
     @IBAction func tapConfirmButton(_ sender: Any) {
 
-        let cardInfo = Card(cardHolder: cardHolderTextField.text ?? "",
+        let infoCard = Card(cardHolder: cardHolderTextField.text ?? "",
                             cardNumber: cardNumberTextField.text ?? "",
                             issueDate: issueDateTextField.text,
                             expiryDate: expiryDateTextField.text)
 
-        let  resultCheckInfo = viewModel.checkValidInfo(cardInfo: cardInfo)
+        let  resultCheckInfo = viewModel.checkValidInfo(infoCard: infoCard)
         let dialogInfo = Dialog(title: "Notice",
                                 message: "",
                                 okButtonTitle: "Ok",
@@ -150,16 +150,15 @@ class ScanTextViewController: UIViewController {
     }
 
     private func setInformationToTextFiled() {
-        cardHolderTextField.text = viewModel.cardInfo?.cardHolder ?? ""
-        cardNumberTextField.text = viewModel.cardInfo?.cardNumber ?? ""
-        issueDateTextField.text = viewModel.cardInfo?.issueDate ?? ""
-        expiryDateTextField.text = viewModel.cardInfo?.expiryDate ?? ""
+        cardHolderTextField.text = viewModel.infoCard?.cardHolder ?? ""
+        cardNumberTextField.text = viewModel.infoCard?.cardNumber ?? ""
+        issueDateTextField.text = viewModel.infoCard?.issueDate ?? ""
+        expiryDateTextField.text = viewModel.infoCard?.expiryDate ?? ""
     }
 
     private func setDefaultSelectedCell() {
         let defaultIndexPath = IndexPath(item: 0, section: 0)
         optionsScanView.selectItem(at: defaultIndexPath, animated: false, scrollPosition: .top)
-        cardView.setMode(scanMode: ScanMode.cardHolder)
     }
 
     private func setUpTitleInfoView() {

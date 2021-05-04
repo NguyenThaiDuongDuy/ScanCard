@@ -148,7 +148,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
 
-    // Crop image in boundingbox
+    // Crop image in bounding box
     private func extractPerspectiveRect(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> CIImage {
         // get the pixel buffer into Core Image
         let ciImage = CIImage(cvImageBuffer: buffer)

@@ -46,7 +46,7 @@ enum ResultCheckInfo: String {
 
 class ScanTextViewModel {
 
-    var cardInfo: Card?
+    var infoCard: Card?
     var image: CIImage
     private let maxCardNumber = 19
     private let minCardNumber = 16
@@ -56,28 +56,28 @@ class ScanTextViewModel {
         self.image = image
     }
 
-    func checkValidInfo(cardInfo: Card) -> ResultCheckInfo {
+    func checkValidInfo(infoCard: Card) -> ResultCheckInfo {
 
         // Check valid Name
-        if !isValidCardHolder(cardHolder: cardInfo.cardHolder) {
+        if !isValidCardHolder(cardHolder: infoCard.cardHolder) {
             return ResultCheckInfo.invalidCardHolder
         }
 
         // Check valid bank number
-        if !isValidCardNumber(cardNumber: cardInfo.cardNumber) {
+        if !isValidCardNumber(cardNumber: infoCard.cardNumber) {
             return ResultCheckInfo.invalidCardNumber
         }
 
         // check valid created date
-        if !isValidIssueDate(checkIssueDate: cardInfo.issueDate ?? "") {
+        if !isValidIssueDate(checkIssueDate: infoCard.issueDate ?? "") {
             return ResultCheckInfo.invalidIssueDate
         }
 
         // check valid validate date
-        if !isValidExpiryDate(checkExpiryDate: cardInfo.expiryDate ?? "") {
+        if !isValidExpiryDate(checkExpiryDate: infoCard.expiryDate ?? "") {
             return ResultCheckInfo.invalidExpiryDate
         }
-        self.cardInfo = cardInfo
+        self.infoCard = infoCard
         return ResultCheckInfo.success
     }
 
@@ -124,35 +124,35 @@ class ScanTextViewModel {
 
     private func getInfoCardAuto(information: [String]?) -> Card {
         Logger.log(information as Any)
-        var cardInfo = Card(cardHolder: "",
+        var infoCard = Card(cardHolder: "",
                             cardNumber: "",
                             issueDate: "",
                             expiryDate: "")
-        guard let checkInformation = information else { return cardInfo }
+        guard let checkInformation = information else { return infoCard }
 
         for index in stride(from: checkInformation.count - 1, to: 0, by: -1) {
 
-            if self.isValidCardHolder(cardHolder: checkInformation[index]) &&
-                (((cardInfo.cardHolder.isEmpty))) {
-                cardInfo.cardHolder = checkInformation[index]
+            if isValidCardHolder(cardHolder: checkInformation[index]) &&
+                (((infoCard.cardHolder.isEmpty))) {
+                infoCard.cardHolder = checkInformation[index]
             }
 
-            if self.isValidCardNumber(cardNumber: checkInformation[index])
-                && ((cardInfo.cardNumber.isEmpty)) {
-                cardInfo.cardNumber = checkInformation[index]
+            if isValidCardNumber(cardNumber: checkInformation[index])
+                && ((infoCard.cardNumber.isEmpty)) {
+                infoCard.cardNumber = checkInformation[index]
             }
 
-            if self.isValidIssueDate(checkIssueDate: checkInformation[index])
-                && ((cardInfo.issueDate!.isEmpty)) {
-                cardInfo.issueDate = String(checkInformation[index].getDateString())
+            if isValidIssueDate(checkIssueDate: checkInformation[index])
+                && ((infoCard.issueDate!.isEmpty)) {
+                infoCard.issueDate = String(checkInformation[index].getDateString())
             }
 
-            if self.isValidExpiryDate(checkExpiryDate: checkInformation[index])
-                && ((cardInfo.expiryDate!.isEmpty)) {
-                cardInfo.expiryDate = String(checkInformation[index].getDateString())
+            if isValidExpiryDate(checkExpiryDate: checkInformation[index])
+                && ((infoCard.expiryDate!.isEmpty)) {
+                infoCard.expiryDate = String(checkInformation[index].getDateString())
             }
         }
-        return cardInfo
+        return infoCard
     }
 
     func parseCardInfo() {
@@ -164,7 +164,7 @@ class ScanTextViewModel {
         ImageDetector.detectText(cgImage: cgImage) { (resultOfDetectText) in
             switch resultOfDetectText {
             case .success(let strings):
-                self.cardInfo = self.getInfoCardAuto(information: strings)
+                self.infoCard = self.getInfoCardAuto(information: strings)
 
             case .failure(let error):
                 Logger.log(error.localizedDescription)
@@ -178,22 +178,22 @@ class ScanTextViewModel {
             case .success(let strings):
                 switch mode {
                 case .cardHolder:
-                    self.cardInfo?.cardHolder = strings.first ?? ""
+                    self.infoCard?.cardHolder = strings.first ?? ""
 
                 case .cardNumBer:
-                    self.cardInfo?.cardNumber = strings.first ?? ""
+                    self.infoCard?.cardNumber = strings.first ?? ""
 
                 case .issueDate:
-                    self.cardInfo?.issueDate = strings.first
+                    self.infoCard?.issueDate = strings.first
 
                 case .expiryDate:
-                    self.cardInfo?.expiryDate = strings.first
+                    self.infoCard?.expiryDate = strings.first
                 }
 
             case .failure(let error):
                 Logger.log(error.localizedDescription)
             }
         }
-        self.delegate?.didGetCardInfo()
+        delegate?.didGetCardInfo()
     }
 }

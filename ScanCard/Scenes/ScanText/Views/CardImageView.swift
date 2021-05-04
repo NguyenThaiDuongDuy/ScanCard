@@ -21,24 +21,24 @@ class CardImageView: UIImageView {
                 NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ,
                 NSAttributedString.Key.foregroundColor: UIColor.cyan
             ]
-            let myAttributedString = NSAttributedString(string: Language.share.localized(string: scanMode.modeString),
-                                                        attributes: attributes )
-            titleOfScanArea.string = myAttributedString
+            let attributedString = NSAttributedString(string: Language.share.localized(string: scanMode.modeString),
+                                                      attributes: attributes )
+            titleTextLayer.string = attributedString
         }
     }
 
-    private lazy var titleOfScanArea: CATextLayer = {
-        let titleOfScanArea = CATextLayer()
-        titleOfScanArea.contentsScale = UIScreen.main.scale
-        return titleOfScanArea
+    private lazy var titleTextLayer: CATextLayer = {
+        let titleTextLayer = CATextLayer()
+        titleTextLayer.contentsScale = UIScreen.main.scale
+        return titleTextLayer
     }()
 
-    private lazy var scanArea: CAShapeLayer = {
-        let scanArea = CAShapeLayer()
-        scanArea.borderColor = UIColor.white.cgColor
-        scanArea.borderWidth = 2.0
-        scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        return scanArea
+    private lazy var scanAreaShapeLayer: CAShapeLayer = {
+        let scanAreaShapeLayer = CAShapeLayer()
+        scanAreaShapeLayer.borderColor = UIColor.white.cgColor
+        scanAreaShapeLayer.borderWidth = 2.0
+        scanAreaShapeLayer.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        return scanAreaShapeLayer
     }()
 
     private var firstPoint: CGPoint = CGPoint.zero
@@ -51,16 +51,16 @@ class CardImageView: UIImageView {
 
     private func drawScanRect(rect: CGRect) {
 
-        scanArea.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
-        scanArea.borderColor = UIColor.white.cgColor
-        scanArea.borderWidth = 2.0
-        scanArea.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        scanAreaShapeLayer.path = UIBezierPath(roundedRect: rect, cornerRadius: 10).cgPath
+        scanAreaShapeLayer.borderColor = UIColor.white.cgColor
+        scanAreaShapeLayer.borderWidth = 2.0
+        scanAreaShapeLayer.fillColor = UIColor.white.withAlphaComponent(0.5).cgColor
 
         let titleFrame = CGRect(x: rect.minX, y: rect.minY - 20, width: 200, height: 100)
-        titleOfScanArea.frame = titleFrame
+        titleTextLayer.frame = titleFrame
 
-        scanArea.addSublayer(titleOfScanArea)
-        layer.addSublayer(scanArea)
+        scanAreaShapeLayer.addSublayer(titleTextLayer)
+        layer.addSublayer(scanAreaShapeLayer)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
