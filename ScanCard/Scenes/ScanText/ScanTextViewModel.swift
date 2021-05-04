@@ -11,6 +11,31 @@ protocol ScanTextViewModelDelegate: AnyObject {
     func didGetCardInfo()
 }
 
+enum ScanMode {
+    case cardHolder
+    case cardNumBer
+    case issueDate
+    case expiryDate
+
+    static let modes = [cardHolder, cardNumBer, issueDate, expiryDate]
+
+    var modeString: String {
+        switch self {
+        case .cardHolder:
+            return "Card Holder"
+
+        case .cardNumBer:
+            return "Card Number"
+
+        case .issueDate:
+            return "Issue Date"
+
+        case .expiryDate:
+            return "Expiry Date"
+        }
+    }
+}
+
 enum ResultCheckInfo: String {
     case success
     case invalidCardHolder
@@ -79,20 +104,20 @@ class ScanTextViewModel {
     }
 
     private func isValidIssueDate(checkIssueDate: String) -> Bool {
-        let dateFilter = String(checkIssueDate.getDateString())
+        let dateStringAfterFilter = String(checkIssueDate.getDateString())
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yy"
-        let inputDate = dateFormatter.date(from: dateFilter)
+        let inputDate = dateFormatter.date(from: dateStringAfterFilter)
         guard let checkInputDate = inputDate else {
             return false }
         return checkInputDate < Date()
     }
 
     private func isValidExpiryDate(checkExpiryDate: String) -> Bool {
-        let dateFilter = String(checkExpiryDate.getDateString())
+        let dateStringAfterFilter = String(checkExpiryDate.getDateString())
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yy"
-        let inputDate = dateFormatter.date(from: dateFilter)
+        let inputDate = dateFormatter.date(from: dateStringAfterFilter)
         guard let checkInputDate = inputDate else { return false }
         return checkInputDate > Date()
     }
@@ -147,25 +172,22 @@ class ScanTextViewModel {
         }
     }
 
-    func setTextInfoWithMode(textImage: CGImage, mode: String) {
+    func setTextInfoWithMode(textImage: CGImage, mode: ScanMode) {
         ImageDetector.detectText(cgImage: textImage) { (resultOfDetectText) in
             switch resultOfDetectText {
             case .success(let strings):
                 switch mode {
-                case "Card Holder":
+                case .cardHolder:
                     self.cardInfo?.cardHolder = strings.first ?? ""
 
-                case "Card Number":
+                case .cardNumBer:
                     self.cardInfo?.cardNumber = strings.first ?? ""
 
-                case "Issue Date":
+                case .issueDate:
                     self.cardInfo?.issueDate = strings.first
 
-                case "Expiry Date":
+                case .expiryDate:
                     self.cardInfo?.expiryDate = strings.first
-
-                default:
-                    Logger.log("error")
                 }
 
             case .failure(let error):

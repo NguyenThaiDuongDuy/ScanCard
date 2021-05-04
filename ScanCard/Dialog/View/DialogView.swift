@@ -32,7 +32,7 @@ class DialogView: UIView {
     }
 
     private func commonInit() {
-        Bundle.main.loadNibNamed("DialogView", owner: self, options: nil)
+        Bundle(for: type(of: self)).loadNibNamed(String(describing: type(of: self)), owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = frame
         setInformationDialog()

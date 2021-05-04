@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = SwiftLint;
+			productName = SwiftLint;
 		};
 /* End PBXAggregateTarget section */
 
@@ -67,11 +68,11 @@
 		774E05243143F262E66E36CE1151DE9D /* Pods-ScanCard-ScanCardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScanCard-ScanCardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7EAB1DA481EDDC005A251D3A5E6BE4CD /* SwiftLint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.release.xcconfig; sourceTree = "<group>"; };
 		8BEFC0A0D2E95A1E930616C39B822A4B /* Pods-ScanCardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScanCardTests.release.xcconfig"; sourceTree = "<group>"; };
-		8C4747BD3AAB51AB5D7ADB8869DF84A4 /* Pods_ScanCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ScanCardTests.framework; path = "Pods-ScanCardTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C4747BD3AAB51AB5D7ADB8869DF84A4 /* Pods_ScanCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D74B1DD90BFC17D7DB3D232504B7F70 /* Pods-ScanCard-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ScanCard-acknowledgements.plist"; sourceTree = "<group>"; };
 		933E41FC38E7383F26B37799EAF10B31 /* Pods-ScanCard-ScanCardUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ScanCard-ScanCardUITests.modulemap"; sourceTree = "<group>"; };
 		990F905D0EC0AC91DD64817214469A83 /* Pods-ScanCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScanCard.debug.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A3BB7673B2CF84705F78489D619824DA /* Pods-ScanCardTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ScanCardTests-umbrella.h"; sourceTree = "<group>"; };
 		A57EE4DA65A93BD592B9EE977A1F2131 /* Pods-ScanCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScanCard.release.xcconfig"; sourceTree = "<group>"; };
 		A5B89CC6429A830EF8C5BDC45DC9BCF9 /* Pods-ScanCardTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ScanCardTests-Info.plist"; sourceTree = "<group>"; };
@@ -79,13 +80,13 @@
 		AAD00C0DD15ED45DC69D71C0405E5E59 /* Pods-ScanCardTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ScanCardTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		C2CF6941F174B8EA9FEB69A39D09DD1A /* Pods-ScanCardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ScanCardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C9456B8361874F585173A02E30831790 /* Pods-ScanCardTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ScanCardTests-dummy.m"; sourceTree = "<group>"; };
-		C9B42F849963759CE39C76487BC82EDB /* Pods_ScanCard_ScanCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ScanCard_ScanCardUITests.framework; path = "Pods-ScanCard-ScanCardUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B42F849963759CE39C76487BC82EDB /* Pods_ScanCard_ScanCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanCard_ScanCardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC239F4E54FF3072922069CF46FB6CE7 /* Pods-ScanCard-ScanCardUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ScanCard-ScanCardUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		E229A1938E842F19368D9B17AA8A6190 /* Pods-ScanCard-ScanCardUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ScanCard-ScanCardUITests-umbrella.h"; sourceTree = "<group>"; };
 		E2A217F8374F85B7AEC0BDED3EBA425F /* Pods-ScanCard.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ScanCard.modulemap"; sourceTree = "<group>"; };
 		EF199A383566B272ED04E5CAC0BB06C4 /* Pods-ScanCard-ScanCardUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ScanCard-ScanCardUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F2310874B8D62449A3F22F3634A62359 /* Pods-ScanCard-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ScanCard-umbrella.h"; sourceTree = "<group>"; };
-		F88643660D469C4761DD3987FE455E17 /* Pods_ScanCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ScanCard.framework; path = "Pods-ScanCard.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F88643660D469C4761DD3987FE455E17 /* Pods_ScanCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +235,6 @@
 			children = (
 				7FDA596DBE0337ACDFE55A210D54EF26 /* Support Files */,
 			);
-			name = SwiftLint;
 			path = SwiftLint;
 			sourceTree = "<group>";
 		};
@@ -332,7 +332,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -637,7 +637,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -767,7 +767,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

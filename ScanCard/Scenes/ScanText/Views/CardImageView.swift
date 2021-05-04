@@ -9,19 +9,19 @@ import Foundation
 import UIKit
 
 protocol CardViewDelegate: AnyObject {
-    func getTextFromImage(textImage: CGImage, mode: String)
+    func getTextFromImage(textImage: CGImage, mode: ScanMode)
 }
 
 class CardImageView: UIImageView {
 
     weak var delegate: CardViewDelegate?
-    private var modeScan: String? {
+    private var scanMode: ScanMode = .cardHolder {
         didSet {
             let attributes = [
                 NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ,
                 NSAttributedString.Key.foregroundColor: UIColor.cyan
             ]
-            let myAttributedString = NSAttributedString(string: Language.share.localized(string: modeScan ?? ""),
+            let myAttributedString = NSAttributedString(string: Language.share.localized(string: scanMode.modeString),
                                                         attributes: attributes )
             titleOfScanArea.string = myAttributedString
         }
@@ -45,8 +45,8 @@ class CardImageView: UIImageView {
     private var endPoint: CGPoint = CGPoint.zero
     private var boundingRect: CGRect?
 
-    func setMode(modeScan: String) {
-        self.modeScan = modeScan
+    func setMode(scanMode: ScanMode) {
+        self.scanMode = scanMode
     }
 
     private func drawScanRect(rect: CGRect) {
@@ -82,9 +82,9 @@ class CardImageView: UIImageView {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.layer.sublayers?.removeAll()
+        layer.sublayers?.removeAll()
         let snapshotImage = snapshot(of: boundingRect)
         guard let cgImage = snapshotImage?.cgImage else { return }
-        delegate!.getTextFromImage(textImage: cgImage, mode: modeScan ?? "")
+        delegate!.getTextFromImage(textImage: cgImage, mode: scanMode)
     }
 }

@@ -12,39 +12,37 @@ import AVFoundation
 class PreviewView: UIView {
 
     lazy var scanAreaShapeLayer: CAShapeLayer = {
-        let scanArea = CAShapeLayer()
-        let largeRectanglePath = UIBezierPath(roundedRect: CGRect(x: self.bounds.origin.x,
-                                                                  y: self.bounds.origin.y,
-                                                                  width: self.bounds.width,
-                                                                  height: self.bounds.height),
+        let scanAreaLayer = CAShapeLayer()
+        let largeRectanglePath = UIBezierPath(roundedRect: CGRect(x: bounds.origin.x,
+                                                                  y: bounds.origin.y,
+                                                                  width: bounds.width,
+                                                                  height: bounds.height),
                                               cornerRadius: 0)
 
-        let smallRectanglePath = UIBezierPath(roundedRect: CGRect(x: self.bounds.width / 2 - 150,
-                                                                  y: self.bounds.height / 2 - 100,
+        let smallRectanglePath = UIBezierPath(roundedRect: CGRect(x: bounds.width / 2 - 150,
+                                                                  y: bounds.height / 2 - 100,
                                                                   width: 300,
                                                                   height: 200),
                                               cornerRadius: 20)
         largeRectanglePath.append(smallRectanglePath)
         largeRectanglePath.usesEvenOddFillRule = true
-        scanArea.path = largeRectanglePath.cgPath
-        scanArea.fillRule = .evenOdd
-        scanArea.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
-        scanArea.opacity = 0.5
-
-        let layerArrow = CALayer()
-        let arrowImage = UIImage(named: "backward")?.cgImage
-        layerArrow.frame = CGRect(x: self.bounds.width / 2 - 140,
-                                  y: self.bounds.height / 2 - 12,
+        scanAreaLayer.path = largeRectanglePath.cgPath
+        scanAreaLayer.fillRule = .evenOdd
+        scanAreaLayer.fillColor = UIColor.darkGray.withAlphaComponent(0.75).cgColor
+        scanAreaLayer.opacity = 0.5
+        let arrowLayer = CALayer()
+        let arrowImage = UIImage(named: "backward", in: Bundle(for: type(of: self)), with: .none)?.cgImage
+        arrowLayer.frame = CGRect(x: bounds.width / 2 - 140,
+                                  y: bounds.height / 2 - 12,
                                   width: 24,
                                   height: 24)
-        layerArrow.contents = arrowImage
-        scanArea.addSublayer(layerArrow)
-        return scanArea
+        arrowLayer.contents = arrowImage
+        scanAreaLayer.addSublayer(arrowLayer)
+        return scanAreaLayer
     }()
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        scanAreaShapeLayer.removeFromSuperlayer()
         videoPreviewLayer.insertSublayer(scanAreaShapeLayer, at: 1)
     }
 
@@ -53,9 +51,9 @@ class PreviewView: UIView {
     }
 
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-        if let avLayer: AVCaptureVideoPreviewLayer = layer as? AVCaptureVideoPreviewLayer {
-            return avLayer } else {
-                return AVCaptureVideoPreviewLayer()
-            }
+        if let avCaptureVideoPreviewLayer: AVCaptureVideoPreviewLayer = layer as? AVCaptureVideoPreviewLayer {
+            return avCaptureVideoPreviewLayer } else {
+            return AVCaptureVideoPreviewLayer()
+        }
     }
 }

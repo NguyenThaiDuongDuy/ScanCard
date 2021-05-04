@@ -2,29 +2,20 @@ import AVKit
 import UIKit
 import Vision
 
-enum ModeScan {
-    case all
-    case cardHolder
-    case cardNumBer
-    case issueDate
-    case expiryDate
-}
-
 class ScanCardViewController: UIViewController {
 
     private let scanButtonTitle = "Scan"
     private let scanNavigationTitle = "Scan Card"
     private let languages = ["En", "Vn"]
     private let numberOfComponent = 1
-    var modeScan: ModeScan?
 
     @IBOutlet weak var liveVideoView: PreviewView!
     @IBOutlet weak var scanButton: BlueStyleButton!
     @IBOutlet weak var shadowView: ShadowView!
     @IBOutlet weak var languagePickerView: UIPickerView!
 
-    private var layerBoundingBox: CALayer?
-    private var rectangleDetect: VNRectangleObservation?
+    private var boundingBoxLayer: CALayer?
+    private var cardRectangleObservation: VNRectangleObservation?
     private var sampleBuffer: CMSampleBuffer?
     private var recognizedStrings: [String]?
 
@@ -33,13 +24,12 @@ class ScanCardViewController: UIViewController {
         return service
     }()
 
-    public init(modeScan: ModeScan = .all) {
-        super.init(nibName: String(describing: type(of: self)), bundle: nil)
-        self.modeScan = modeScan
+    public init() {
+        super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -47,6 +37,7 @@ class ScanCardViewController: UIViewController {
         setLanguageForView()
         setUpNavigationController()
     }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setUpLiveView()
@@ -75,11 +66,11 @@ class ScanCardViewController: UIViewController {
 
     @objc func tapLiveVideoView() {
         service.session.stopRunning()
-        guard let rectangleDetect = self.rectangleDetect,
+        guard let cardRectangleObservation = self.cardRectangleObservation,
               let sampleBuffer = self.sampleBuffer else { return }
         guard let imageBuffer = sampleBuffer.imageBuffer else { return }
-        let cropFrame = self.extractPerspectiveRect(rectangleDetect, from: imageBuffer)
-        self.dismiss(animated: true) {
+        let cropFrame = extractPerspectiveRect(cardRectangleObservation, from: imageBuffer)
+        dismiss(animated: true) {
             self.service.stopConnectCamera()
             let scanTextView = ScanTextViewController(cardImage: cropFrame)
             self.navigationController?.pushViewController(scanTextView, animated: true)
@@ -107,6 +98,7 @@ class ScanCardViewController: UIViewController {
         case .authorized: // The user has previously granted access to the camera.
             Logger.log("User authorized")
             completion(true)
+
         case .notDetermined: // The user has not yet been asked for camera access.
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted {
@@ -117,6 +109,7 @@ class ScanCardViewController: UIViewController {
                     completion(false)
                 }
             }
+
         case .denied: // The user has previously denied access.
             // Show dialog
             completion(false)
@@ -146,7 +139,7 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 case .success(let rectangle):
                     self.drawBoundingBox(rect: rectangle)
                     self.sampleBuffer = sampleBuffer
-                    self.rectangleDetect = rectangle
+                    self.cardRectangleObservation = rectangle
 
                 case .failure(let error):
                     Logger.log(error.localizedDescription)
@@ -177,19 +170,19 @@ extension ScanCardViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
     private func drawBoundingBox(rect: VNRectangleObservation) {
         let convertUIKitRect = VNImageRectForNormalizedRect(rect.boundingBox,
-                                                            (Int)(self.liveVideoView.bounds.width),
-                                                            (Int)(self.liveVideoView.bounds.height))
-        layerBoundingBox = CAShapeLayer()
-        layerBoundingBox?.frame = convertUIKitRect
-        layerBoundingBox?.cornerRadius = 10
-        layerBoundingBox?.opacity = 0.75
-        layerBoundingBox?.borderColor = UIColor.red.cgColor
-        layerBoundingBox?.borderWidth = 5.0
-        liveVideoView.layer.addSublayer(layerBoundingBox ?? CAShapeLayer())
+                                                            (Int)(liveVideoView.bounds.width),
+                                                            (Int)(liveVideoView.bounds.height))
+        boundingBoxLayer = CAShapeLayer()
+        boundingBoxLayer?.frame = convertUIKitRect
+        boundingBoxLayer?.cornerRadius = 10
+        boundingBoxLayer?.opacity = 0.75
+        boundingBoxLayer?.borderColor = UIColor.red.cgColor
+        boundingBoxLayer?.borderWidth = 5.0
+        liveVideoView.layer.addSublayer(boundingBoxLayer ?? CAShapeLayer())
     }
 
     private func removeBoundingBox() {
-        layerBoundingBox?.removeFromSuperlayer()
+        boundingBoxLayer?.removeFromSuperlayer()
     }
 }
 

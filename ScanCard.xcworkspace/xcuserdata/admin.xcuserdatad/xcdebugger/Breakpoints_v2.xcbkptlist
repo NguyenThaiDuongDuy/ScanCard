@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C3ECEBC6-DCB5-4AD0-9226-5E0B0566229A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScanCard/Utils/String+Ext.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "String"
-            landmarkType = "21">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B06F9811-BF6D-4675-9614-FB3909CBC77A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -71,110 +55,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5B49A0BE-D88D-4E53-9EDB-92BB79317295"
+            uuid = "ADE76221-FA93-4F1C-9C57-3B4DB4A2E4D3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ScanCard/Scenes/ScanText/Views/LargeCollectionViewCell.swift"
+            filePath = "ScanCard/Scenes/ScanText/ScanTextViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "getResultStrings(results:type:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5B49A0BE-D88D-4E53-9EDB-92BB79317295 - 4caacdefeb1d5d3c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in ScanCard.LargeCollectionViewCell.getResultStrings(results: Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;, type: Swift.String) -&gt; ()"
-                  moduleName = "ScanCard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Duy/ScanCard/ScanCard/ScanCard/Scenes/ScanText/Views/LargeCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "116">
-               </Location>
-               <Location
-                  uuid = "5B49A0BE-D88D-4E53-9EDB-92BB79317295 - 4caacdefeb1d5d3c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in ScanCard.LargeCollectionViewCell.getResultStrings(results: Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;, type: Swift.String) -&gt; ()"
-                  moduleName = "ScanCard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Duy/ScanCard/ScanCard/ScanCard/Scenes/ScanText/Views/LargeCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "612">
-               </Location>
-               <Location
-                  uuid = "5B49A0BE-D88D-4E53-9EDB-92BB79317295 - 4caacdefeb1d5d3c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in ScanCard.LargeCollectionViewCell.getResultStrings(results: Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;, type: Swift.String) -&gt; ()"
-                  moduleName = "ScanCard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Duy/ScanCard/ScanCard/ScanCard/Scenes/ScanText/Views/LargeCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "1064">
-               </Location>
-               <Location
-                  uuid = "5B49A0BE-D88D-4E53-9EDB-92BB79317295 - 4caacdefeb1d5d3c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in ScanCard.LargeCollectionViewCell.getResultStrings(results: Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;, type: Swift.String) -&gt; ()"
-                  moduleName = "ScanCard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Duy/ScanCard/ScanCard/ScanCard/Scenes/ScanText/Views/LargeCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "1516">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "18AE097C-2BAB-4135-A08A-ADB8C3A192BB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScanCard/Scenes/ScanText/Views/LargeCollectionViewCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "setInformationToTextFiled(viewModel:)"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "checkValidInfo(cardInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B71EE894-E1B7-41BC-8324-CD5FC1A360E7"
+            uuid = "A441D701-3A21-4C1F-AAAA-E9BFBCF77AB6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ScanCard/Scenes/ScanCard/ScanCardViewController.swift"
+            filePath = "ScanCard/Dialog/ViewModel/DialogViewMode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "viewDidLayoutSubviews()"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "init(dialogInfo:resultCheckInfo:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FDB4EA9-083B-494D-96F0-0D72EF436DCA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScanCard/Scenes/ScanText/ScanTextViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "tapConfirmButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "418E2587-1400-44A3-A3C8-0A3D5A03D96B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScanCard/Utils/String+Ext.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "getDateString()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

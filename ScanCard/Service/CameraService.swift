@@ -18,8 +18,8 @@ class CameraService {
     }()
 
     init(viewController: ScanCardViewController) {
-        self.presentViewController = viewController
-        self.setUpSession()
+        presentViewController = viewController
+        setUpSession()
     }
 
     private func setUpInput() {

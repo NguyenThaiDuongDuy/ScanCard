@@ -21,8 +21,8 @@
 		8489CE37262EAB8900195958 /* BlueStyleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE36262EAB8900195958 /* BlueStyleButton.swift */; };
 		8489CE56262EB16100195958 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE55262EB16100195958 /* ShadowView.swift */; };
 		8489CE9B262EDD9E00195958 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489CE9A262EDD9E00195958 /* Logger.swift */; };
-		849071AC2625538E00E85B36 /* ModeScanCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */; };
-		849071AD2625538E00E85B36 /* ModeScanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */; };
+		849071AC2625538E00E85B36 /* ScanModeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849071AA2625538E00E85B36 /* ScanModeCollectionViewCell.xib */; };
+		849071AD2625538E00E85B36 /* ScanModeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849071AB2625538E00E85B36 /* ScanModeCollectionViewCell.swift */; };
 		84AB484F26281C55002F106C /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484B26281C55002F106C /* PreviewView.swift */; };
 		84AB485026281C55002F106C /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB484C26281C55002F106C /* CardImageView.swift */; };
 		84AB4890262961C2002F106C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB488F262961C2002F106C /* Card.swift */; };
@@ -80,8 +80,8 @@
 		8489CE36262EAB8900195958 /* BlueStyleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueStyleButton.swift; sourceTree = "<group>"; };
 		8489CE55262EB16100195958 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8489CE9A262EDD9E00195958 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModeScanCollectionViewCell.xib; sourceTree = "<group>"; };
-		849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeScanCollectionViewCell.swift; sourceTree = "<group>"; };
+		849071AA2625538E00E85B36 /* ScanModeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanModeCollectionViewCell.xib; sourceTree = "<group>"; };
+		849071AB2625538E00E85B36 /* ScanModeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanModeCollectionViewCell.swift; sourceTree = "<group>"; };
 		84AB484B26281C55002F106C /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		84AB484C26281C55002F106C /* CardImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		84AB488F262961C2002F106C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -203,8 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				847AFBEF26395C56006C7B5D /* ScanTextScrollView.swift */,
-				849071AB2625538E00E85B36 /* ModeScanCollectionViewCell.swift */,
-				849071AA2625538E00E85B36 /* ModeScanCollectionViewCell.xib */,
+				849071AB2625538E00E85B36 /* ScanModeCollectionViewCell.swift */,
+				849071AA2625538E00E85B36 /* ScanModeCollectionViewCell.xib */,
 				84AB484C26281C55002F106C /* CardImageView.swift */,
 			);
 			path = Views;
@@ -449,7 +449,7 @@
 				84AE3E04261AEFCD0051CD0A /* LaunchScreen.storyboard in Resources */,
 				B3B223A726384DEB00FE37AD /* ScanTextViewController.xib in Resources */,
 				84AE3E01261AEFCD0051CD0A /* Assets.xcassets in Resources */,
-				849071AC2625538E00E85B36 /* ModeScanCollectionViewCell.xib in Resources */,
+				849071AC2625538E00E85B36 /* ScanModeCollectionViewCell.xib in Resources */,
 				84B0722A263188E500E3481F /* ScanCardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,7 +573,7 @@
 				8489CE9B262EDD9E00195958 /* Logger.swift in Sources */,
 				847F1A582627060E003A91EA /* CGPoint+Ext.swift in Sources */,
 				84AB484F26281C55002F106C /* PreviewView.swift in Sources */,
-				849071AD2625538E00E85B36 /* ModeScanCollectionViewCell.swift in Sources */,
+				849071AD2625538E00E85B36 /* ScanModeCollectionViewCell.swift in Sources */,
 				84AB48A72629897E002F106C /* String+Ext.swift in Sources */,
 				8489CE56262EB16100195958 /* ShadowView.swift in Sources */,
 				84AE3DF5261AEFCC0051CD0A /* AppDelegate.swift in Sources */,

@@ -9,15 +9,8 @@ import UIKit
 
 class ScanTextViewController: UIViewController {
 
-    private let cellID = "ModeScanCollectionViewCell"
-
-    private let scanModes: [String] = ["Card Holder",
-                                       "Card Number",
-                                       "Issue Date",
-                                       "Expiry Date"
-    ]
-
-    private var viewModel: ScanTextViewModel?
+    private let cellID = "ScanModeCollectionViewCell"
+    private var viewModel: ScanTextViewModel
 
     @IBOutlet weak var cardView: CardImageView!
     @IBOutlet weak var optionsScanView: UICollectionView!
@@ -35,10 +28,9 @@ class ScanTextViewController: UIViewController {
     @IBOutlet weak var scrollView: ScanTextScrollView!
 
     init(cardImage: CIImage) {
-        super.init(nibName: String(describing: type(of: self)), bundle: nil)
         viewModel = ScanTextViewModel(image: cardImage)
-        viewModel?.delegate = self
-        viewModel?.parseCardInfo()
+        super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
+        setUpViewModel()
     }
 
     override func viewDidLoad() {
@@ -52,6 +44,11 @@ class ScanTextViewController: UIViewController {
         setUpTitleInfoView()
     }
 
+    private func setUpViewModel() {
+        viewModel.delegate = self
+        viewModel.parseCardInfo()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerEventKeyBoard()
@@ -62,7 +59,7 @@ class ScanTextViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLayoutSubviews() {
@@ -73,7 +70,7 @@ class ScanTextViewController: UIViewController {
     private func setUpCardView() {
         cardView.delegate = self
         cardView.isUserInteractionEnabled = true
-        cardView.image = UIImage(ciImage: (viewModel?.image)!)
+        cardView.image = UIImage(ciImage: viewModel.image)
         cardView.contentMode = .scaleAspectFit
     }
 
@@ -113,7 +110,7 @@ class ScanTextViewController: UIViewController {
     }
 
     private func setUpOptionsScanCollectionView() {
-        let nib = UINib(nibName: cellID, bundle: .main)
+        let nib = UINib(nibName: cellID, bundle: Bundle(for: type(of: self)))
         optionsScanView.register(nib, forCellWithReuseIdentifier: cellID)
         optionsScanView.delegate = self
         optionsScanView.dataSource = self
@@ -141,7 +138,7 @@ class ScanTextViewController: UIViewController {
                             issueDate: issueDateTextField.text,
                             expiryDate: expiryDateTextField.text)
 
-        guard let  resultCheckInfo = self.viewModel?.checkValidInfo(cardInfo: cardInfo) else { return }
+        let  resultCheckInfo = viewModel.checkValidInfo(cardInfo: cardInfo)
         let dialogInfo = Dialog(title: "Notice",
                                 message: "",
                                 okButtonTitle: "Ok",
@@ -149,20 +146,20 @@ class ScanTextViewController: UIViewController {
         let diaLog = DialogView(viewModel:
                                     DialogViewModel(dialogInfo: dialogInfo,
                                                     resultCheckInfo: resultCheckInfo))
-        self.view.addSubview(diaLog)
+        view.addSubview(diaLog)
     }
 
     private func setInformationToTextFiled() {
-        cardHolderTextField.text = viewModel!.cardInfo?.cardHolder ?? ""
-        cardNumberTextField.text = viewModel!.cardInfo?.cardNumber ?? ""
-        issueDateTextField.text = viewModel!.cardInfo?.issueDate ?? ""
-        expiryDateTextField.text = viewModel!.cardInfo?.expiryDate ?? ""
+        cardHolderTextField.text = viewModel.cardInfo?.cardHolder ?? ""
+        cardNumberTextField.text = viewModel.cardInfo?.cardNumber ?? ""
+        issueDateTextField.text = viewModel.cardInfo?.issueDate ?? ""
+        expiryDateTextField.text = viewModel.cardInfo?.expiryDate ?? ""
     }
 
     private func setDefaultSelectedCell() {
         let defaultIndexPath = IndexPath(item: 0, section: 0)
         optionsScanView.selectItem(at: defaultIndexPath, animated: false, scrollPosition: .top)
-        cardView.setMode(modeScan: scanModes[defaultIndexPath.item])
+        cardView.setMode(scanMode: ScanMode.cardHolder)
     }
 
     private func setUpTitleInfoView() {
@@ -170,7 +167,7 @@ class ScanTextViewController: UIViewController {
             for view in stackView.subviews {
                 if view.isKind(of: UILabel.self) {
                     guard let label = view as? UILabel else { return }
-                    label.text = Language.share.localized(string: scanModes[label.tag])
+                    label.text = Language.share.localized(string: ScanMode.modes[label.tag].modeString)
                 }
             }
         }
@@ -180,27 +177,27 @@ class ScanTextViewController: UIViewController {
 extension ScanTextViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        scanModes.count
+        ScanMode.modes.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID,
                                                             for: indexPath)
-                as? ModeScanCollectionViewCell else { return UICollectionViewCell() }
+                as? ScanModeCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.modeNameLabel.text = Language.share.localized(string: scanModes[indexPath.item])
+        cell.modeNameLabel.text = Language.share.localized(string: ScanMode.modes[indexPath.item].modeString)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        cardView.setMode(modeScan: scanModes[indexPath.item])
+        cardView.setMode(scanMode: ScanMode.modes[indexPath.item])
     }
 }
 
 extension ScanTextViewController: CardViewDelegate {
-    func getTextFromImage(textImage: CGImage, mode: String) {
-        viewModel?.setTextInfoWithMode(textImage: textImage, mode: mode)
+    func getTextFromImage(textImage: CGImage, mode: ScanMode) {
+        viewModel.setTextInfoWithMode(textImage: textImage, mode: mode)
     }
 }
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ModeScanCollectionViewCell: UICollectionViewCell {
+class ScanModeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var modeNameLabel: UILabel!
     @IBOutlet weak var modeView: UIView!
 
