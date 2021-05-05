@@ -52,7 +52,8 @@ class PreviewView: UIView {
 
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
         if let avCaptureVideoPreviewLayer: AVCaptureVideoPreviewLayer = layer as? AVCaptureVideoPreviewLayer {
-            return avCaptureVideoPreviewLayer } else {
+            return avCaptureVideoPreviewLayer
+        } else {
             return AVCaptureVideoPreviewLayer()
         }
     }
